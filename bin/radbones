@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby 
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__) 
+require 'radbones' 
+
+game = Radbones::Game.new(STDOUT) 
+game.welcome
+
+while opponents = gets.chomp 
+  break if game.enter_opponents(opponents) 
+end 
+
