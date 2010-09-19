@@ -1,4 +1,13 @@
 Radbones
-Ruby Command-line Dominos game
+Ruby command-line dominos game
 
 This is a fun command-line dominos game I developed in the BDD manner using Cucumber and Rspec.
+
+To Play:
+=======
+Download and run "bin/radbones"
+
+
+To Run Rspec:
+=============
+Download and run "rspec spec --color --format doc"

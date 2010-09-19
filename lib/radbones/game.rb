@@ -1,7 +1,7 @@
 module Radbones
   class Game
     
-    attr_reader :players, :boneyard
+    attr_reader :players, :boneyard, :scorecard
     
     def initialize(output)
       @output = output
@@ -44,8 +44,8 @@ module Radbones
     end
     
     def add_players number
-      number.times do 
-        @players << Player.new
+      number.times do |n|
+        @players << Player.new(n+1)
       end
     end
 
@@ -56,5 +56,27 @@ module Radbones
     def distribute_bones
       @players.each{|player| player.hand = @boneyard.draw(7)}
     end
+    
+    def create_scorecard
+      @scorecard = Radbones::Scorecard.new(@players.length)
+    end
+    
+    def who_goes_first?
+      @players.each do |player|
+        [6,5,4,3,2,1,0].each do |suit|
+          if player.hand.detect{|x| x.is_of_suit?("doubles") && x.sides.include?(suit)} then return player end          
+        end
+      end
+    end
+    
+    def who_goes_next? current_player
+      cpn = current_player.number
+      unless cpn == @players.length
+        @players.find{|player| player.number == cpn+1}
+      else 
+        @players[0]
+      end
+    end
+    
   end
 end
