@@ -7,7 +7,7 @@ module DominoMofo
     let(:opening_line) {Line.new(opening_bone)}
 
       it "should return an array of all its unconnected sides" do
-        opening_line.unconnected_sides.should include(3) && include(2)
+        opening_line.get_unconnected_sides.should include(1) && include(2)
       end
 
       it "given a suit, should return the first domino with an unmached side of that suit" do

@@ -2,7 +2,7 @@ module DominoMofo
   
   class Game
     
-    attr_reader :players, :boneyard, :scorecard, :line, :whose_turn
+    attr_reader :players, :boneyard, :scorecard, :line, :whose_turn, :houses
     attr_writer :whose_turn
     
     def initialize
@@ -11,33 +11,15 @@ module DominoMofo
       @line = nil
       @whose_turn = nil
     end
-      
-    def opponents= opponents
-      if ["1","2","3"].include?(opponents) 
-        @opponents = opponents.to_i
-        @output.puts "A'ight. Dem's "+ opponents + " baaad men you brought with ya."
-        return true
-      else
-        @output.puts "Speak English?!! Uno, Dos, or Tres people dude?"
-        return false
-      end
-    end
     
-    def houses= houses
-      if ["3","4", "5"].include?(houses) 
-        @houses = houses.to_i
-        @output.puts "A'ight. First to " + houses + " houses then. Better bring it."
-        return true
-      else
-        @output.puts "Read man. Read! Three, Four, or Five?"
-        return false
-      end
-    end
-    
-    def set_players number
-      number.times do |n|
+    def set_players players
+      players.times do |n|
         @players << Player.new(n+1)
       end
+    end
+
+    def set_houses houses
+      @houses = houses
     end
 
     def create_boneyard
@@ -55,7 +37,7 @@ module DominoMofo
     def get_first_player
       @players.each do |player|
         [6,5,4,3,2,1,0].each do |suit|
-          if player.hand.detect{|x| x.is_of_suit("doubles") && x.return_a_side_matching(suit)}
+          if player.hand.detect{|x| x.is_double && x.return_a_side_matching_suit(suit)}
             @whose_turn = player
             return player
           end          
@@ -82,7 +64,7 @@ module DominoMofo
     
     def get_points_on_the_board
       result = 0
-      @line.unconnected_sides.each do |x|
+      @line.get_unconnected_sides.each do |x|
         result += x
       end
       result

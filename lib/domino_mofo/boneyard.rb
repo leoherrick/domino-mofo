@@ -30,8 +30,12 @@ module DominoMofo
       return @dominos.length
     end
     
-    def get_dominos_of_suit suit
-      @dominos.find_all { |domino| domino.is_of_suit(suit) }
+    def get_all_dominos_of_suit suit
+      @dominos.find_all { |domino| domino.has_suit(suit) }
+    end
+    
+    def get_all_doubles
+      @dominos.find_all { |domino| domino.is_double }      
     end
     
   private

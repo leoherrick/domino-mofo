@@ -64,7 +64,7 @@ module DominoMofo
         dom2 = Domino.new(2,4)
         game.play_first_domino(dom1)
         game.play(dom2, 2)
-        game.line.unconnected_sides.should include(3) && include(4)
+        game.line.get_unconnected_sides.should include(3) && include(4)
       end
       
       it "should know how many points are on the board" do 
@@ -97,8 +97,8 @@ module DominoMofo
         dom2 = Domino.new(2,4)
         game.play_first_domino(dom1)
         game.play(dom2, 2)
-        dom2.return_a_side_matching(2)[:connected_to].should === dom1
-        dom1.return_a_side_matching(2)[:connected_to].should === dom2
+        dom2.return_a_side_matching_suit(2)[:connected_to].should === dom1
+        dom1.return_a_side_matching_suit(2)[:connected_to].should === dom2
       end
     end
 

@@ -10,7 +10,7 @@ Feature: Start a Game
 		When I am welcomed by the game
 			And I am asked how many players I want to play
 			And I choose 2 players
-			And I am asked how many houses I want to play to
+			And I am asked how many houses I want to play
 			And I choose 2 houses
 			And when the game starts
 		Then I should see "A'ight Playa. Let's do this thing."

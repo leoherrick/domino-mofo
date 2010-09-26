@@ -15,21 +15,23 @@ When /^I am asked how many players I want to play$/ do
   game_controller.ask_for_opponents
 end
 
-When /^I choose (\d+) players$/ do |arg1|
+When /^I choose (\d+) players$/ do |number_of_opponents|
   game_controller = DominoMofo::GameController.new(Output.new)
-  game_controller.try_setting_opponents(2)
+  game_controller.try_setting_opponents(number_of_opponents)
 end
 
-When /^I am asked how many houses I want to play to$/ do
-    game = DominoMofo::Game.new(output)
-    game.ask_for_houses
-    output.messages.should include("And how many houses are you up for? Three, Four, or Five?")
+When /^I am asked how many houses I want to play$/ do
+  game_controller = DominoMofo::GameController.new(Output.new)
+  game_controller.ask_for_houses
 end
 
-When /^I choose (\d+) houses$/ do |arg1|
+When /^I choose (\d+) houses$/ do |number_of_houses|
+  game_controller = DominoMofo::GameController.new(Output.new)
+  game_controller.try_setting_houses(number_of_houses)
 end
 
 When /^when the game starts$/ do
+  
 end
 
 Then /^I should see "([^"]*)"$/ do |arg1|

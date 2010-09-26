@@ -8,42 +8,40 @@ module DominoMofo
       @side1 = {:val => side1}
       @side2 = {:val => side2}
     end
+        
+    def is_double
+      side1 == side2 ? true : false
+    end
                     
-    def is_of_suit( suit )
-      if suit == "doubles" && side1 == side2
-        return true
-      elsif get_sides.include?(suit)
-        return true
-      else 
-        return false
-      end
+    def has_suit suit
+      get_sides.include?(suit) ? true : false
     end
     
-    def return_a_side_matching number
-      if @side1[:val] == number
+    def has_unconnected_of_suit suit 
+      get_unconnected_sides.include?(suit) ? true : false
+    end
+    
+    def return_a_side_matching_suit suit
+      if @side1[:val] == suit
         @side1
-      elsif @side2[:val] == number
+      elsif @side2[:val] == suit
         @side2
       end
     end
     
-    def connect(another_domino, suit)
-      if return_a_side_matching(suit)[:connected_to] == nil
-        return_a_side_matching(suit)[:connected_to] = another_domino
-        another_domino.connect(self, suit)
+    def connect_to_another_by_suit another_domino, suit
+      if return_a_side_matching_suit(suit)[:connected_to] == nil
+        return_a_side_matching_suit(suit)[:connected_to] = another_domino
+        another_domino.connect_to_another_by_suit(self, suit)
       end
     end
     
-    def unconnected_sides
+    def get_unconnected_sides
       result = []
       [@side1, @side2].each{|x| if x[:connected_to] == nil then result << x[:val] end }
       result
     end
-    
-    def has_unmatched_of? suit
-      unconnected_sides.include?(suit) ? true : false
-    end
-    
+        
     private
     
     def get_sides

@@ -9,11 +9,12 @@ module DominoMofo
       it { should have(28).dominos }
              
       it "should have seven of each suit and seven doubles" do 
-        SUITS = [1,2,3,4,5,6, "doubles"]
+        SUITS = [1,2,3,4,5,6]
         SUITS.each do |suit|
-          all_dominos_of_suit = test_boneyard.get_dominos_of_suit(suit)
+          all_dominos_of_suit = test_boneyard.get_all_dominos_of_suit(suit)
           all_dominos_of_suit.should have(7).dominos
         end  
+        test_boneyard.get_all_doubles.should have(7).doubles
       end
       
       it "can be drawn from one at a time" do 
@@ -25,7 +26,7 @@ module DominoMofo
       end
 
       it "can retreive all dominos of a suit" do
-        all_sixes_in_boneyard = test_boneyard.get_dominos_of_suit(6)
+        all_sixes_in_boneyard = test_boneyard.get_all_dominos_of_suit(6)
         all_sixes_in_boneyard.should have(7).dominos
       end
 
