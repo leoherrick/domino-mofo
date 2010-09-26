@@ -1,0 +1,19 @@
+
+Feature: Plays for CPU
+
+	As a domino player
+	I want the game to automatically play my opponents moves
+	So that I can play my next move
+	
+	Scenario: Opening round, I'm last to play
+		Given I have just started a game
+			And the person with the highest double is sitting to my left
+		When play begins
+		Then the person with the highest double should play their double
+			And the person to the left of them should make their best move
+			And this should continue until my turn
+			And i should be told to go
+			
+	Scenario: CPU the Boneyard
+	
+	

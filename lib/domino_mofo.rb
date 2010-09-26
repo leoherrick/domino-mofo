@@ -1,0 +1,7 @@
+require 'domino_mofo/game'
+require 'domino_mofo/game_controller'
+require 'domino_mofo/boneyard'
+require 'domino_mofo/domino'
+require 'domino_mofo/scorecard'
+require 'domino_mofo/player'
+require 'domino_mofo/line'
