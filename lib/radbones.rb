@@ -1,5 +1,0 @@
-require 'radbones/game'
-require 'radbones/boneyard'
-require 'radbones/domino'
-require 'radbones/scorecard'
-require 'radbones/player'
