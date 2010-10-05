@@ -62,7 +62,7 @@ module DominoMofo
         @match_controller.say_game_is_ready
       end
 
-      describe "find player with higest bone"
+      describe "find player with highest bone"
       
         context "two player game" do
           before(:each) do

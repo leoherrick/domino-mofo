@@ -17,17 +17,17 @@ module DominoMofo
       )
     end
     
-    it "can retreive all dominos of a suit" do
+    it "can retrieve all dominos of a suit" do
       all_sixes = @standard_set_of_dominoes.get_all_dominoes_of_suit(6)
       all_sixes.should have(7).dominos
     end
     
-    it "can retreive all doubles" do
+    it "can retrieve all doubles" do
       all_doubles = @standard_set_of_dominoes.get_all_doubles
       all_doubles.should have(7).dominos
     end
     
-    it "knows if it has a certian domino" do
+    it "knows if has a given domino" do
       @standard_set_of_dominoes.has_domino?(6,6).should be_true
       @standard_set_of_dominoes.has_domino?(1,0).should be_true
       @standard_set_of_dominoes.has_domino?(6,7).should be_false

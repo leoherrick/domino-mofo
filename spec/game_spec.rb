@@ -35,7 +35,7 @@ module DominoMofo
         @game_with_2.players.each{ |player| player.hand.should have(7).dominos }
       end
     
-      it "should subtract dominoes from the bonyard after dealing" do
+      it "should subtract dominoes from the boneyard after dealing" do
         @game_with_2.boneyard.should have(14).dominoes
         @game_with_3.boneyard.should have(7).dominoes
         @game_with_4.boneyard.should have(0).dominoes
