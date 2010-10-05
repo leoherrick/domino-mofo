@@ -29,6 +29,14 @@ module DominoMofo
       @all_three_games.each {|game| game.boneyard.should be_true }
     end
     
+    it "should join each player in the game" do
+      @all_three_games.each do |game| 
+        game.players.each do |player| 
+          player.game.should be_true
+        end
+      end
+    end
+    
     describe "#the deal" do
 
       it "should deal 7 dominos to each player" do
@@ -40,6 +48,11 @@ module DominoMofo
         @game_with_3.boneyard.should have(7).dominoes
         @game_with_4.boneyard.should have(0).dominoes
       end
-    end    
+    end
+    
+    it "should have a line" do
+      @all_three_games.each {|g| g.line.should be_true}
+    end
+        
   end
 end

@@ -94,17 +94,19 @@ Then /^I should be prompted to play$/ do
   @output.messages.should include(expected_msg)
 end
 
-When /^the computer has the highest pair$/ do
+Given /^the computer has the highest pair$/ do
   players = @game.players
   players.should have(4).players #remove
-  player_with_boxcars = players.find_player_with_domino(6,6)
-  player_with_boxcars.hand.remove_domino!(6,6)
-  players[1].hand << DominoMofo::Domino.new(6,6)
+  initial_player_with_boxcars = players.find_player_with_domino(6,6)
+  initial_player_with_boxcars.hand.remove_domino!(6,6)
+  @player_with_higest_pair = players[1]
+  @player_with_higest_pair.hand << DominoMofo::Domino.new(6,6)
 end
 
-
 Then /^the computer should play that bone on the line$/ do
-  pending # express the regexp above with the code you wish you had
+  @player_with_higest_pair.lead_with_domino(6,6)
+  game = @match_controller.match.active_game
+  game.line.dominoes.should have_exactly(1).domino
 end
 
 

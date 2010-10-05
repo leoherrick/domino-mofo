@@ -16,7 +16,7 @@ module DominoMofo
        Domino.new(6,6)
       )
     end
-    
+        
     it "can retrieve all dominos of a suit" do
       all_sixes = @standard_set_of_dominoes.get_all_dominoes_of_suit(6)
       all_sixes.should have(7).dominos
@@ -26,6 +26,12 @@ module DominoMofo
       all_doubles = @standard_set_of_dominoes.get_all_doubles
       all_doubles.should have(7).dominos
     end
+    
+    it "can retrieve a given domino" do
+      boxcars = @standard_set_of_dominoes.get_domino(6,6)
+      boxcars.should be_true
+    end
+    
     
     it "knows if has a given domino" do
       @standard_set_of_dominoes.has_domino?(6,6).should be_true

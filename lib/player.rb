@@ -1,9 +1,9 @@
 module DominoMofo
   
   class Player
-    
-    attr_reader :hand, :human_player
-    attr_writer :hand
+    @hand
+    @game
+    attr_reader :hand, :game
     
     def initialize
       @hand = Hand.new
@@ -15,6 +15,16 @@ module DominoMofo
    
    def is_computer_player?
      self.class == ComputerPlayer
+   end
+   
+   def join_game game
+     @game = game
+   end
+   
+   def lead_with_domino(side1, side2)
+     boxcars = @hand.get_domino(side1, side2)
+     @game.line.place_lead(boxcars)
+     @hand.remove_domino!(side1, side2)
    end
     
   end
