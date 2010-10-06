@@ -1,38 +1,48 @@
 module DominoMofo
   
   class Domino
+    @ends
+    @end1
+    @end2
+    attr_reader :ends
                 
-    attr_reader :side1, :side2            
-                
-    def initialize(side1, side2)
-      @side1 = {:val => side1}
-      @side2 = {:val => side2}
+    def initialize(end1, end2)
+      @ends = Array.new << End.new(end1) << End.new(end2)
+      @end1 = @ends[0]
+      @end2 = @ends[1]
     end
         
     def double?
-      @side1 == @side2 ? true : false
+      @end1.suit == @end2.suit ? true : false
     end
                     
     def has_suit? suit
-      get_sides.include?(suit) ? true : false
+      get_ends.include?(suit) ? true : false
     end
     
-    def domino_with_sides?(side1, side2)
-      if side1 == @side1[:val] && side2 == @side2[:val]
+    def domino_with_ends?(end1, end2)
+      if  @end1.suit?(end1) && @end2.suit?(end2)
         true
-      elsif side1 == @side2[:val] && side2 == @side1[:val]
+      elsif @end2.suit?(end1) && @end1.suit?(end2)
         true
       else
         false
       end
     end
 
-    private
-    
-    def get_sides
-      [@side1[:val], @side2[:val]]
+    def has_open_end?
+      @end1.open? or @end2.open? ? true : false
     end
     
+    def open_ends
+      @ends.find_all{|e| e.open?}
+    end
+
+    private
     
+    def get_ends
+      [@end1.suit, @end2.suit]
+    end
+
   end
 end

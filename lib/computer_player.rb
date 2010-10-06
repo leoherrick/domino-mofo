@@ -6,11 +6,11 @@ module DominoMofo
     
     def initialize ai = easy
       super
-      @ai = AIEasy.new
+      @ai = AIEasy.new(@game.board, @hand)
     end
     
     def play
-      @ai.play_best_domino(@game.board, @hand)
+      @ai.play_best_domino
     end
     
   end

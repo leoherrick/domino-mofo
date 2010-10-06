@@ -73,7 +73,7 @@ module DominoMofo
             @player_with_highest_pair = @match_controller.return_player_with_highest_pair
           end
           it "should know the highest double is 'poison ivy'" do
-            @player_with_highest_pair.hand.should have_domino_with_sides(3,3)
+            @player_with_highest_pair.hand.should have_domino_with_ends(3,3)
           end
           it "should know p1 is holding it" do
             @player_with_highest_pair.should === @player_1
@@ -90,7 +90,7 @@ module DominoMofo
             @player_with_highest_pair = @match_controller.return_player_with_highest_pair
           end
           it "should know the highest double is 5-5" do
-            @player_with_highest_pair.hand.has_domino_with_sides?(5,5).should be_true
+            @player_with_highest_pair.hand.has_domino_with_ends?(5,5).should be_true
           end
           it "should know cpu1 is holding it" do
             @player_with_highest_pair.should === @cpu_1

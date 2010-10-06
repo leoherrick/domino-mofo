@@ -59,7 +59,7 @@ Given /^I have boxcars$/ do
   players = @game.players
   players.should have(4).players #remove
   player_with_boxcars = players.find_player_with_domino(6,6)
-  player_with_boxcars.hand.remove_domino_with_sides!(6,6)
+  player_with_boxcars.hand.remove_domino_with_ends!(6,6)
   players.human_player.hand << DominoMofo::Domino.new(6,6)
 end
 
@@ -98,7 +98,7 @@ Given /^the computer has the highest pair$/ do
   players = @game.players
   players.should have(4).players #remove
   initial_player_with_boxcars = players.find_player_with_domino(6,6)
-  initial_player_with_boxcars.hand.remove_domino_with_sides!(6,6)
+  initial_player_with_boxcars.hand.remove_domino_with_ends!(6,6)
   @player_with_higest_pair = players[1]
   @player_with_higest_pair.hand << DominoMofo::Domino.new(6,6)
 end
@@ -106,6 +106,6 @@ end
 Then /^the computer should play that bone on the board$/ do
   @player_with_higest_pair.lead_with_domino(6,6)
   game = @match_controller.match.active_game
-  game.board.dominoes.should have_exactly(1).domino
+  game.board.should have_exactly(1).domino
 end
 

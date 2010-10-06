@@ -10,8 +10,8 @@ Given /^the board has a single domino \(the 6-6\)$/ do
   @board = @match.active_game.board
   six_six = DominoMofo::Domino.new(6,6)
   @board.place_lead(six_six)
-  @board.dominoes.has_domino_with_sides?(6,6).should be_true
-  @board.dominoes.should have_exactly(1).domino
+  @board.has_domino_with_ends?(6,6).should be_true
+  @board.should have_exactly(1).domino
 end
 
 Given /^its the cpu's turn to play$/ do

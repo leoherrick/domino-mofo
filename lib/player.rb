@@ -18,10 +18,10 @@ module DominoMofo
      self.class == ComputerPlayer
    end
       
-   def lead_with_domino(side1, side2)
-     lead_domino = @hand.get_domino_with_sides(side1, side2)
+   def lead_with_domino(end1, end2)
+     lead_domino = @hand.get_domino_with_ends(end1, end2)
      @game.board.place_lead(lead_domino)
-     @hand.remove_domino_with_sides!(side1, side2)
+     @hand.remove_domino_with_ends!(end1, end2)
    end
     
   end

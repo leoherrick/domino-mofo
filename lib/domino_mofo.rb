@@ -1,6 +1,7 @@
 require 'match_controller'
 require 'match'
 require 'game'
+require 'end'
 require 'domino'
 require 'domino_group'
 require 'boneyard'

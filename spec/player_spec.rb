@@ -4,7 +4,10 @@ module DominoMofo
   
   describe Player do 
     before(:each) do
+      board = double('board')
       @game = double('game')
+      @game.stub(:board).and_return(board)
+      
       @player = Player.new(@game)
     end
 
