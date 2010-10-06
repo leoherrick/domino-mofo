@@ -32,4 +32,4 @@ Feature: Start a new Match
 	Scenario: A computer player has highest pair
 		Given I have started a match with 4 players
 		 	And the computer has the highest pair
-		Then the computer should play that bone on the line
+		Then the computer should play that bone on the board

@@ -4,11 +4,16 @@ module DominoMofo
   describe PlayerFactory do
     
     before(:each) do
-      player_factory = PlayerFactory.new
-      @player_group_with_one = player_factory.create_player_group(1)
-      @player_group_with_two = player_factory.create_player_group(2)
-      @player_group_with_four = player_factory.create_player_group(4)
-      @all_three_player_groups = [@player_group_with_one, @player_group_with_two, @player_group_with_four]
+      game_with_2 = Game.new(2) 
+      game_with_3 = Game.new(3) 
+      game_with_4 = Game.new
+      player_factory_for_2 = PlayerFactory.new(game_with_2)
+      player_factory_for_3 = PlayerFactory.new(game_with_3)
+      player_factory_for_4 = PlayerFactory.new(game_with_4)
+      @player_group_with_two = player_factory_for_2.create_players
+      @player_group_with_three = player_factory_for_3.create_players
+      @player_group_with_four = player_factory_for_4.create_players
+      @all_three_player_groups = [@player_group_with_two, @player_group_with_two, @player_group_with_four]
     end
 
     it "should create a player group object" do
@@ -25,9 +30,15 @@ module DominoMofo
     end
     
     it "should create player group with all computer players except one" do 
-      @player_group_with_one.find_all {|player| player.class == ComputerPlayer}.should have_exactly(0).computer_players
       @player_group_with_two.find_all {|player| player.class == ComputerPlayer}.should have_exactly(1).computer_players
+      @player_group_with_three.find_all {|player| player.class == ComputerPlayer}.should have_exactly(2).computer_players
       @player_group_with_four.find_all {|player| player.class == ComputerPlayer}.should have_exactly(3).computer_players
+    end
+    
+    it "should add game object to each player" do
+      @player_group_with_four.each do |player|
+        player.game.should be_true
+      end
     end
     
   end

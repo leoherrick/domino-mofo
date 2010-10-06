@@ -1,7 +1,7 @@
 Domino Mofo
 Ruby command-line dominos game
 
-This is a fun command-line dominos game I developed in the BDD manner using Cucumber and Rspec.
+This is a fun command-board dominos game I developed in the BDD manner using Cucumber and Rspec.
 
 To Play:
 =======

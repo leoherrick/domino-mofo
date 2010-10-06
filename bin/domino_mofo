@@ -20,6 +20,6 @@ end
 mc.start_match
 mc.say_game_is_ready
 
-if mc.return_player_with_highest_pair.is_human?
+if mc.return_player_with_highest_pair.human_player?
   mc.tell_user_to_lead_with_highest_pair
 end

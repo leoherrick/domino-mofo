@@ -1,29 +1,29 @@
 module DominoMofo
   
-  class Game   
+  class Game
+    @number_of_players
     @players
     @boneyard
-    @line
-    attr_reader :players, :boneyard, :line, :whose_turn, :houses
+    @board
+    @queue
+    attr_reader :players, :boneyard, :board, :whose_turn, :houses, :number_of_players, :queue
     attr_writer :whose_turn
     
-    def initialize options
-      number_of_players = options[:players]
-      player_factory = PlayerFactory.new
-      @players = player_factory.create_player_group(number_of_players)
+    def initialize(players = 4)
+      @number_of_players = players
+      player_factory = PlayerFactory.new(self)
+      @players = player_factory.create_players
       @boneyard = Boneyard.new
-      @line = Line.new
+      @board = Board.new
+      @queue = Queue.new
+      @players.each {|p| @queue << p }
       
       deal_dominoes
-      join_players_in_game
     end
     
     def deal_dominoes
       @players.each{|player| player.hand.replace @boneyard.draw_seven}
     end
     
-    def join_players_in_game
-      @players.each{|p| p.join_game(self)}
-    end
   end
 end

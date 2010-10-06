@@ -1,15 +1,20 @@
 module DominoMofo
-  
+
   class PlayerFactory
+    @game
+    
+    def initialize game
+      @game = game
+    end
         
-    def create_player_group(number_of_players)
+    def create_players
+      number_of_players = @game.number_of_players
+      number_of_humans = 1
+      number_of_cpu_players = number_of_players - number_of_humans
       player_group = PlayerGroup.new
-      player_group << HumanPlayer.new
-      human_player = 1
-      (number_of_players - human_player).times do 
-        player_group << ComputerPlayer.new
-      end
       
+      number_of_humans.times { player_group << HumanPlayer.new(@game) }
+      number_of_cpu_players.times { player_group << ComputerPlayer.new(@game) }
       return player_group
     end
     

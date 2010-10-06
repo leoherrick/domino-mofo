@@ -4,35 +4,33 @@ module DominoMofo
   
   describe Player do 
     before(:each) do
-      @player = Player.new
+      @game = double('game')
+      @player = Player.new(@game)
     end
 
     it "should have a hand of dominoes" do
       @player.hand.should be_true
     end      
     
-    it "should be able to join game" do
-      expect {
-        @player.join_game(Game.new({:players => 4}))
-      }.to change{
-        @player.game.class
-      }.from(false).to(Game)
+    it "should belong to a game" do
+        @player.game.should be_true
     end
     
     it "should know if it's human" do
-      human_player = HumanPlayer.new #subclass of Player
-      human_player.is_human?.should be_true
+      human_player = HumanPlayer.new(@game) #subclass of Player
+      human_player.human_player?.should be_true
     end
 
     it "should know if it's a computer controlled player" do
-      computer_player = ComputerPlayer.new #subclass of Player
-      computer_player.is_computer_player?.should be_true
+      computer_player = ComputerPlayer.new(@game) #subclass of Player
+      computer_player.computer_player?.should be_true
     end
     
     it "should be able to lead with given domino" do
-      @player.join_game(Game.new({:players => 4}))
+      @game = Game.new
+      @player = Player.new(@game)
       hand = @player.hand << Domino.new(6,6)
-      line = double('line').stub(:place_lead).and_return(true)
+
       expect {
         @player.lead_with_domino(6,6)
       }.to change {

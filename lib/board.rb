@@ -1,6 +1,6 @@
 module DominoMofo
   
-  class Line        
+  class Board < DominoGroup     
     @dominoes
     attr_reader :dominoes
     

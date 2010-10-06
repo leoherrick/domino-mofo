@@ -25,14 +25,6 @@ module DominoMofo
         @match_controller.ask_for_opponents
       end
 
-      it "should set players" do
-        expect {
-          @match_controller.players = 4          
-        }.to change {
-          @match_controller.players
-        }.from(nil).to(4)
-      end
-
       it "should set players from opponents" do
         @match_controller.set_players_from_opponents(3)
         @match_controller.players.should equal(4)
@@ -46,7 +38,7 @@ module DominoMofo
       end
       
       it "should set houses" do
-        @match_controller.set_houses(5)
+        @match_controller.houses = 5
         @match_controller.houses.should equal(5)        
       end
       
@@ -66,7 +58,7 @@ module DominoMofo
       
         context "two player game" do
           before(:each) do
-            game = Game.new({:players => 2})
+            game = Game.new(2)
             @player_1 = game.players[0]
             @cpu_1 = game.players[1]
             [@player_1, @cpu_1].each {|p| p.hand.clear}
@@ -74,37 +66,37 @@ module DominoMofo
             @match_controller.match.active_game = game          
           end        
 
-        context "p1 has 'poison ivy', cpu1 has 'snake eyes'" do
+        context "p1 has the 3-3, cpu1 has the 1-1" do
           before(:each) do
             @player_1.hand << Domino.new(3,3) << Domino.new(1,2)
             @cpu_1.hand << Domino.new(1,1) << Domino.new(4,2)
             @player_with_highest_pair = @match_controller.return_player_with_highest_pair
           end
           it "should know the highest double is 'poison ivy'" do
-            @player_with_highest_pair.hand.has_domino?(3,3).should be_true
+            @player_with_highest_pair.hand.should have_domino_with_sides(3,3)
           end
           it "should know p1 is holding it" do
             @player_with_highest_pair.should === @player_1
           end
           it "should know p1 is a human" do
-            @player_with_highest_pair.is_human?.should be_true
+            @player_with_highest_pair.human_player?.should be_true
           end
         end
 
-        context "p1 has 'poison ivy', cpu1 has 'gold nuggets'" do
+        context "p1 has the 3-3, cpu1 has the 5-5" do
           before(:each) do
             @player_1.hand << Domino.new(3,3) << Domino.new(1,2)
             @cpu_1.hand << Domino.new(3,2) << Domino.new(5,5)
             @player_with_highest_pair = @match_controller.return_player_with_highest_pair
           end
-          it "should know the highest double is 'gold nuggets'" do
-            @player_with_highest_pair.hand.has_domino?(5,5).should be_true
+          it "should know the highest double is 5-5" do
+            @player_with_highest_pair.hand.has_domino_with_sides?(5,5).should be_true
           end
           it "should know cpu1 is holding it" do
             @player_with_highest_pair.should === @cpu_1
           end
           it "should know cpu1 is a computer" do
-            @player_with_highest_pair.is_computer_player?.should be_true
+            @player_with_highest_pair.computer_player?.should be_true
           end
         end
       end             

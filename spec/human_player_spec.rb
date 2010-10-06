@@ -4,11 +4,12 @@ module DominoMofo
   describe HumanPlayer do
 
     before(:each) do
-      @human_player = HumanPlayer.new
+      game = double('game')
+      @human_player = HumanPlayer.new(game)
     end
     
     it "should be human" do
-      @human_player.is_human?.should be_true
+      @human_player.human_player?.should be_true
     end
     
     it "should have a hand" do

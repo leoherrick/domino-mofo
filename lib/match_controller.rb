@@ -4,11 +4,14 @@ module DominoMofo
         
     @output
     @match
-    @match_options
-    attr_reader :match
+    @players
+    @houses
+    attr_writer :players, :houses
+    attr_reader :players, :houses, :match
     
     def initialize output
-      @match_options = {:players => nil, :houses => nil}
+      @players = 4
+      @houses = 3
       @output = output
     end
     
@@ -24,28 +27,12 @@ module DominoMofo
       self.players = (opponents.to_i + 1)
     end
     
-    def players
-      @match_options[:players]
-    end
-
-    def players= players
-      @match_options[:players] = players
-    end
-
     def ask_for_houses
       @output.puts "And how many houses you down for? Three, Four, or Five?"
     end
     
-    def houses
-      @match_options[:houses]
-    end
-    
-    def set_houses houses
-      @match_options[:houses] = houses
-    end
-    
     def start_match
-      @match = Match.new(@match_options)
+      @match = Match.new(@players, @houses)
     end
     
     def say_game_is_ready
@@ -62,7 +49,7 @@ module DominoMofo
       player_has_been_found = false
       until player_has_been_found
         players.each do |player|
-          if player.hand.has_domino?(suit, suit) 
+          if player.hand.has_domino_with_sides?(suit, suit) 
             return player
             player_has_been_found = true
           end

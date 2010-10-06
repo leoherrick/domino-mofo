@@ -9,7 +9,7 @@ module DominoMofo
       @side2 = {:val => side2}
     end
         
-    def is_double?
+    def double?
       @side1 == @side2 ? true : false
     end
                     
@@ -17,7 +17,7 @@ module DominoMofo
       get_sides.include?(suit) ? true : false
     end
     
-    def is_domino?(side1, side2)
+    def domino_with_sides?(side1, side2)
       if side1 == @side1[:val] && side2 == @side2[:val]
         true
       elsif side1 == @side2[:val] && side2 == @side1[:val]

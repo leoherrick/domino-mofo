@@ -20,6 +20,18 @@ module DominoMofo
       @boneyard.get_all_doubles.should have(7).doubles
     end
     
+    it "should be randomly shuffled" do
+      unshuffled_boneyard = @boneyard
+      @boneyard.wash!
+      shuffled_boneyard = @boneyard
+      
+      unshuffled_boneyard.each do |domino|
+        shuffled_boneyard.include?(domino).should be_true
+      end
+      unshuffled_boneyard.length.should equal(shuffled_boneyard.length)
+      shuffled_boneyard != unshuffled_boneyard     
+    end
+    
     it "can be drawn from one at a time" do 
       @boneyard.draw_one.class.should == Domino 
     end

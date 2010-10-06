@@ -27,23 +27,22 @@ module DominoMofo
       all_doubles.should have(7).dominos
     end
     
-    it "can retrieve a given domino" do
-      boxcars = @standard_set_of_dominoes.get_domino(6,6)
+    it "can retrieve a domino with given sides" do
+      boxcars = @standard_set_of_dominoes.get_domino_with_sides(6,6)
       boxcars.should be_true
     end
     
-    
-    it "knows if has a given domino" do
-      @standard_set_of_dominoes.has_domino?(6,6).should be_true
-      @standard_set_of_dominoes.has_domino?(1,0).should be_true
-      @standard_set_of_dominoes.has_domino?(6,7).should be_false
+    it "knows if has domino with given sides" do
+      @standard_set_of_dominoes.should have_domino_with_sides(6,6)
+      @standard_set_of_dominoes.should have_domino_with_sides(1,0)
+      @standard_set_of_dominoes.should_not have_domino_with_sides(6,7)
     end
     
-    it "should remove a given domino" do
+    it "should remove a domino with given sides" do
       expect {
-        @standard_set_of_dominoes.remove_domino!(6,6)
+        @standard_set_of_dominoes.remove_domino_with_sides!(6,6)
       }.to change {
-        @standard_set_of_dominoes.has_domino?(6,6)
+        @standard_set_of_dominoes.has_domino_with_sides?(6,6)
       }.from(true).to(false)
     end
     

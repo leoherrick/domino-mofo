@@ -1,19 +1,30 @@
+DominoMofo::AIEasy
+  should play the best domino
+
+DominoMofo::Board
+  holds dominoes
+  accepts a lead-out domino
+
 DominoMofo::Boneyard
   should have 28 dominos
   should have seven of each suit
   should have seven doubles
+  should be randomly shuffled
   can be drawn from one at a time
   can be drawn from seven at a time
 
 DominoMofo::ComputerPlayer
   should be a computer
   should have a hand
+  has an AI module for deciding what domino to play
+  should play
 
 DominoMofo::DominoGroup
   can retrieve all dominos of a suit
   can retrieve all doubles
-  knows if has a given domino
-  should remove a given domino
+  can retrieve a domino with given sides
+  knows if has domino with given sides
+  should remove a domino with given sides
 
 DominoMofo::Domino
   #identification
@@ -21,15 +32,22 @@ DominoMofo::Domino
     knows if is double
     knows if it is a certian domino
 
-DominoMofo::GameController
-
 DominoMofo::Game
-  should create a player group of given number of players
-  should have exactly one human player
+  should have 1 human player
   should have a 'Boneyard'
+  should have a board
+  #the queue
+    should have 4 players
+    should have the human first
   #the deal
     should deal 7 dominos to each player
-    should subtract dominoes from the boneyard after dealing
+  by default
+    should have 4 players
+    should have 3 computer players
+    should have an empty boneyard
+  #with custom number of players
+    should create game with only a given number of players
+    should have a boneyard with 7 - 14 dominoes
 
 DominoMofo::Hand
 
@@ -37,13 +55,10 @@ DominoMofo::HumanPlayer
   should be human
   should have a hand
 
-DominoMofo::Line
-
 DominoMofo::MatchController
   #begin game
     should welcome the player
     should ask for number of opponents
-    should set players
     should set players from opponents
     should ask for number of houses
     should set houses
@@ -51,40 +66,45 @@ DominoMofo::MatchController
     should issue a 'game started' success message
     find player with highest bone
     two player game
-      p1 has 'poison ivy', cpu1 has 'snake eyes'
+      p1 has the 3-3, cpu1 has the 1-1
         should know the highest double is 'poison ivy'
         should know p1 is holding it
         should know p1 is a human
-      p1 has 'poison ivy', cpu1 has 'gold nuggets'
-        should know the highest double is 'gold nuggets'
+      p1 has the 3-3, cpu1 has the 5-5
+        should know the highest double is 5-5
         should know cpu1 is holding it
         should know cpu1 is a computer
 
 DominoMofo::Match
-  #initialize
-    #default setup
-      should have a scorecard
-      should have an active game
-      should have a scorecard w/ 4 players and 3 houses
-    #optional setup
-      #when given options (3 players to 5 houses)
-        should have a scorecard w/ 3 players and 5 houses
+  should have a scorecard
+  should have an active game
+  #default setup
+    should have a scorecard w/ 4 players and 3 houses
+  #with custom number of players and houses
+    should have a scorecard w/ 3 players and 5 houses
 
 DominoMofo::PlayerFactory
   should create a player group object
   should create a player group with one and only one human per group
   should create player group with all computer players except one
+  should add game object to each player
 
 DominoMofo::PlayerGroup
-  should have one human player
   should return player with given domino
 
 DominoMofo::Player
   should have a hand of dominoes
+  should belong to a game
   should know if it's human
   should know if it's a computer controlled player
+  should be able to lead with given domino
+
+DominoMofo::Queue
+  should move second person to first after turns
+  should move first person to last after turns
+  should shift queue to a given player
 
 DominoMofo::Scorecard
 
-Finished in 0.06468 seconds
-47 examples, 0 failures
+Finished in 0.10851 seconds
+64 examples, 0 failures

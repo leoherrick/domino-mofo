@@ -28,7 +28,7 @@ When /^I am prompted to select the number of houses$/ do
 end
 
 When /^I choose (\d+) houses$/ do |number_of_houses|
-  @match_controller.set_houses(number_of_houses)
+  @match_controller.houses = number_of_houses
 end
 
 When /^the match is started$/ do
@@ -59,7 +59,7 @@ Given /^I have boxcars$/ do
   players = @game.players
   players.should have(4).players #remove
   player_with_boxcars = players.find_player_with_domino(6,6)
-  player_with_boxcars.hand.remove_domino!(6,6)
+  player_with_boxcars.hand.remove_domino_with_sides!(6,6)
   players.human_player.hand << DominoMofo::Domino.new(6,6)
 end
 
@@ -85,7 +85,7 @@ end
 
 When /^I have the highest pair$/ do
   player_with_highest_pair = @match_controller.return_player_with_highest_pair
-  player_with_highest_pair.is_human?.should be_true
+  player_with_highest_pair.human_player?.should be_true
 end
 
 Then /^I should be prompted to play$/ do
@@ -98,27 +98,14 @@ Given /^the computer has the highest pair$/ do
   players = @game.players
   players.should have(4).players #remove
   initial_player_with_boxcars = players.find_player_with_domino(6,6)
-  initial_player_with_boxcars.hand.remove_domino!(6,6)
+  initial_player_with_boxcars.hand.remove_domino_with_sides!(6,6)
   @player_with_higest_pair = players[1]
   @player_with_higest_pair.hand << DominoMofo::Domino.new(6,6)
 end
 
-Then /^the computer should play that bone on the line$/ do
+Then /^the computer should play that bone on the board$/ do
   @player_with_higest_pair.lead_with_domino(6,6)
   game = @match_controller.match.active_game
-  game.line.dominoes.should have_exactly(1).domino
+  game.board.dominoes.should have_exactly(1).domino
 end
 
-
-
-class Output
-  def messages 
-    @messages ||= [] 
-  end 
-  def puts(message) 
-    messages << message 
-  end 
-end 
-def output 
-  @output ||= Output.new 
-end
