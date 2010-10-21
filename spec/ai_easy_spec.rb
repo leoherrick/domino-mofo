@@ -17,7 +17,6 @@ module DominoMofo
           @board.points.should equal(12)
         end
 
-        it "should play the best domino" 
       end
     end        
   end
