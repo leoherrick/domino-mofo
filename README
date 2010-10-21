@@ -1,13 +1,13 @@
-Domino Mofo
+= Domino Mofo
 Ruby command-line dominos game
 
 This is a fun command-board dominos game I developed in the BDD manner using Cucumber and Rspec.
 
-To Play:
-=======
+== To Play:
+
 Download and run "bin/domino_mofo"
 
 
-To Run Rspec:
-=============
+== To Run Rspec:
+
 Download and run "rspec spec --color --format doc"
