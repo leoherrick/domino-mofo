@@ -11,31 +11,48 @@ module DominoMofo
       domino1.ends.should have(2).ends
     end
     
-    it "knows if is of suit" do
+    it "tests for suit" do
       domino1.should have_suit(2)
       domino2.should have_suit(3)
       domino1.should_not have_suit(3)
     end
     
-    it "knows if is double" do
+    it "tests for double" do
       domino1.should_not be_a_double
-      Domino.new(2,2).should be_a_double      
+      Double.new(2,2).should be_a_double      
     end      
     
-    it "knows if it is a certian domino" do
-      domino1.should be_domino_with_ends(1,2)
-      domino1.should be_a_domino_with_ends(2,1)
-      domino1.should_not be_a_domino_with_ends(2,2)
-      domino1.should_not be_a_domino_with_ends(1,4)
+    it "tests for both given ends" do
+      domino1.should have_both_ends(1,2)
+      domino1.should have_both_ends(2,1)
+      domino1.should_not have_both_ends(2,2)
+      domino1.should_not have_both_ends(1,4)
+    end
+
+    it "should find first end of suit" do
+      domino1.find_end_of_suit(1).should be_true
     end
     
-    it "knows if it's sides are unconnected" do
-      domino1.should have_open_end
-    end
+    describe "#connection" do
+      it "can connnect ends to ends of other dominos" do
+        domino1.connect_to_domino_by_suit(domino2, 2)
+        domino1.find_end_of_suit(2).should be_connected
+        domino2.find_end_of_suit(2).should be_connected
+      end    
+          
+      it "tests for openness" do
+        domino1.should be_open
+      end
     
-    it "returns all open sides" do
-      domino1.open_ends.should have(2).ends
+      it "tests for connectedness" do
+        domino1.connect_to_domino_by_suit(domino2, 2)
+        domino1.should be_connected
+      end
+        
+      it "returns open ends" do
+        domino1.find_all_open_ends.should have(2).ends
+      end
     end
-    
+        
   end
 end

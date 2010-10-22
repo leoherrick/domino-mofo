@@ -2,47 +2,49 @@ module DominoMofo
   
   class Domino
     @ends
-    @end1
-    @end2
     attr_reader :ends
                 
     def initialize(end1, end2)
-      @ends = Array.new << End.new(end1) << End.new(end2)
-      @end1 = @ends[0]
-      @end2 = @ends[1]
+      @ends = Array.new << End.new(end1, self) << End.new(end2, self)
     end
         
-    def double?
-      @end1.suit == @end2.suit ? true : false
-    end
-                    
     def has_suit? suit
-      get_ends.include?(suit) ? true : false
+      @ends.any? {|e| e.suit?(suit)}
+    end
+
+    def double?
+      self.class == Double
     end
     
-    def domino_with_ends?(end1, end2)
-      if  @end1.suit?(end1) && @end2.suit?(end2)
-        true
-      elsif @end2.suit?(end1) && @end1.suit?(end2)
+    def has_both_ends?(end1, end2)
+      if  ( @ends[0].suit?(end1) && @ends[1].suit?(end2) ) || 
+          ( @ends[1].suit?(end1) && @ends[0].suit?(end2) )
         true
       else
         false
       end
     end
-
-    def has_open_end?
-      @end1.open? or @end2.open? ? true : false
+    
+    def find_end_of_suit suit
+      @ends.find {|e| e.suit?(suit)}
     end
     
-    def open_ends
+    def connect_to_domino_by_suit (domino, suit)
+      my_end = self.find_end_of_suit(suit)
+      its_end = domino.find_end_of_suit(suit)
+      my_end.connect_to(its_end)
+    end
+
+    def open?
+      @ends.any?{|e| e.open?}
+    end
+
+    def connected?
+      @ends.any?{|e| e.connected?}
+    end
+
+    def find_all_open_ends
       @ends.find_all{|e| e.open?}
     end
-
-    private
-    
-    def get_ends
-      [@end1.suit, @end2.suit]
-    end
-
   end
 end

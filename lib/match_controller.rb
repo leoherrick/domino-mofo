@@ -49,7 +49,7 @@ module DominoMofo
       player_has_been_found = false
       until player_has_been_found
         players.each do |player|
-          if player.hand.has_domino_with_ends?(suit, suit) 
+          if player.hand.has_domino_with_both_ends?(suit, suit) 
             return player
             player_has_been_found = true
           end

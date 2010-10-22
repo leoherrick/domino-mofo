@@ -11,7 +11,7 @@ module DominoMofo
     def initialize(players = 4, houses = 3)
       @players = players
       @houses = houses
-      @scorecard = Scorecard.new(players, houses)
+      @scorecard = Scorecard.new(self)
       @active_game = Game.new(players)
     end  
     

@@ -4,10 +4,7 @@ module DominoMofo
   
   describe Player do 
     before(:each) do
-      board = double('board')
-      @game = double('game')
-      @game.stub(:board).and_return(board)
-      
+      @game = Game.new
       @player = Player.new(@game)
     end
 
@@ -20,25 +17,11 @@ module DominoMofo
     end
     
     it "should know if it's human" do
-      human_player = HumanPlayer.new(@game) #subclass of Player
-      human_player.human_player?.should be_true
+      HumanPlayer.new(@game).should be_human_player
     end
 
     it "should know if it's a computer controlled player" do
-      computer_player = ComputerPlayer.new(@game) #subclass of Player
-      computer_player.computer_player?.should be_true
-    end
-    
-    it "should be able to lead with given domino" do
-      @game = Game.new
-      @player = Player.new(@game)
-      hand = @player.hand << Domino.new(6,6)
-
-      expect {
-        @player.lead_with_domino(6,6)
-      }.to change {
-        @player.hand.length
-      }.from(1).to(0)
+      ComputerPlayer.new(@game).should be_computer_player
     end
         
   end

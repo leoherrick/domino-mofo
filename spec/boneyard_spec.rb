@@ -33,7 +33,7 @@ module DominoMofo
     end
     
     it "can be drawn from one at a time" do 
-      @boneyard.draw_one.class.should == Domino 
+      @boneyard.draw_one.should be_true
     end
 
     it "can be drawn from seven at a time" do 

@@ -1,13 +1,11 @@
 module DominoMofo
   
   class Scorecard
-    @players
-    @houses
-    attr_reader :players, :houses
+
+    attr_reader :match
     
-    def initialize (players, houses)
-      @players = players
-      @houses = houses
+    def initialize match
+      @match = match
     end
     
   end

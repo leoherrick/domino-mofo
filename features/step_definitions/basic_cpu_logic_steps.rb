@@ -8,9 +8,9 @@ end
 
 Given /^the board has a single domino \(the 6-6\)$/ do 
   @board = @match.active_game.board
-  six_six = DominoMofo::Domino.new(6,6)
+  six_six = DominoMofo::Double.new(6,6)
   @board.place_lead(six_six)
-  @board.has_domino_with_ends?(6,6).should be_true
+  @board.should have_domino_with_both_ends?(6,6)
   @board.should have_exactly(1).domino
 end
 
@@ -24,7 +24,7 @@ end
 Given /^the cpu has a 6-3, a 6-2, and a 5-5 in its hand$/ do
   hand = @computer_player.hand
   hand.clear
-  hand << DominoMofo::Domino.new(6,3) << DominoMofo::Domino.new(6,2) << DominoMofo::Domino.new(5,5)
+  hand << DominoMofo::Domino.new(6,3) << DominoMofo::Domino.new(6,2) << DominoMofo::Double.new(5,5)
   hand.should have(3).dominoes
 end
 

@@ -16,15 +16,7 @@ module DominoMofo
     
     it "should have a hand" do
       @computer_player.hand.should be_true
-    end
-    
-    it "has an AI module for deciding what domino to play" do
-      @computer_player.ai.should be_true
-    end
-    
-    it "should play" do
-      @computer_player.play.should be_true
-    end
+    end    
     
   end
 end

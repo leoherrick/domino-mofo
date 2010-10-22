@@ -6,11 +6,7 @@ module DominoMofo
     before(:each) do
       @game = Game.new
     end
-  
-    it "should have 1 human player" do
-      @game.players.find_all { |p| p.class == HumanPlayer }.should have(1).human_player
-    end
-        
+          
     it "should have a 'Boneyard'" do
       @game.boneyard.should be_true
     end

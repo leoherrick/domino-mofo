@@ -11,17 +11,17 @@ module DominoMofo
     end
     
     def get_domino_with_ends(end1, end2)
-      result = self.find {|domino| domino.domino_with_ends?(end1,end2)}
+      result = self.find {|domino| domino.has_both_ends?(end1,end2)}
       return result
     end
             
-    def has_domino_with_ends?(end1, end2)
-      result = self.find {|domino| domino.domino_with_ends?(end1,end2)}
+    def has_domino_with_both_ends?(end1, end2)
+      result = self.find {|domino| domino.has_both_ends?(end1,end2)}
       result ? true : false
     end
         
     def remove_domino_with_ends!(end1, end2)
-      domino_to_remove = self.find {|domino| domino.domino_with_ends?(end1,end2)}
+      domino_to_remove = self.find {|domino| domino.has_both_ends?(end1,end2)}
       self.delete(domino_to_remove)
     end  
   end

@@ -12,7 +12,7 @@ module DominoMofo
       player1 = Player.new(game)
       player2 = Player.new(game)
       player1.hand << Domino.new(2,3) << Domino.new(4,3)
-      player2.hand << Domino.new(2,2) << Domino.new(1,1)
+      player2.hand << Double.new(2,2) << Double.new(1,1)
       @player_group << player1 << player2
     
       @player_group.find_player_with_domino(2,3).should === player1

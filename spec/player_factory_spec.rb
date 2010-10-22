@@ -3,45 +3,59 @@ require "spec_helper"
 module DominoMofo
   describe PlayerFactory do
     
-    before(:each) do
-      game_with_2 = Game.new(2) 
-      game_with_3 = Game.new(3) 
-      game_with_4 = Game.new
-      player_factory_for_2 = PlayerFactory.new(game_with_2)
-      player_factory_for_3 = PlayerFactory.new(game_with_3)
-      player_factory_for_4 = PlayerFactory.new(game_with_4)
-      @player_group_with_two = player_factory_for_2.create_players
-      @player_group_with_three = player_factory_for_3.create_players
-      @player_group_with_four = player_factory_for_4.create_players
-      @all_three_player_groups = [@player_group_with_two, @player_group_with_two, @player_group_with_four]
+    let(:game) { double('game') }
+    let(:player_factory) { PlayerFactory.new(game) }
+    
+    context "in games with 2 players" do
+      before(:each) do
+        game.stub(:number_of_players).and_return(2)
+      end
+
+      it "should create player group w/ 2 players" do
+        player_factory.create_players.should have(2).players
+      end
+    
+      it "1 of which is human" do
+        human_players = player_factory.create_players.find_all {|player| player.class == HumanPlayer}
+        human_players.should have_exactly(1).human_player
+      end
+    
+      it "1 of which is a computer player" do 
+        computer_players = player_factory.create_players.find_all {|player| player.class == ComputerPlayer}
+        computer_players.should have_exactly(1).computer_players
+      end
     end
 
-    it "should create a player group object" do
-      @all_three_player_groups.each do |object| 
-        object.class.should equal(PlayerGroup)
+    context "in games with 4 players" do
+      before(:each) do
+        game.stub(:number_of_players).and_return(4)
+      end
+
+      it "should create player group w/ 4 players" do
+        player_factory.create_players.should have(4).players
+      end
+    
+      it "1 of which is human" do
+        human_players = player_factory.create_players.find_all {|player| player.class == HumanPlayer}
+        human_players.should have_exactly(1).human_player
+      end
+    
+      it "3 of which is a computer player" do 
+        computer_players = player_factory.create_players.find_all {|player| player.class == ComputerPlayer}
+        computer_players.should have_exactly(3).computer_players
       end
     end
     
-    it "should create a player group with one and only one human per group" do
-      @all_three_player_groups.each do |player_group|
-        list_of_humans_in_group = player_group.find_all {|player| player.class == HumanPlayer}
-        list_of_humans_in_group.should have_exactly(1).human_player
+    context "in all cases" do
+      before(:each) do
+        game.stub(:number_of_players).and_return(4)
+      end
+    
+      it "should add game object to each player" do
+        player_factory.create_players.each do |player|
+          player.game.should be_true
+        end
       end
     end
-    
-    it "should create player group with all computer players except one" do 
-      @player_group_with_two.find_all {|player| player.class == ComputerPlayer}.should have_exactly(1).computer_players
-      @player_group_with_three.find_all {|player| player.class == ComputerPlayer}.should have_exactly(2).computer_players
-      @player_group_with_four.find_all {|player| player.class == ComputerPlayer}.should have_exactly(3).computer_players
-    end
-    
-    it "should add game object to each player" do
-      @player_group_with_four.each do |player|
-        player.game.should be_true
-      end
-    end
-    
   end
-
-  
 end
