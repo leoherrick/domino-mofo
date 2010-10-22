@@ -9,10 +9,8 @@ module DominoMofo
     attr_reader :players, :boneyard, :board, :whose_turn, :houses, :number_of_players, :queue
     attr_writer :whose_turn
     
-    def initialize(players = 4)
-      @number_of_players = players
-      player_factory = PlayerFactory.new(self)
-      @players = player_factory.create_players
+    def initialize(match = Match.new)
+      @players = match.players
       @boneyard = Boneyard.new
       @board = Board.new
       @queue = Queue.new

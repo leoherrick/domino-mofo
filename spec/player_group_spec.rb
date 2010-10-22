@@ -8,9 +8,9 @@ module DominoMofo
     end
     
     it "should return player with given domino" do
-      game = double('game')
-      player1 = Player.new(game)
-      player2 = Player.new(game)
+      match = Match.new
+      player1 = Player.new(match)
+      player2 = Player.new(match)
       player1.hand << Domino.new(2,3) << Domino.new(4,3)
       player2.hand << Double.new(2,2) << Double.new(1,1)
       @player_group << player1 << player2

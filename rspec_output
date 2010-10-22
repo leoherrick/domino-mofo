@@ -83,7 +83,7 @@ DominoMofo::Match
   #with custom number of players and houses
     should have a scorecard w/ 3 players and 5 houses
 
-DominoMofo::PlayerFactory
+DominoMofo::MatchPlayerFactory
   should create a player group object
   should create a player group with one and only one human per group
   should create player group with all computer players except one
