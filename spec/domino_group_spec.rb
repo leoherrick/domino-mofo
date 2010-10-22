@@ -16,36 +16,42 @@ module DominoMofo
        Double.new(6,6)
       )
     end
-        
-    it "can retrieve all dominos of a suit" do
-      all_sixes = @standard_set_of_dominoes.get_all_dominoes_of_suit(6)
-      all_sixes.should have(7).dominos
+    
+    describe "#booleans" do
+      
+      it "should test for domino with given ends" do
+        @standard_set_of_dominoes.should have_domino_with_both_ends(6,6)
+        @standard_set_of_dominoes.should have_domino_with_both_ends(1,0)
+        @standard_set_of_dominoes.should_not have_domino_with_both_ends(6,7)
+      end
     end
     
-    it "can retrieve all doubles" do
-      all_doubles = @standard_set_of_dominoes.get_all_doubles
-      all_doubles.should have(7).dominos
+    describe "#find" do
+      it "should find all dominos of suit" do
+        all_sixes = @standard_set_of_dominoes.get_all_dominoes_of_suit(6)
+        all_sixes.should have(7).dominos
+      end
+
+      it "should find all doubles" do
+        all_doubles = @standard_set_of_dominoes.get_all_doubles
+        all_doubles.should have(7).dominos
+      end
+
+      it "should find domino with given ends" do
+        boxcars = @standard_set_of_dominoes.get_domino_with_ends(6,6)
+        boxcars.should be_true
+      end      
     end
     
-    it "can retrieve a domino with given sides" do
-      boxcars = @standard_set_of_dominoes.get_domino_with_ends(6,6)
-      boxcars.should be_true
-    end
+    describe "#removal" do
     
-    it "knows if has domino with given sides" do
-      @standard_set_of_dominoes.should have_domino_with_both_ends(6,6)
-      @standard_set_of_dominoes.should have_domino_with_both_ends(1,0)
-      @standard_set_of_dominoes.should_not have_domino_with_both_ends(6,7)
-    end
-    
-    it "should remove a domino with given sides" do
-      expect {
-        @standard_set_of_dominoes.remove_domino_with_ends!(6,6)
-      }.to change {
-        @standard_set_of_dominoes.has_domino_with_both_ends?(6,6)
-      }.from(true).to(false)
-    end
-    
-    
+      it "should remove domino with given ends" do
+        expect {
+          @standard_set_of_dominoes.remove_domino_with_ends!(6,6)
+        }.to change {
+          @standard_set_of_dominoes.has_domino_with_both_ends?(6,6)
+        }.from(true).to(false)
+      end
+    end    
   end
 end

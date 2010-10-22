@@ -15,6 +15,4 @@ require 'match_player_factory'
 require 'player_group'
 require 'hand'
 require 'queue'
-require 'ai_easy'
-# require 'game_controller'
 
