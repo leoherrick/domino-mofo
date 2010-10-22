@@ -27,9 +27,22 @@ module DominoMofo
       @match_player_factory = MatchPlayerFactory.new(@match)
     end
     
-    it "should create player group with all computer players except one" do 
-      @match.should_receive(:players=).with(all_but_one_computer_player)
-      @match_player_factory = MatchPlayerFactory.new(@match)
+    describe "should add computer players to match" do 
+      
+      context "by default" do
+        it "should have 3 computer players" do
+          @match.should_receive(:players=).with(number_of_computer_players(3))
+          @match_player_factory = MatchPlayerFactory.new(@match)        
+        end
+      end
+      
+      context "in a three player match" do
+        it "should have 2 computer players" do
+          @match.stub(:number_of_players).and_return(3)
+          @match.should_receive(:players=).with(number_of_computer_players(2))
+          @match_player_factory = MatchPlayerFactory.new(@match)
+        end
+      end
     end
         
   end  

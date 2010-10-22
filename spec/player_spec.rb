@@ -8,22 +8,22 @@ module DominoMofo
       @player = Player.new(@match)
     end
 
-    it "should have a hand of dominoes" do
+    it "should have a hand (of dominoes)" do
       @player.hand.should be_true
     end      
     
-    it "should belong to a game" do
-        @player.game.should be_true
+    it "should belong to a match" do
+        @player.match.should be_true
     end
     
-    it "should know if it's human" do
+    it "should know if it's in instance of the 'Human' class" do
       human_player = HumanPlayer.new(@match) #subclass of Player
-      human_player.human_player?.should be_true
+      human_player.should be_human_player
     end
 
-    it "should know if it's a computer controlled player" do
+    it "should know if it's in instance of the 'Computer' class" do
       computer_player = ComputerPlayer.new(@match) #subclass of Player
-      computer_player.computer_player?.should be_true
+      computer_player.should be_computer_player
     end
     
     it "should be able to lead with given domino" do

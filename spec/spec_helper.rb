@@ -7,18 +7,26 @@ class OneHumanPlayerMatcher
   end
 end
 
-class AllButOneComputerPlayerMatcher
+class NumberOfComputerPlayersMatcher
+  
+  def initialize(expected)
+    @expected = expected
+  end
+  
+  def description
+    "number of computer players matching #{@expected}"
+  end
+  
   def ==(actual)
     computer_players = actual.find_all{|x| x.instance_of?(DominoMofo::ComputerPlayer)}
-    computer_players.length == actual.length - 1
+    computer_players.length == @expected
   end
 end
-
 
 def one_human_player
   OneHumanPlayerMatcher.new 
 end 
 
-def all_but_one_computer_player
-  AllButOneComputerPlayerMatcher.new 
+def number_of_computer_players expected_number
+  NumberOfComputerPlayersMatcher.new(expected_number)
 end 

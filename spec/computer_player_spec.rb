@@ -8,12 +8,8 @@ module DominoMofo
       @computer_player = ComputerPlayer.new(match)
     end
     
-    it "should be a computer" do
-      @computer_player.computer_player?.should be_true
-    end
-    
-    it "should have a hand" do
-      @computer_player.hand.should be_true
+    it "should be of the 'Player' class" do
+      @computer_player.kind_of?(Player).should be_true
     end
     
   end
