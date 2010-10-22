@@ -51,8 +51,8 @@ module DominoMofo
     
     context "#with custom number of players" do
       before(:each) do
-        @game_with_2 = Game.new(2) 
-        @game_with_3 = Game.new(3) 
+        @game_with_2 = Game.new(Match.new(2,3)) 
+        @game_with_3 = Game.new(Match.new(3,3)) 
         @both_games = [@game_with_2, @game_with_3]
       end
 

@@ -58,7 +58,8 @@ module DominoMofo
       
         context "two player game" do
           before(:each) do
-            game = Game.new(2)
+            match = Match.new(2,3)
+            game = Game.new(match)
             @player_1 = game.players[0]
             @cpu_1 = game.players[1]
             [@player_1, @cpu_1].each {|p| p.hand.clear}

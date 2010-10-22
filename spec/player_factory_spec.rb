@@ -4,12 +4,12 @@ module DominoMofo
   describe PlayerFactory do
     
     before(:each) do
-      game_with_2 = Game.new(2) 
-      game_with_3 = Game.new(3) 
-      game_with_4 = Game.new
-      player_factory_for_2 = PlayerFactory.new(game_with_2)
-      player_factory_for_3 = PlayerFactory.new(game_with_3)
-      player_factory_for_4 = PlayerFactory.new(game_with_4)
+      match_with_2 = Match.new(2,3) 
+      match_with_3 = Match.new(3,3) 
+      match_with_4 = Match.new
+      player_factory_for_2 = PlayerFactory.new(2, match_with_2)
+      player_factory_for_3 = PlayerFactory.new(3, match_with_3)
+      player_factory_for_4 = PlayerFactory.new(4, match_with_4)
       @player_group_with_two = player_factory_for_2.create_players
       @player_group_with_three = player_factory_for_3.create_players
       @player_group_with_four = player_factory_for_4.create_players

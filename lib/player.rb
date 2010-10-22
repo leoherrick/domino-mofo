@@ -5,9 +5,9 @@ module DominoMofo
     @game
     attr_reader :hand, :game
     
-    def initialize game
+    def initialize match
       @hand = Hand.new
-      @game = game
+      @game = match.active_game
     end
     
     def human_player?
