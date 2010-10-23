@@ -3,64 +3,54 @@ require "spec_helper"
 module DominoMofo
   
   describe Game do 
-    before(:each) do
-      @game = Game.new
+
+    it "should belong to a Match" do
+      subject.match.should be_true
     end
           
-    it "should have a 'Boneyard'" do
-      @game.boneyard.should be_true
+    it "should have a Boneyard'" do
+      subject.boneyard.should be_true
     end
     
-    it "should have a board" do
-      @game.board.should be_true
+    it "should have a Board" do
+      subject.board.should be_true
     end
 
-    describe "#the queue" do
-      it "should have 4 players" do
-        @game.queue.should have(4).players
+    it "should have a Queue" do
+      subject.queue.should be_true
+    end
+
+    describe "#players" do
+
+      it "should have a group of Players" do
+        subject.players.should be_instance_of(PlayerGroup)
       end
       
-      it "should have the human first" do
-        @game.queue[0].should be_a_human_player
+      it "should have same player group as the Match it belongs to" do
+        subject.players.should equal(subject.match.players)
       end
-    end  
-      
+    end
+          
     describe "#the deal" do
+      
       it "should deal 7 dominos to each player" do
-        @game.players.each{ |player| player.hand.should have(7).dominos }
-      end
-    end
-  
-    context "by default" do      
-      it "should have 4 players" do
-        @game.players.should have(4).players
+        subject.players.each{ |player| player.hand.should have(7).dominos }
       end
       
-      it "should have 3 computer players" do
-        @game.players.find_all { |p| p.class == ComputerPlayer }.should have(3).computer_players
+      context "in match with 4 players" do
+        
+        it "should have an empty boneyard after the deal" do
+          subject.boneyard.should have(0).bones
+        end
       end
       
-      it "should have an empty boneyard" do
-        @game.boneyard.should have(0).dominoes
-      end
-    end
-    
-    context "#with custom number of players" do
-      before(:each) do
-        @game_with_2 = Game.new(Match.new(2,3)) 
-        @game_with_3 = Game.new(Match.new(3,3)) 
-        @both_games = [@game_with_2, @game_with_3]
-      end
-
-      it "should create game with only a given number of players" do 
-        @game_with_2.players.should have(2).players
-        @game_with_3.players.should have(3).players
-      end
-      
-      it "should have a boneyard with 7 - 14 dominoes" do
-        @game_with_2.boneyard.should have(14).dominoes
-        @game_with_3.boneyard.should have(7).dominoes
-      end      
+      context "in match with 2 players" do
+        subject = Game.new(Match.new(2,5))
+        
+        it "should have 14 remaining bones in the boneyard after the deal" do
+          subject.boneyard.should have(14).bones          
+        end
+      end    
     end
   end
 end

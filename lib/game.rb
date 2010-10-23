@@ -6,11 +6,13 @@ module DominoMofo
     @boneyard
     @board
     @queue
-    attr_reader :players, :boneyard, :board, :whose_turn, :houses, :number_of_players, :queue
+    @match
+    attr_reader :players, :boneyard, :board, :whose_turn, :houses, :number_of_players, :queue, :match
     attr_writer :whose_turn
     
     def initialize(match = Match.new)
-      @players = match.players
+      @match = match
+      @players = @match.players
       @boneyard = Boneyard.new
       @board = Board.new
       @queue = Queue.new

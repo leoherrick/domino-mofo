@@ -1,6 +1,5 @@
 module DominoMofo
   
-  class Board < DominoGroup     
-    
+  class Board < DominoGroup    
   end
 end

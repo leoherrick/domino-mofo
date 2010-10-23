@@ -11,13 +11,33 @@ module DominoMofo
       @end_with_six.domino.should be_true
     end
     
-    it "returns suit" do
-      @end_with_six.suit.should equal(6)      
+    describe "#identification" do
+      
+      it "should return its suit" do
+        @end_with_six.suit.should equal(6)      
+      end
+      
+      it "should return the other end it's connected to" do
+        @end_with_six.connect_to(@another_end_with_six)
+        @end_with_six.connected_to.should equal(@another_end_with_six)
+      end
     end
     
-    it "tests for suit" do
-      @end_with_six.should be_suit(6)
-      @end_with_six.should_not be_suit(4)
+    describe "#boolean" do
+      
+      it "should know if is of given suit" do
+        @end_with_six.should be_suit(6)
+        @end_with_six.should_not be_suit(4)
+      end
+      
+      it "should know if it's connected" do
+        @end_with_six.connect_to(@another_end_with_six)
+        @end_with_six.should be_connected
+      end
+
+      it "should know if it's open" do
+        @end_with_six.should be_open
+      end
     end
 
     describe "#connection" do
@@ -28,24 +48,7 @@ module DominoMofo
         @end_with_six.connect_to(@another_end_with_six)
         @both_ends_with_sixes.each {|e| e.should be_connected}
         @end_with_six.connected_to.should equal(@another_end_with_six)
-      end
-
-      it "returns end it's connected to" do
-        @end_with_six.connect_to(@another_end_with_six)
-        @end_with_six.connected_to.should equal(@another_end_with_six)
-      end
-      
-      it "tests for connectedness" do
-        @end_with_six.connect_to(@another_end_with_six)
-        @end_with_six.should be_connected
-      end
-
-      it "tests for openness" do
-        @end_with_six.should be_open
-      end
+      end      
     end
-
-    
-
   end
 end
