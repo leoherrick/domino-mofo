@@ -12,9 +12,9 @@ module DominoMofo
         end
       end
 
-      context "if passed optional parameter" do
+      context "when passed '4' as optional parameter" do
         before(:each) {@match = Match.new(4,4)}
-        it "should allow custom number of houses" do
+        it "should have 4 houses" do
           @match.number_of_houses.should equal(4)
         end
       end
@@ -28,9 +28,9 @@ module DominoMofo
         end
       end
 
-      context "if passed optional parameter" do
+      context "when passed '3' as optional parameter" do
         before(:each) {@match = Match.new(3,3)}
-        it "should allow custom number of houses" do
+        it "should have 3 players" do
           @match.players.should have(3).players
         end
       end

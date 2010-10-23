@@ -2,10 +2,10 @@ module DominoMofo
   
   class Double < Domino
     
-    def scoring_pips
-      result = 0
-      @ends.each {|e| result += e.suit}
-      result
+    def score
+      if self.open?
+        self.ends[0].suit + self.ends[1].suit
+      end
     end
     
   end

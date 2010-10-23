@@ -39,16 +39,5 @@ module DominoMofo
         @end_with_six.should be_open
       end
     end
-
-    describe "#connection" do
-
-      it "should connect to another end" do    
-        @both_ends_with_sixes = [@end_with_six, @another_end_with_six]
-
-        @end_with_six.connect_to(@another_end_with_six)
-        @both_ends_with_sixes.each {|e| e.should be_connected}
-        @end_with_six.connected_to.should equal(@another_end_with_six)
-      end      
-    end
   end
 end

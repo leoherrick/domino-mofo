@@ -9,6 +9,10 @@ module DominoMofo
     it "should be of the 'Player' class" do
       subject.kind_of?(Player).should be_true
     end
+
+    it "should have an AI module" do
+      subject.ai.should be_true
+    end 
     
   end
 end

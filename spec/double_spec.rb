@@ -3,18 +3,18 @@ require "spec_helper"
 module DominoMofo
   
   describe Double do
-  
-    let(:six_six) { Double.new(6,6) }
-    let(:five_five) { Double.new(5,5) }
-
-    it "should return all pips if 0 or 1 side is connected" do
-      six_six.scoring_pips.should equal(12)
-      six_five = Domino.new(6,5)
-      six_six.connect_to_domino_by_suit(six_five, 6)
-      six_six.scoring_pips.should equal(12)
+    
+    describe "scores double" do
+      context "when a 5-5 has one open and one closed end" do
+        before(:each) do
+          @five_five = Double.new(5,5)
+          @five_five.find_end_of_suit(5).connected_to = true
+        end
+        
+        it "should add 10 to the score of the board" do
+          @five_five.score.should equal(10)
+        end
+      end
     end
-  
   end
-  
-
 end

@@ -36,7 +36,7 @@ module DominoMofo
         end
       end
       
-      context "in a three player match" do
+      context "when in a 3 player match" do
         it "should have 2 computer players" do
           @match.stub(:number_of_players).and_return(3)
           @match.should_receive(:players=).with(number_of_computer_players(2))

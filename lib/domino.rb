@@ -13,7 +13,7 @@ module DominoMofo
     end
 
     def double?
-      self.class == Double
+      self.kind_of?(Double)
     end
     
     def has_both_ends?(end1, end2)
@@ -29,12 +29,6 @@ module DominoMofo
       @ends.find {|e| e.suit?(suit)}
     end
     
-    def connect_to_domino_by_suit (domino, suit)
-      my_end = self.find_end_of_suit(suit)
-      its_end = domino.find_end_of_suit(suit)
-      my_end.connect_to(its_end)
-    end
-
     def open?
       @ends.any?{|e| e.open?}
     end
@@ -46,5 +40,14 @@ module DominoMofo
     def find_all_open_ends
       @ends.find_all{|e| e.open?}
     end
+    
+    def find_open_end_of_suit suit
+      @ends.find {|e| e.suit?(suit) && e.open?}
+    end
+    
+    def score
+      find_all_open_ends.collect{|e| e.suit}.inject{|sum, x| sum + x}
+    end
+    
   end
 end
