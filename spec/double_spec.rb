@@ -3,17 +3,38 @@ require "spec_helper"
 module DominoMofo
   
   describe Double do
+    let(:four_four) {Double.new(4,4)}
+   
+    describe "return score" do  
+      context "no sides are connected" do
+        it "should pass it's total value on to the board score" do
+          four_four.score.should equal(8)
+        end
+      end
     
-    describe "scores double" do
-      context "when a 5-5 has one open and one closed end" do
+      context "one side is connected" do
+        before(:each) {four_four.ends[0].connected_to = Object.new}
+        it "shoudl pass it's total value on to the board score" do
+          four_four.score.should equal(8)
+        end
+      end
+    
+      context "both sides are connected" do
         before(:each) do
-          @five_five = Double.new(5,5)
-          @five_five.find_end_of_suit(5).connected_to = true
+          four_four.ends[0].connected_to = Object.new
+          four_four.ends[1].connected_to = Object.new
         end
-        
-        it "should add 10 to the score of the board" do
-          @five_five.score.should equal(10)
+      
+        it "should pass no score on to the board score" do
+          four_four.score.should equal(0)
         end
+      end
+    end
+    
+    describe "create Spinner" do
+      it "should create spinner clone of itself" do
+        four_four.should be_kind_of(Double)
+        four_four.create_spinner.should be_kind_of(Spinner)
       end
     end
   end

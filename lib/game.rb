@@ -8,7 +8,7 @@ module DominoMofo
     @queue
     @match
     attr_reader :players, :boneyard, :board, :whose_turn, :houses, :number_of_players, :queue, :match
-    attr_writer :whose_turn
+    attr_writer :whose_turn, :board
     
     def initialize(match = Match.new)
       @match = match

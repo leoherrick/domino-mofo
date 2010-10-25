@@ -4,9 +4,9 @@ module DominoMofo
     
     attr_reader :ai
     
-    def initialize ai = easy
+    def initialize(match)
       super
-      @ai = AiBase.new
+      @ai = AiBase.new(self)
     end
   end
 end
