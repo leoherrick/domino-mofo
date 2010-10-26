@@ -15,24 +15,7 @@ module DominoMofo
     end 
     
     describe "#automatic play" do
-      before(:each) do
-        match = Match.new
-        cpu3 = match.players[2]
-        queue = match.active_game.queue
-        queue.shift_to_player!(cpu3)
-        board = match.active_game.board
-        hand = cpu3.hand
-        hand.clear
-        hand << Domino.new(0,0)
-        board << Domino.new(5,4)
-        boneyard = match.active_game.boneyard
-        
-        @hand = hand
-        @board = board
-        @cpu3 = cpu3
-        @queue = queue
-        @boneyard = boneyard
-      end
+      before(:each) {setup_env}
       
       context "if it has a playable domino" do
         before(:each) { @hand << Domino.new(4,3) }
@@ -160,6 +143,23 @@ module DominoMofo
           end
         end
       end
+    end   
+    def setup_env
+      match = Match.new
+      cpu3 = match.players[2]
+      queue = match.active_game.queue
+      queue.shift_to_player!(cpu3)
+      board = match.active_game.board
+      hand = cpu3.hand
+      hand.clear
+      hand << Domino.new(0,0)
+      board << Domino.new(5,4)
+      boneyard = match.active_game.boneyard
+      @hand = hand
+      @board = board
+      @cpu3 = cpu3
+      @queue = queue
+      @boneyard = boneyard
     end
   end
 end

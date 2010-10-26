@@ -11,7 +11,7 @@ module DominoMofo
       @queue = Queue.new << @player1 << @player2 << @player3 << @player4
     end
     
-    it "should return the player current at turn" do
+    it "should return the player currently at turn" do
       @queue.player_at_turn.should equal(@queue.first)
     end
     

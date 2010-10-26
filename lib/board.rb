@@ -7,7 +7,11 @@ module DominoMofo
     attr_writer :spinner
         
     def suits_in_play
+      if empty?
+        [0,1,2,3,4,5,6]
+      else
       suits_of_ends_in_play.uniq
+      end
     end
     
     def score

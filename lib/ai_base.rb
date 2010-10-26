@@ -9,7 +9,7 @@ module DominoMofo
     end
     
     def playable_dominoes
-      result = Array.new
+      result = DominoGroup.new
       board.suits_in_play.each do |suit|
         result << @player.hand.get_all_dominoes_of_suit(suit)
       end
@@ -23,7 +23,7 @@ module DominoMofo
     def domino_to_play
       playable_dominoes.first
     end
-
+    
     def domino_to_play_on
       suit1 = domino_to_play.ends[0].suit
       suit2 = domino_to_play.ends[1].suit
@@ -34,7 +34,7 @@ module DominoMofo
       end
     end
     
-    def suit_to_connect_with
+    def suit_to_connect
       suit1 = domino_to_play.ends[0].suit
       suit2 = domino_to_play.ends[1].suit
       return board.suits_in_play.include?(suit1) ? suit1 : suit2

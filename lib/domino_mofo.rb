@@ -1,5 +1,4 @@
 #models
-  require 'ai_base'
   require 'domino_connector'
   require 'end'
   require 'game'
@@ -8,6 +7,9 @@
   require 'player_group'
   require 'queue'
   require 'scorecard'
+
+  require 'ai_base'
+    require 'ai_easy' #subclass of AiBase
 
   require 'domino'
     require 'double' #subclass of domino
