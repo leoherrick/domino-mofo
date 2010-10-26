@@ -34,6 +34,12 @@ module DominoMofo
       end
     end
     
+    def suit_to_connect_with
+      suit1 = domino_to_play.ends[0].suit
+      suit2 = domino_to_play.ends[1].suit
+      return board.suits_in_play.include?(suit1) ? suit1 : suit2
+    end
+    
     def board
       @player.match.active_game.board
     end    

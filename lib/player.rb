@@ -18,11 +18,38 @@ module DominoMofo
      self.instance_of?(ComputerPlayer)
    end
       
-   def lead_with_domino(end1, end2)
-     lead_domino = @hand.get_domino_with_ends(end1, end2)
-     @match.active_game.board.place_lead(lead_domino)
-     @hand.remove_domino_with_ends!(end1, end2)
+   def lead_out domino
+     remove_from_hand(domino)
+     bc.lead_out(domino)
+     advance_turn
    end
-    
+   
+   def play_domino_on_board_by_suit (domino_in_hand, domino_on_board, suit)
+     remove_from_hand(domino_in_hand)
+     bc.play_domino_on_board_by_suit(domino_in_hand, domino_on_board, suit)
+     advance_turn
+   end
+   
+   def draw_from_boneyard
+     @hand << @match.active_game.boneyard.draw_one
+   end
+
+   def knock
+     advance_turn
+   end
+      
+   #private
+   
+   def bc #board_controller
+     @match.active_game.board_controller
+   end
+   
+   def remove_from_hand domino
+     @hand.delete(domino)
+   end
+   
+   def advance_turn
+     @match.active_game.queue.shift_queue!
+   end
   end
 end

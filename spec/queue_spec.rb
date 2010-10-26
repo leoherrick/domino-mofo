@@ -11,6 +11,10 @@ module DominoMofo
       @queue = Queue.new << @player1 << @player2 << @player3 << @player4
     end
     
+    it "should return the player current at turn" do
+      @queue.player_at_turn.should equal(@queue.first)
+    end
+    
     it "should move second person to first after turns" do
       expect{
         @queue.shift_queue!        

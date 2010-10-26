@@ -42,10 +42,10 @@ end
     one_three = Domino.new(1,3)
     one_four = Domino.new(1,4)
     one_five = Domino.new(1,5)
-    bc.place_first(one_one)
-    bc.add_domino_to_domino_on_board_by_suit(one_two, board.get_domino_with_ends(1,1), 1)
-    bc.add_domino_to_domino_on_board_by_suit(one_three, board.get_domino_with_ends(1,1), 1)
-    bc.add_domino_to_domino_on_board_by_suit(one_four, board.get_domino_with_ends(1,1), 1)
-    bc.add_domino_to_domino_on_board_by_suit(one_five, board.get_domino_with_ends(1,1), 1)
+    bc.lead_out(one_one)
+    bc.play_domino_on_board_by_suit(one_two, board.get_domino_with_ends(1,1), 1)
+    bc.play_domino_on_board_by_suit(one_three, board.get_domino_with_ends(1,1), 1)
+    bc.play_domino_on_board_by_suit(one_four, board.get_domino_with_ends(1,1), 1)
+    bc.play_domino_on_board_by_suit(one_five, board.get_domino_with_ends(1,1), 1)
     return board
   end

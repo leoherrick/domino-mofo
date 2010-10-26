@@ -6,30 +6,26 @@ module DominoMofo
         
     describe "places first domino on the board" do
 
-      context "when the board is clear" do
+      context "if it places a 4-5 on a clear board" do
+        
         before(:each) do
           @board = Board.new
           @board_controller = BoardController.new(@board)
+          four_five = Domino.new(4,5)
+          @board_controller.lead_out(four_five) 
         end
-        
-        context "and the 4-5 is placed as the first domino" do
-          before(:each) do
-            four_five = Domino.new(4,5)
-            @board_controller.place_first(four_five) 
-          end
-        
-          it "should add one domino to the board" do
-            @board.should have(1).domino
-          end
-        
-          it "should make the suits in play the 4 and 5" do
-            @board.suits_in_play.should include(4)
-            @board.suits_in_play.should include(5)
-          end
-        
-          it "should bring the total board score to 9" do
-            @board.score.should equal(9)
-          end
+          
+        it "should increment the number of dominoes on the board" do
+          @board.should have(1).domino
+        end
+      
+        it "the suits in play should become 4 & 5" do
+          @board.suits_in_play.should include(4)
+          @board.suits_in_play.should include(5)
+        end
+      
+        it "should bring the total board score to 9" do
+          @board.score.should equal(9)
         end
       end
     end
@@ -41,14 +37,14 @@ module DominoMofo
           @board_controller = BoardController.new(@board)
           @one_two = Domino.new(1,2)
           @two_three = Domino.new(2,3)
-          @board_controller.place_first(@one_two) 
-          @board_controller.add_domino_to_domino_on_board_by_suit(@two_three, @one_two, 2) 
+          @board_controller.lead_out(@one_two) 
+          @board_controller.play_domino_on_board_by_suit(@two_three, @one_two, 2) 
         end
       
         context "and the 0-1 is connected to the 1-2" do
           before(:each) do
             @oh_one = Domino.new(0,1)
-            @board_controller.add_domino_to_domino_on_board_by_suit(@oh_one, @one_two, 1) 
+            @board_controller.play_domino_on_board_by_suit(@oh_one, @one_two, 1) 
           end
         
           it "should have 3 dominoes on the board" do
@@ -78,7 +74,7 @@ module DominoMofo
         context "and te 1-1 is connected to the 1-2" do
           before(:each) do
             @one_one = Double.new(1,1)
-            @board_controller.add_domino_to_domino_on_board_by_suit(@one_one, @one_two, 1) 
+            @board_controller.play_domino_on_board_by_suit(@one_one, @one_two, 1) 
           end
         
           it "should have 3 dominoes on the board" do

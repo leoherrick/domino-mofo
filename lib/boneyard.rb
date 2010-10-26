@@ -27,7 +27,6 @@ module DominoMofo
       result = Array.new
       7.times { result << pop }
       return result
-    end
-            
+    end        
   end
 end

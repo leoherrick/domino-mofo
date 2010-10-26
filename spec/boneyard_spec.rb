@@ -32,7 +32,7 @@ module DominoMofo
     end
     
     it "can be drawn from one at a time" do 
-      subject.draw_one.should be_true
+      subject.draw_one.should be_kind_of(Domino)
     end
 
     it "can be drawn from seven at a time" do 

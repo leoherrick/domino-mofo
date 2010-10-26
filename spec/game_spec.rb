@@ -16,6 +16,10 @@ module DominoMofo
       subject.board.should be_true
     end
 
+    it "should have a BoardController" do
+      subject.board_controller.should be_true
+    end
+
     it "should have a Queue" do
       subject.queue.should be_true
     end

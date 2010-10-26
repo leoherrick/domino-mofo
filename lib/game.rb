@@ -1,14 +1,14 @@
 module DominoMofo
   
   class Game
-    @number_of_players
     @players
     @boneyard
     @board
     @queue
     @match
-    attr_reader :players, :boneyard, :board, :whose_turn, :houses, :number_of_players, :queue, :match
-    attr_writer :whose_turn, :board
+    @board_controller
+    attr_reader :players, :boneyard, :board, :queue, :match, :board_controller
+    attr_writer :whose_turn, :board, :boneyard
     
     def initialize(match = Match.new)
       @match = match
@@ -17,7 +17,7 @@ module DominoMofo
       @board = Board.new
       @queue = Queue.new
       @players.each {|p| @queue << p }
-      
+      @board_controller = BoardController.new(@board)
       deal_dominoes
     end
     

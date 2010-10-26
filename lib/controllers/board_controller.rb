@@ -9,12 +9,12 @@ module DominoMofo
       @board = board
     end
     
-    def place_first domino
+    def lead_out domino
       domino = promote_to_spinner_if_need_be(domino)
       add_to_board(domino)
     end
     
-    def add_domino_to_domino_on_board_by_suit (new_dom, dom_on_board, suit)
+    def play_domino_on_board_by_suit (new_dom, dom_on_board, suit)
       new_dom = promote_to_spinner_if_need_be(new_dom)
       add_to_board(new_dom)
       DC.connect_two_dominoes_by_suit(new_dom, dom_on_board, suit)

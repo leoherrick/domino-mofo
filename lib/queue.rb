@@ -2,6 +2,10 @@ module DominoMofo
   
   class Queue < Array
     
+    def player_at_turn
+      first
+    end
+    
     def shift_queue!
       push self.shift
     end
