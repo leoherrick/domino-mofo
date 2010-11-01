@@ -9,7 +9,7 @@ module DominoMofo
     end
 
     it "should belong to a match" do 
-      @scorecard.match.should be_true
+      @scorecard.match.should be_kind_of(Match)
     end    
   end
   

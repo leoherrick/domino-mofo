@@ -2,7 +2,6 @@ module DominoMofo
   
   class BoardController
     
-    @board
     DC = DominoConnector.new
     
     def initialize board
@@ -20,6 +19,8 @@ module DominoMofo
       DC.connect_two_dominoes_by_suit(new_dom, dom_on_board, suit)
     end
 
+    private
+    
     def add_to_board domino
       @board << domino
     end
@@ -29,8 +30,7 @@ module DominoMofo
         return promote_to_spinner(domino)
       else
         return domino
-      end
-      
+      end     
     end
   
     def domino_would_be_spinner? domino

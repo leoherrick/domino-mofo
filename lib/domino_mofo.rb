@@ -1,4 +1,5 @@
 #models
+  require 'announcer'
   require 'domino_connector'
   require 'end'
   require 'game'
@@ -7,7 +8,7 @@
   require 'player_group'
   require 'queue'
   require 'scorecard'
-
+  
   require 'ai_base'
     require 'ai_easy' #subclass of AiBase
 
@@ -27,3 +28,4 @@
 #controllers
   require 'controllers/match_controller'
   require 'controllers/board_controller'
+  require 'controllers/game_controller'

@@ -37,7 +37,7 @@ module DominoMofo
       context "when the 2-3 is connected to the 2-2 by the 2" do
         before(:each) do
           @two_three = Domino.new(2,3)
-          @two_two = Double.new(2,2)
+          @two_two = Double.new(2)
           subject.connect_two_dominoes_by_suit(@two_three, @two_two, 2)
         end
         
@@ -59,7 +59,7 @@ module DominoMofo
           @two_three = Domino.new(2,3)
           @two_four = Domino.new(2,4)
           @two_five = Domino.new(2,5)
-          @two_two = Spinner.new(2,2)
+          @two_two = Spinner.new(2)
           subject.connect_two_dominoes_by_suit(@two_three, @two_two, 2)
           subject.connect_two_dominoes_by_suit(@two_four, @two_two, 2)
           subject.connect_two_dominoes_by_suit(@two_five, @two_two, 2)

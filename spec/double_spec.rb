@@ -3,7 +3,7 @@ require "spec_helper"
 module DominoMofo
   
   describe Double do
-    four_four = Double.new(4,4)
+    four_four = Double.new(4)
    
     describe "#scoring" do
       it "should score all pips if no sides are connected" do

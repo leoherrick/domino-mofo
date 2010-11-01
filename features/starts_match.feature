@@ -1,35 +1,20 @@
 
 Feature: Start a new Match
 
-	As a domino player
+	As a human domino player
 	I want to begin a match of dominos
 	So that I can pass the time away
 	
-	Scenario: MatchController sets up new match
-		Given I initiate a new match
-		When I am welcomed
-			And I am prompted to select my number of opponents
-			And I choose 3 opponents
-			And I am prompted to select the number of houses
-			And I choose 5 houses
-			And the match is started
-		Then I should see "A'ight Playa. Let's do this thing."
-			And an empty scorecard for 4 players should exist
+	Scenario: I have the highest double of the first game of the match
+		Given a match has been setup where I (the human player) has the highest double
+		Then I should be welcomed to the game
+			And I should be asked to begin play with the 6
 	
-	Scenario: MatchController starts first game
-		Given I have started a match with 4 players
-		Then a new game should start
-			And there should be 4 players
-			And each player should have 7 dominoes in their hand
-			And the boneyard should be empty
+	Scenario: One of my computer opponents has the highest double of the first game of the match
+		Given the match has just begun
+			And cpu1 has the highest double
+		Then the announcer should tell me cpu1 has the highest double
+			And cpu1 should automatically lead out with the highest double
+			And each of the other cpu players should automatically play
+			And the announcer should tell me it's my turn
 			
-	Scenario: I have highest pair
-		Given I have started a match with 4 players
-			And I have boxcars
-		When I have the highest pair
-		Then I should be prompted to play
-		
-	Scenario: A computer player has highest pair
-		Given I have started a match with 4 players
-		 	And the computer has the highest pair
-		Then the computer should play that bone on the board

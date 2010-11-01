@@ -1,25 +1,27 @@
 #!/usr/bin/env ruby 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__) 
 require 'domino_mofo' 
+include DominoMofo
 
-match_controller = DominoMofo::MatchController.new(STDOUT) 
-mc = match_controller
-mc.welcome
-mc.ask_for_opponents
-
-while opponents = gets.chomp 
-  break if mc.set_players_from_opponents(opponents) 
-end
-
-match_controller.ask_for_houses
-
-while houses = gets.chomp 
-  break if mc.set_players_from_opponents(houses) 
-end
+match = Match.new
+mc = match.controller
 
 mc.start_match
-mc.say_game_is_ready
-
-if mc.return_player_with_highest_pair.human_player?
-  mc.tell_user_to_lead_with_highest_pair
-end
+mc.match.current_game.controller.make_cpu_moves
+#
+#while opponents = gets.chomp 
+#  break if mc.set_players_from_opponents(opponents) 
+#end
+#
+#match_controller.ask_for_houses
+#
+#while houses = gets.chomp 
+#  break if mc.set_players_from_opponents(houses) 
+#end
+#
+#mc.start_match
+#mc.say_game_is_ready
+#
+#if mc.return_player_with_highest_pair.human_player?
+#  mc.tell_user_to_lead_with_highest_pair
+#end

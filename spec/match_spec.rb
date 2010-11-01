@@ -41,7 +41,7 @@ module DominoMofo
     end
   
     it "should have an active game" do
-      @match.active_game.should be_true
+      @match.current_game.should be_true
     end
   end
 end

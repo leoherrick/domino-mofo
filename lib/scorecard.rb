@@ -5,7 +5,6 @@ module DominoMofo
     
     def initialize match
       @match = match
-    end
-    
+    end    
   end
 end

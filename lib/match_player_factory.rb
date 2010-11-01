@@ -5,17 +5,16 @@ module DominoMofo
     
     def initialize match
       @match = match
-      add_player_group_to_match
     end
     
-    private     
-
-    def add_player_group_to_match
+    def create_player_group
       player_group = PlayerGroup.new
       add_human_players(player_group)
       add_computer_players(player_group)
-      @match.players = player_group
+      player_group
     end
+    
+    private     
     
     def add_human_players player_group
       player_group << HumanPlayer.new(@match)      

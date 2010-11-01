@@ -21,14 +21,14 @@ module DominoMofo
     
       it "should test for double" do
         domino1.should_not be_a_double
-        Double.new(2,2).should be_a_double      
+        Double.new(2).should be_a_double      
       end      
     
       it "should test for both given ends" do
-        domino1.should have_both_ends(1,2)
-        domino1.should have_both_ends(2,1)
-        domino1.should_not have_both_ends(2,2)
-        domino1.should_not have_both_ends(1,4)
+        domino1.should have_both_suits(1,2)
+        domino1.should have_both_suits(2,1)
+        domino1.should_not have_both_suits(2,2)
+        domino1.should_not have_both_suits(1,4)
       end
       
       it "should test for openness" do
@@ -102,7 +102,7 @@ module DominoMofo
       
       context "when a 5-5 has one open and one closed end" do
         before(:each) do
-          @five_five = Double.new(5,5)
+          @five_five = Double.new(5)
           @five_five.find_end_of_suit(5).connected_to = true
         end
   

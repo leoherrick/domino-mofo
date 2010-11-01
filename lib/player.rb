@@ -1,9 +1,8 @@
 module DominoMofo
   
   class Player
-    @hand
-    @match
-    attr_reader :hand, :game, :match
+    attr_reader :game, :match
+    attr_accessor :hand
     
     def initialize match
       @hand = Hand.new
@@ -31,7 +30,7 @@ module DominoMofo
    end
    
    def draw_from_boneyard
-     @hand << @match.active_game.boneyard.draw_one
+     @hand << @match.current_game.boneyard.draw_one
    end
 
    def knock
@@ -41,7 +40,7 @@ module DominoMofo
    #private
    
    def bc #board_controller
-     @match.active_game.board_controller
+     @match.current_game.board.controller
    end
    
    def remove_from_hand domino
@@ -49,7 +48,7 @@ module DominoMofo
    end
    
    def advance_turn
-     @match.active_game.queue.shift_queue!
+     @match.current_game.controller.queue.shift_queue!
    end
   end
 end

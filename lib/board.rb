@@ -1,10 +1,13 @@
 module DominoMofo
   
   class Board < DominoGroup
-    @spinner
     
-    attr_reader :spinner
-    attr_writer :spinner
+    attr_accessor :spinner
+    attr_reader :controller
+    
+    def initialize
+      @controller = BoardController.new(self)
+    end
         
     def suits_in_play
       if empty?

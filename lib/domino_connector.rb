@@ -6,8 +6,7 @@ module DominoMofo
       end1 = domino1.find_open_end_of_suit(suit)
       end2 = domino2.find_open_end_of_suit(suit)
       end1.connect_to(end2)
-    end
-    
+    end    
   end
 end
 

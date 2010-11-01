@@ -10,13 +10,13 @@ module DominoMofo
     it "should have seven of each suit" do 
       SUITS = [1,2,3,4,5,6]
       SUITS.each do |suit|
-        all_dominos_of_suit = subject.get_all_dominoes_of_suit(suit)
+        all_dominos_of_suit = subject.find_all_dominoes_of_suit(suit)
         all_dominos_of_suit.should have(7).dominos
       end  
     end
 
     it "should have seven doubles" do
-      subject.get_all_doubles.should have(7).doubles
+      subject.find_all_doubles.should have(7).doubles
     end
     
     it "should be randomly shuffled" do

@@ -5,20 +5,31 @@ module DominoMofo
     attr_reader :ends
                 
     def initialize(end1, end2)
-      @ends = Array.new << End.new(end1, self) << End.new(end2, self)
+      @ends = Array.new 
+      @ends << End.new(end1, self)
+      @ends << End.new(end2, self)
     end
         
     def has_suit? suit
       @ends.any? {|e| e.suit?(suit)}
     end
 
+    def suit_of_first_end
+      @ends[0].suit
+    end
+
+    def suit_of_second_end
+      @ends[1].suit
+    end
+
+
     def double?
       self.kind_of?(Double)
     end
     
-    def has_both_ends?(end1, end2)
-      if  ( @ends[0].suit?(end1) && @ends[1].suit?(end2) ) || 
-          ( @ends[1].suit?(end1) && @ends[0].suit?(end2) )
+    def has_both_suits?(suit1, suit2)
+      if  ( @ends[0].suit?(suit1) && @ends[1].suit?(suit2) ) || 
+          ( @ends[1].suit?(suit1) && @ends[0].suit?(suit2) )
         true
       else
         false

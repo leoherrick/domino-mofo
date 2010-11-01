@@ -4,7 +4,7 @@ module DominoMofo
 
   describe BoardController do
         
-    describe "places first domino on the board" do
+    describe "place first domino on the board" do
 
       context "if it places a 4-5 on a clear board" do
         
@@ -73,7 +73,7 @@ module DominoMofo
       
         context "and te 1-1 is connected to the 1-2" do
           before(:each) do
-            @one_one = Double.new(1,1)
+            @one_one = Double.new(1)
             @board_controller.play_domino_on_board_by_suit(@one_one, @one_two, 1) 
           end
         
@@ -91,7 +91,7 @@ module DominoMofo
           end
         
           it "should establish the 1-1 as the spinner" do
-            @board.spinner.should have_both_ends(1,1)
+            @board.spinner.should have_both_suits(1,1)
             @board.spinner.should be_kind_of(Spinner)
           end
         end 

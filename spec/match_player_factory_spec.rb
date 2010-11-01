@@ -5,42 +5,38 @@ module DominoMofo
     
     before(:each) do
       @match = double("match")
-      game = double("game")
       
       @match.stub(:number_of_players).and_return(4)
-      @match.stub(:active_game).and_return(game)
-      @match.stub(:players=)
+      @subject = MatchPlayerFactory.new(@match)
     end
 
     it "should belong to a match" do
-      @match_player_factory = MatchPlayerFactory.new(@match)
-      @match_player_factory.match.should be_true
+      @subject.match.should equal(@match)
     end
-
-    it "should add a group of players to a match" do
-      @match.should_receive(:players=).with(instance_of(PlayerGroup))
-      @match_player_factory = MatchPlayerFactory.new(@match)
+    
+    it "should create a group of players for a match" do
+      @subject.create_player_group.should be_kind_of(PlayerGroup)
     end
     
     it "should add one human player to the match" do
-      @match.should_receive(:players=).with(one_human_player)
-      @match_player_factory = MatchPlayerFactory.new(@match)
+      @subject.create_player_group.find_all{|p| p.human_player?}.should have(1).human_player
     end
     
     describe "should add computer players to match" do 
       
       context "by default" do
         it "should have 3 computer players" do
-          @match.should_receive(:players=).with(number_of_computer_players(3))
-          @match_player_factory = MatchPlayerFactory.new(@match)        
+          @match.stub(:number_of_players).and_return(4)
+          @subject = MatchPlayerFactory.new(@match)
+          @subject.create_player_group.find_all{|p| p.computer_player?}.should have(3).computer_players
         end
       end
       
       context "when in a 3 player match" do
         it "should have 2 computer players" do
           @match.stub(:number_of_players).and_return(3)
-          @match.should_receive(:players=).with(number_of_computer_players(2))
-          @match_player_factory = MatchPlayerFactory.new(@match)
+          @subject = MatchPlayerFactory.new(@match)
+          @subject.create_player_group.find_all{|p| p.computer_player?}.should have(2).computer_players
         end
       end
     end

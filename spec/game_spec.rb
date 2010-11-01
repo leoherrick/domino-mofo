@@ -3,56 +3,68 @@ require "spec_helper"
 module DominoMofo
   
   describe Game do 
+    before(:each) do
+      @game = Game.new(Match.new)
+    end
+
 
     it "should belong to a Match" do
-      subject.match.should be_true
+      @game.match.should be_true
     end
           
     it "should have a Boneyard'" do
-      subject.boneyard.should be_true
+      @game.boneyard.should be_true
     end
     
     it "should have a Board" do
-      subject.board.should be_true
+      @game.board.should be_true
     end
 
     it "should have a BoardController" do
-      subject.board_controller.should be_true
+      @game.board.controller.should be_true
     end
-
-    it "should have a Queue" do
-      subject.queue.should be_true
+    
+    describe "#booleans" do
+      it "should know if it's the first game of the match" do
+        match = double("match")
+        match.stub(:players).and_return(PlayerGroup.new)
+        match.stub(:dom).and_return(nil)
+        @game = Game.new(match)
+        @game.should be_first_game
+      end
     end
 
     describe "#players" do
 
       it "should have a group of Players" do
-        subject.players.should be_instance_of(PlayerGroup)
+        @game.players.should be_instance_of(PlayerGroup)
       end
       
       it "should have same player group as the Match it belongs to" do
-        subject.players.should equal(subject.match.players)
+        @game.players.should equal(@game.match.players)
       end
     end
           
     describe "#the deal" do
       
       it "should deal 7 dominos to each player" do
-        subject.players.each{ |player| player.hand.should have(7).dominos }
+        @game.players.each{ |player| player.hand.should have(7).dominos }
       end
       
       context "in match with 4 players" do
         
         it "should have an empty boneyard after the deal" do
-          subject.boneyard.should have(0).bones
+          @game.boneyard.should have(0).bones
         end
       end
       
       context "in match with 2 players" do
-        subject = Game.new(Match.new(2,5))
+        before(:each) do
+          @game = Game.new(Match.new(2,5))
+        end
         
         it "should have 14 remaining bones in the boneyard after the deal" do
-          subject.boneyard.should have(14).bones          
+          @game.boneyard.should have(14).bones          
         end
       end    
     end

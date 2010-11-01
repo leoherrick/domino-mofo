@@ -1,29 +1,20 @@
 module DominoMofo
   
   class Game
-    @players
-    @boneyard
-    @board
-    @queue
-    @match
-    @board_controller
-    attr_reader :players, :boneyard, :board, :queue, :match, :board_controller
-    attr_writer :whose_turn, :board, :boneyard
+    attr_accessor :board, :boneyard
+    attr_reader :players, :match, :controller
     
-    def initialize(match = Match.new)
+    def initialize(match)
       @match = match
       @players = @match.players
       @boneyard = Boneyard.new
       @board = Board.new
-      @queue = Queue.new
-      @players.each {|p| @queue << p }
-      @board_controller = BoardController.new(@board)
-      deal_dominoes
+      @controller = GameController.new(self)
+      @controller.deal_dominoes
     end
     
-    def deal_dominoes
-      @players.each{|player| player.hand.replace @boneyard.draw_seven}
-    end
-    
+    def first_game?
+      @match.dom ? false : true
+    end    
   end
 end

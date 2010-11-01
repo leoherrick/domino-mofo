@@ -3,7 +3,7 @@ require "spec_helper"
 module DominoMofo
   
   describe Spinner do
-    four_four = Spinner.new(4,4)
+    four_four = Spinner.new(4)
     
     it "should have four ends" do
       four_four.ends.should have(4).ends

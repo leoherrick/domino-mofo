@@ -147,14 +147,14 @@ module DominoMofo
     def setup_env
       match = Match.new
       cpu3 = match.players[2]
-      queue = match.active_game.queue
+      queue = match.current_game.controller.queue
       queue.shift_to_player!(cpu3)
-      board = match.active_game.board
+      board = match.current_game.board
       hand = cpu3.hand
       hand.clear
       hand << Domino.new(0,0)
       board << Domino.new(5,4)
-      boneyard = match.active_game.boneyard
+      boneyard = match.current_game.boneyard
       @hand = hand
       @board = board
       @cpu3 = cpu3

@@ -4,7 +4,7 @@ module DominoMofo
  
   describe Board do
         
-    it "should be a kind of domino" do
+    it "should be a kind of domino group" do
       subject.should be_kind_of(DominoGroup)
     end
     
@@ -24,7 +24,7 @@ module DominoMofo
     end
     
     it "should find first domino with playable end of given suit" do
-        @board.find_domino_with_playable_suit(5).should have_both_ends(5,1)
+        @board.find_domino_with_playable_suit(5).should have_both_suits(5,1)
     end
   end
 end
