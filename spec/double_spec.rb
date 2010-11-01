@@ -15,12 +15,5 @@ module DominoMofo
         four_four.score.should equal(8)
       end
     end   
-   
-    describe "#create Spinner" do
-      it "should create spinner clone of itself" do
-        four_four.should be_kind_of(Double)
-        four_four.create_spinner.should be_kind_of(Spinner)
-      end
-    end
   end
 end

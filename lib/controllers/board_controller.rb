@@ -18,7 +18,7 @@ module DominoMofo
       add_to_board(new_dom)
       DC.connect_two_dominoes_by_suit(new_dom, dom_on_board, suit)
     end
-
+    
     private
     
     def add_to_board domino
@@ -38,9 +38,13 @@ module DominoMofo
     end
     
     def promote_to_spinner domino
-      domino = domino.create_spinner
-      @board.spinner = domino
-      return domino
+      spinner = create_spinner(domino)
+      @board.spinner = spinner
+      return spinner
     end  
+    
+    def create_spinner double
+      Spinner.new(double.suit_of_first_end)
+    end
   end
 end

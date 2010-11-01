@@ -5,8 +5,7 @@ module DominoMofo
     def initialize(suit)
       @ends = Array.new 
       2.times { @ends << End.new(suit, self) } 
-    end
-    
+    end 
     
      def score
       num_of_connected_ends = ends.find_all{|e| e.connected?}.length
@@ -16,10 +15,6 @@ module DominoMofo
         0
       end
     end
-
-    def create_spinner
-      domino = Spinner.new(suit_of_first_end)
-    end    
   end
   
 end
