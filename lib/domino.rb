@@ -35,14 +35,13 @@ module DominoMofo
       @ends.any?{|e| e.connected?}
     end
 
-    def find_all_open_ends
-      @ends.find_all{|e| e.open?}
-    end
-     
     def find_end_of_suit suit
      @ends.find {|e| e.suit?(suit)}
     end
-   
+
+    def find_all_open_ends
+      @ends.find_all{|e| e.open?}
+    end
     
     def score
       if open?
