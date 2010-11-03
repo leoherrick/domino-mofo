@@ -68,11 +68,10 @@ module DominoMofo
       end
     end    
     
-      
     describe "#find_end_of_suit" do
       it "should return the End object with given suit belonging to given domino" do
         one_two.find_end_of_suit(2).should be_kind_of(End)
-        one_two.find_end_of_suit(2).suit.should equal(2)
+        one_two.find_end_of_suit(2).should be_a_suit(2)
       end
       it "should return nil if no ends of domino match given suit" do
         one_two.find_end_of_suit(5).should be_nil

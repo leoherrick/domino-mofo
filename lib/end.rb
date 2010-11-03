@@ -1,9 +1,6 @@
 module DominoMofo
   
   class End
-    @suit
-    @domino
-    @connected_to
     attr_reader :suit, :connected_to, :domino
     attr_writer :connected_to
     

@@ -7,36 +7,40 @@ module DominoMofo
       @another_end_with_six = End.new(6, Domino.new(6,5))
     end
 
-    it "belongs to a domino" do
+    it "should belongs to a domino" do
       @end_with_six.domino.should be_true
     end
     
-    describe "#identification" do
-      
-      it "should return its suit" do
-        @end_with_six.suit.should equal(6)      
+    it "should return suit" do
+      @end_with_six.suit.should equal(6)
+    end
+    
+    describe "#suit?" do
+      it "should return true if suit matches given suit" do
+        @end_with_six.suit?(6).should be_true      
       end
-      
-      it "should return the other end it's connected to" do
-        @end_with_six.connect_to(@another_end_with_six)
-        @end_with_six.connected_to.should equal(@another_end_with_six)
+      it "should return false  if suit doesn't match given suit" do
+        @end_with_six.suit?(5).should be_false
       end
     end
     
-    describe "#boolean" do
-      
-      it "should know if is of given suit" do
-        @end_with_six.should be_suit(6)
-        @end_with_six.should_not be_suit(4)
-      end
-      
-      it "should know if it's connected" do
+    describe "#connected?" do
+      it "should return true if it's connected to another side" do
         @end_with_six.connect_to(@another_end_with_six)
-        @end_with_six.should be_connected
+        @end_with_six.should be_connected        
       end
-
-      it "should know if it's open" do
+      it "should return false if it's not connected" do
+        @end_with_six.should_not be_connected        
+      end
+    end
+    
+    describe "#open?" do
+      it "should return true if it's not connected" do
         @end_with_six.should be_open
+      end      
+      it "should return false if it's connected to another side" do
+        @end_with_six.connect_to(@another_end_with_six)
+        @end_with_six.should_not be_open        
       end
     end
   end
