@@ -6,7 +6,7 @@ module DominoMofo
     before(:each) do
       @match = Match.new
       @cpu3 = @match.players[2]
-      @match.current_game.controller.queue.shift_to_player!(@cpu3)
+      @match.current_game.queue.shift_to_player!(@cpu3)
       @board = @match.current_game.board
     end
 
@@ -60,7 +60,7 @@ module DominoMofo
           expect {
             @cpu3.knock
           }.to change {
-            @match.current_game.controller.queue.index(@cpu3)
+            @match.current_game.queue.index(@cpu3)
           }.from(0).to(3)
         end
       end
@@ -93,7 +93,7 @@ module DominoMofo
           expect {
             @cpu3.knock
           }.to change {
-            @match.current_game.controller.queue.index(@cpu3)
+            @match.current_game.queue.index(@cpu3)
           }.from(0).to(3)
         end
       end
@@ -124,7 +124,7 @@ module DominoMofo
           expect {
             @cpu3.draw_from_boneyard
           }.to change {
-            @match.current_game.controller.queue.index(@cpu3)
+            @match.current_game.queue.index(@cpu3)
           }.by(0)
         end
 
@@ -136,7 +136,7 @@ module DominoMofo
           expect {
             @cpu3.knock
           }.to change {
-            @match.current_game.controller.queue.index(@cpu3)
+            @match.current_game.queue.index(@cpu3)
           }.from(0).to(3)
         end
       end

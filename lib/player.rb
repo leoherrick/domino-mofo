@@ -19,13 +19,13 @@ module DominoMofo
       
    def lead_out domino
      remove_from_hand(domino)
-     bc.lead_out(domino)
+     board.lead_out(domino)
      advance_turn
    end
    
    def play_domino_on_board_by_suit (domino_in_hand, domino_on_board, suit)
      remove_from_hand(domino_in_hand)
-     bc.play_domino_on_board_by_suit(domino_in_hand, domino_on_board, suit)
+     board.play_domino_on_board_by_suit(domino_in_hand, domino_on_board, suit)
      advance_turn
    end
    
@@ -39,8 +39,8 @@ module DominoMofo
       
    #private
    
-   def bc #board_controller
-     @match.current_game.board.controller
+   def board #board_controller
+     @match.current_game.board
    end
    
    def remove_from_hand domino
@@ -48,7 +48,7 @@ module DominoMofo
    end
    
    def advance_turn
-     @match.current_game.controller.queue.shift_queue!
+     @match.current_game.queue.shift_queue!
    end
   end
 end

@@ -1,16 +1,13 @@
 #models
   require 'announcer'
-  require 'domino_connector'
   require 'end'
   require 'game'
   require 'match'
-  require 'match_player_factory'
   require 'player_group'
-  require 'queue'
+  require 'turn_queue'
   require 'scorecard'
   
-  require 'ai_base'
-    require 'ai_easy' #subclass of AiBase
+  require 'ai'
 
   require 'domino'
     require 'double' #subclass of domino
@@ -25,7 +22,3 @@
     require 'computer_player' #subclass of player
     require 'human_player' #subclass of player
 
-#controllers
-  require 'controllers/match_controller'
-  require 'controllers/board_controller'
-  require 'controllers/game_controller'

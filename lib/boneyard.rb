@@ -15,18 +15,20 @@ module DominoMofo
       wash!
     end
 
-    def wash!
-      size.downto(1) { |n| push delete_at(rand(n)) }
-    end
-
     def draw_one
       pop
     end
 
     def draw_seven
-      result = Array.new
+      result = DominoGroup.new
       7.times { result << pop }
       result
     end        
+    
+    private 
+    
+    def wash!
+      size.downto(1) { |n| push delete_at(rand(n)) }
+    end
   end
 end

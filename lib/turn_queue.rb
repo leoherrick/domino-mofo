@@ -1,6 +1,6 @@
 module DominoMofo
   
-  class Queue < PlayerGroup
+  class TurnQueue < PlayerGroup
     
     def shift_queue!
       push self.shift

@@ -36,6 +36,30 @@ module DominoMofo
       end
     end
     
+    it "should create a group of players for a match" do
+      @match.players.should be_kind_of(PlayerGroup)
+    end
+    
+    it "should add one human player to the match" do
+      @match.players.find_all{|p| p.human_player?}.should have(1).human_player
+    end
+    
+    describe "should add computer players to match" do 
+      
+      context "by default" do
+        it "should have 3 computer players" do
+          @match.players.find_all{|p| p.computer_player?}.should have(3).computer_players
+        end
+      end
+      
+      context "when in a 3 player match" do
+        it "should have 2 computer players" do
+          @match = Match.new(players = 3, houses = 3)
+          @match.players.find_all{|p| p.computer_player?}.should have(2).computer_players
+        end
+      end
+    end
+    
     it "should have a scorecard" do
       @match.scorecard.should be_true
     end

@@ -2,13 +2,13 @@ require "spec_helper"
 
 module DominoMofo
   
-  describe Queue do
+  describe TurnQueue do
     before(:each) do
       @player1 = double('player1')
       @player2 = double('player2')
       @player3 = double('player3')
       @player4 = double('player4')
-      @queue = Queue.new << @player1 << @player2 << @player3 << @player4
+      @queue = TurnQueue.new << @player1 << @player2 << @player3 << @player4
     end
         
     it "should move second person to first after turns" do

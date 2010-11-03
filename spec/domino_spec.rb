@@ -7,11 +7,11 @@ module DominoMofo
     let(:domino1) { Domino.new(1,2) }
     let(:domino2) { Domino.new(2,3) }
         
-    it "has two ends" do
+    it "should have two ends" do
       domino1.ends.should have(2).ends
     end
     
-    describe "#booleans" do
+    describe "#boolean methods" do
     
       it "should test for suit" do
         domino1.should have_suit(2)
@@ -36,13 +36,12 @@ module DominoMofo
       end
     
       it "should test for connectedness" do
-        dc = DominoConnector.new
-        dc.connect_two_dominoes_by_suit(domino1, domino2, 2)
+        domino1.connect_to_another_domino_by_suit(domino2, 2)
         domino1.should be_connected
       end
     end
     
-    describe "#find" do    
+    describe "#find methods" do    
       
       describe "find end of given suit" do
         context "when domino is the 1-2" do
@@ -72,7 +71,7 @@ module DominoMofo
         end
       end
       
-      describe "finds open end of given suit" do
+      describe "find first open end of given suit" do
         context "when a 5-5 has one open and one closed end" do
           before(:each) do
             @five_five = Domino.new(5,5)

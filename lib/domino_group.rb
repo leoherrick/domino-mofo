@@ -17,7 +17,7 @@ module DominoMofo
     
     def find_highest_double
       if doubles = find_all_doubles
-        doubles.max{|a,b| a.suit_of_first_end <=> b.suit_of_first_end }
+        doubles.max{|a,b| a.suit_of_end1 <=> b.suit_of_end1 }
       end
     end
     

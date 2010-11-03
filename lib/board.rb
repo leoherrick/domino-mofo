@@ -2,35 +2,44 @@ module DominoMofo
   
   class Board < DominoGroup
     
-    attr_accessor :spinner
-    attr_reader :controller
-    
-    def initialize
-      @controller = BoardController.new(self)
+    def dominoes_in_play
+      domino_group = DominoGroup.new
+      find_all{|domino| domino.open?}.each do |open_domino|
+        domino_group << open_domino
+      end
+      domino_group
     end
-        
+            
     def suits_in_play
       if empty?
-        [0,1,2,3,4,5,6]
+        (0..6)
       else
-      suits_of_ends_in_play.uniq
+        ends_in_play.collect{|e| e.suit}.uniq
       end
     end
-    
-    def score
-      collect_scores_of_dominoes_in_play.inject{|sum, x| sum + x}
+
+    def total_score
+      domino_scores = dominoes_in_play.collect{|domino| domino.score}
+      domino_scores.inject{|sum, x| sum + x}
     end
     
-    def find_domino_with_playable_suit suit
+    def lead_out domino
+      domino = promote_to_spinner_if_need_be(domino)
+      add_to_board(domino)
+    end
+    
+    def play_domino_on_board_by_suit (new_dom, dom_on_board, suit)
+      new_dom = promote_to_spinner_if_need_be(new_dom)
+      add_to_board(new_dom)
+      new_dom.connect_to_another_domino_by_suit(dom_on_board, suit)
+    end
+    
+    def playable_domino_of_suit suit
       ends_in_play.find{|e| e.suit == suit}.domino
-    end
-
-#private    
-
-    def suits_of_ends_in_play
-      ends_in_play.collect{|e| e.suit}
-    end
-
+    end    
+   
+    private    
+    
     def ends_in_play
       result = Array.new
       dominoes_in_play.each do |dom|
@@ -38,15 +47,21 @@ module DominoMofo
           result << e
         end
       end
-      return result
-    end
-      
-    def dominoes_in_play
-      self.find_all{|domino| domino.open?}
+      result
     end
     
-    def collect_scores_of_dominoes_in_play
-      dominoes_in_play.collect{|domino| domino.score}
-    end     
+    def promote_to_spinner_if_need_be domino
+      if @spinner == nil && domino.double?
+        @spinner = Spinner.new(domino.suit_of_end1)
+      else
+        domino
+      end     
+    end
+      
+    def add_to_board domino
+      domino = promote_to_spinner_if_need_be(domino)
+      self << domino
+    end
+    
   end
 end

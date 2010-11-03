@@ -19,10 +19,6 @@ module DominoMofo
     it "should have a Board" do
       @game.board.should be_true
     end
-
-    it "should have a BoardController" do
-      @game.board.controller.should be_true
-    end
     
     describe "#booleans" do
       it "should know if it's the first game of the match" do
