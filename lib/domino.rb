@@ -14,15 +14,6 @@ module DominoMofo
       @ends.any? {|e| e.suit?(suit)}
     end
 
-    def suit_of_end1
-      @ends[0].suit
-    end
-
-    def suit_of_end2
-      @ends[1].suit
-    end
-
-
     def double?
       self.kind_of?(Double)
     end
@@ -35,11 +26,7 @@ module DominoMofo
         false
       end
     end
-    
-    def find_end_of_suit suit
-      @ends.find {|e| e.suit?(suit)}
-    end
-    
+        
     def open?
       @ends.any?{|e| e.open?}
     end
@@ -51,10 +38,11 @@ module DominoMofo
     def find_all_open_ends
       @ends.find_all{|e| e.open?}
     end
-    
-    def find_open_end_of_suit suit
-      @ends.find {|e| e.suit?(suit) && e.open?}
+     
+    def find_end_of_suit suit
+     @ends.find {|e| e.suit?(suit)}
     end
+   
     
     def score
       if open?
@@ -65,10 +53,22 @@ module DominoMofo
     end
     
     def connect_to_another_domino_by_suit(other_domino, suit)
-      end1 = self.find_open_end_of_suit(suit)
+      end1 = find_open_end_of_suit(suit)
       end2 = other_domino.find_open_end_of_suit(suit)
       end1.connect_to(end2)
     end    
+    
+    def find_open_end_of_suit suit
+      @ends.find {|e| e.suit?(suit) && e.open?}
+    end
+    
+    def suit_of_end1
+      @ends[0].suit
+    end
+
+    def suit_of_end2
+      @ends[1].suit
+    end
     
     
   end
