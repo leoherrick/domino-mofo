@@ -57,12 +57,11 @@ DominoMofo::Boneyard
 DominoMofo::ComputerPlayer
   should be of the 'Player' class
   should have AI
-  #automatic play
+  #make_best_play
     if it has a playable domino
-      #play domino
-        should increase number of dominoes on the board by one
-        should reduce the number of dominoes in a player's hand by one
-        should send them to the back of the queue
+      should increase number of dominoes on the board by one
+      should reduce the number of dominoes in a player's hand by one
+      should send them to the back of the queue
     if it has no playable dominoes
       #draw from the boneyard
         if the boneyard returns a playable domino
@@ -81,57 +80,68 @@ DominoMofo::ComputerPlayer
             should go to the back of the queue
 
 DominoMofo::DominoGroup
-  #booleans
-    should test for domino with given ends
-  #find
-    should find all dominos of suit
-    should find all doubles
-    should find domino with given ends
-  #removal
-    should remove domino with given ends
+  #has_domino_with_suits
+    should return true if group has dominoes with the given suits
+    should return false if given two suits not found together in group
+  #find_all_dominoes_of_suit
+    should return another DominoGroup with just those dominos matching the given the suit
+  #find_all_doubles
+    should return another DominoGroup with just the Doubles
+  #find_domino_with_suits
+    should return a single Domino from the group matching the given suits
+  #remove_domino_with_suits!
+    should remove domino with given ends from the group and return that group
 
 DominoMofo::Domino
   should have two ends
-  #boolean methods
-    should test for suit
-    should test for double
-    should test for both given ends
-    should test for openness
-    should test for connectedness
-  #find methods
-    find end of given suit
-      when domino is the 1-2
-        should return the 2-end if provided a 2
-    finds all open ends
-      when domino has two open ends
-        should return two ends
-      when domino has one open end
-        should return just one end
-    find first open end of given suit
-      when a 5-5 has one open and one closed end
-        should return the open end
+  #has_suit?
+    should return true if one of domino's ends matches given suit
+    should return false if none of domino's ends matches given suit
+  #double?
+    should return true if given domino is a Double class
+    should return false if given domino is not a Double class
+  #has_both_suits?
+    should return true if has an end with suit matching both suits given
+    should return false if only one or fewer ends match
+  #open?
+    should return true if 1+ ends are not connected
+    should reutrn false if both ends are connected
+  #connected?
+    should return true if 1+ ends are connected
+    should return false if no ends are connected
+  #find_end_of_suit
+    should return the End object with given suit belonging to given domino
+    should return nil if no ends of domino match given suit
+  #find_all_open_ends
+    should return two ends if given domino has two open ends
+    should return one ends if given domino has one open ends
+    should return [] if given domino has no open ends
   #score
-    when a 5-4 has an open 4-end and closed 5-end
-      should add 4 to the score of the board
-    when a 5-5 has one open and one closed end
-      should add 10 to the score of the board
+    should return all pips of a domino with two open ends
+    should return pips only from open side (if other side is connected)
+    should return 0 if both sides are connected
+  #connect_to_another_domino_by_suit
+    should connect correct end of self
+    should connect correct end of other domino
 
 DominoMofo::Double
-  should have two ends
-  #scoring
-    should score all pips if no ends are connected
-    should score all pips if one end is connected
+  should be kind of Domino
+  #score
+    should score all pips if either 0 or 1 ends are connected
     should score no pips if both ends are connected
 
 DominoMofo::End
-  belongs to a domino
-  #identification
-    should return its suit
-    should return the other end it's connected to
-  #boolean
-    should know if is of given suit
-    should know if it's connected
-    should know if it's open
+  should belongs to a domino
+  should return suit
+  #suit?
+    should return true if suit matches given suit
+    should return false  if suit doesn't match given suit
+  #connected?
+    should return true if it's connected to another side
+    should return false if it's not connected
+  #open?
+    should return true if it's not connected
+    should return false if it's connected to another side
 
 DominoMofo::Game
   should belong to a Match
@@ -216,3 +226,6 @@ DominoMofo::TurnQueue
   should move second person to first after turns
   should move first person to last after turns
   should shift queue to a given player
+
+Finished in 0.23392 seconds
+134 examples, 0 failures
