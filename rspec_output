@@ -1,110 +1,218 @@
-DominoMofo::AIEasy
-  should play the best domino
+DominoMofo::Ai
+  #has_play?
+    should be true if has 1+ playable dominoes in its hand
+    should be false if none of the suits in it's hand match suits on the board
+    should be false if the only matching suits in it's hand, match closed ends on the board
+    should be true if board is empty but has dominoes in its hand
+  #domino_to_play
+    should return first domino if it has >1 playable dominoes in its hand
+  #domino_to_play_on
+    should pick the first domino with open end matching the suit of the domino to play
+  #suit_to_connect
+    should pick suit matching one end of the domino_to_play and an open end of the domino_to_play_on
+
+DominoMofo::Announcer
+  should welcome the player
+  should ask for number of houses
+  should ask for number of opponents
+  should issue a 'game started' success message
+  should ask player to play the double of a given number
+  should say that the cpu has moved
+  should say it's the human player's turn
 
 DominoMofo::Board
-  holds dominoes
-  accepts a lead-out domino
+  should be a kind of domino group
+  playable_domino_of_suit
+  #dominoes_in_play
+    should return all dominoes with 1+ open ends
+    should not return dominoes on board with two ends
+  #suits_in_play
+    should know what suits are in play
+    should know the spinner is still in play if it has less than 4 closed sides
+  #score
+    should add scores of all scoring dominoes
+    should not add the spinner's score if it has 3 closed ends
+    should count boths sides of doubles if they're on the ends
+  #lead_out
+    should add a domino to the board
+    should promote it to a spinner if it's a double
+  #play_domino_on_board_by_suit
+    should add a domino to the board
+    should connect both ends of the dominoes involved
+    should change the score
+    should promote a domino to spinner if it's the first double
 
 DominoMofo::Boneyard
-  should have 28 dominos
+  should have 28 dominoes
   should have seven of each suit
   should have seven doubles
   should be randomly shuffled
-  can be drawn from one at a time
-  can be drawn from seven at a time
+  #draw_one
+    should return one domino
+    should change the size of the boneyard by -1
+  #draw_seven
+    should return a domino group of 7 dominoes
+    should change the size of the boneyard by -7
 
 DominoMofo::ComputerPlayer
-  should be a computer
-  should have a hand
-  has an AI module for deciding what domino to play
-  should play
+  should be of the 'Player' class
+  should have AI
+  #automatic play
+    if it has a playable domino
+      #play domino
+        should increase number of dominoes on the board by one
+        should reduce the number of dominoes in a player's hand by one
+        should send them to the back of the queue
+    if it has no playable dominoes
+      #draw from the boneyard
+        if the boneyard returns a playable domino
+          should increase number of dominoes on the board by one
+          should not change the number of dominoes in a player's hand
+          should send them to the back of the queue
+        if the boneyard returns three garbage bones before a valid one
+          #draw until play is made
+            should increase the number of dominoes on the board by one
+            should increase the number of dominoes in the player's hand by three
+            should go to the back of the queue
+        if the boneyard has no bones
+          should knock
+            should not increase the number of dominoes on the board
+            should not increase the number of dominoes in the player's hand
+            should go to the back of the queue
 
 DominoMofo::DominoGroup
-  can retrieve all dominos of a suit
-  can retrieve all doubles
-  can retrieve a domino with given sides
-  knows if has domino with given sides
-  should remove a domino with given sides
+  #booleans
+    should test for domino with given ends
+  #find
+    should find all dominos of suit
+    should find all doubles
+    should find domino with given ends
+  #removal
+    should remove domino with given ends
 
 DominoMofo::Domino
+  should have two ends
+  #boolean methods
+    should test for suit
+    should test for double
+    should test for both given ends
+    should test for openness
+    should test for connectedness
+  #find methods
+    find end of given suit
+      when domino is the 1-2
+        should return the 2-end if provided a 2
+    finds all open ends
+      when domino has two open ends
+        should return two ends
+      when domino has one open end
+        should return just one end
+    find first open end of given suit
+      when a 5-5 has one open and one closed end
+        should return the open end
+  #score
+    when a 5-4 has an open 4-end and closed 5-end
+      should add 4 to the score of the board
+    when a 5-5 has one open and one closed end
+      should add 10 to the score of the board
+
+DominoMofo::Double
+  should have two ends
+  #scoring
+    should score all pips if no ends are connected
+    should score all pips if one end is connected
+    should score no pips if both ends are connected
+
+DominoMofo::End
+  belongs to a domino
   #identification
-    knows if is of suit
-    knows if is double
-    knows if it is a certian domino
+    should return its suit
+    should return the other end it's connected to
+  #boolean
+    should know if is of given suit
+    should know if it's connected
+    should know if it's open
 
 DominoMofo::Game
-  should have 1 human player
-  should have a 'Boneyard'
-  should have a board
-  #the queue
-    should have 4 players
-    should have the human first
+  should belong to a Match
+  should have a Boneyard'
+  should have a Board
+  #booleans
+    should know if it's the first game of the match
+  #players
+    should have a group of Players
+    should have same player group as the Match it belongs to
   #the deal
     should deal 7 dominos to each player
-  by default
-    should have 4 players
-    should have 3 computer players
-    should have an empty boneyard
-  #with custom number of players
-    should create game with only a given number of players
-    should have a boneyard with 7 - 14 dominoes
+    in match with 4 players
+      should have an empty boneyard after the deal
+    in match with 2 players
+      should have 14 remaining bones in the boneyard after the deal
 
 DominoMofo::Hand
+  should be a kind of DominoMofo::DominoGroup
 
 DominoMofo::HumanPlayer
-  should be human
-  should have a hand
-
-DominoMofo::MatchController
-  #begin game
-    should welcome the player
-    should ask for number of opponents
-    should set players from opponents
-    should ask for number of houses
-    should set houses
-    should create a match object
-    should issue a 'game started' success message
-    find player with highest bone
-    two player game
-      p1 has the 3-3, cpu1 has the 1-1
-        should know the highest double is 'poison ivy'
-        should know p1 is holding it
-        should know p1 is a human
-      p1 has the 3-3, cpu1 has the 5-5
-        should know the highest double is 5-5
-        should know cpu1 is holding it
-        should know cpu1 is a computer
+  should be a kind of DominoMofo::Player
 
 DominoMofo::Match
+  should create a group of players for a match
+  should add one human player to the match
   should have a scorecard
   should have an active game
-  #default setup
-    should have a scorecard w/ 4 players and 3 houses
-  #with custom number of players and houses
-    should have a scorecard w/ 3 players and 5 houses
-
-DominoMofo::MatchPlayerFactory
-  should create a player group object
-  should create a player group with one and only one human per group
-  should create player group with all computer players except one
-  should add game object to each player
+  number of houses
+    by default
+      should have 3 houses
+    when passed '4' as optional parameter
+      should have 4 houses
+  number of players
+    by default
+      should have 4 players
+    when passed '3' as optional parameter
+      should have 3 players
+  should add computer players to match
+    by default
+      should have 3 computer players
+    when in a 3 player match
+      should have 2 computer players
 
 DominoMofo::PlayerGroup
-  should return player with given domino
+  should return a player with a given domino
+  should return the player with the highest pair
 
 DominoMofo::Player
-  should have a hand of dominoes
-  should belong to a game
-  should know if it's human
-  should know if it's a computer controlled player
-  should be able to lead with given domino
+  should have a hand (of dominoes)
+  should belong to a match
+  #boolean
+    should know if it's in instance of the Human class
+    should know if it's in instance of the Computer class
+  #game play
+    #leading out
+      should increase number of dominoes on the board by one
+      should reduce the number of dominoes in a player's hand by one
+      should send them to the back of the queue
+    #playing dominoes
+      should increase number of dominoes on the board by one
+      should reduce the number of dominoes in a player's hand by one
+      should send them to the back of the queue
+    #drawing from the boneyard
+      should reduce the number of dominoes in the boneyard by one
+      should increase the number of dominoes in a player's hand by one
+      should not chnage their position in the queue
+    #knocking
+      should send them to the back of the queue
 
-DominoMofo::Queue
+DominoMofo::Scorecard
+  should belong to a match
+
+DominoMofo::Spinner
+  should have four ends
+  #score
+    should score all pips if no sides are connected
+    should score all pips if one side is connected
+    should score no pips score if 2 thru 4 sides are connected
+
+DominoMofo::TurnQueue
   should move second person to first after turns
   should move first person to last after turns
   should shift queue to a given player
-
-DominoMofo::Scorecard
-
-Finished in 0.10851 seconds
-64 examples, 0 failures
