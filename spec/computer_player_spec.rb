@@ -14,37 +14,33 @@ module DominoMofo
       subject.ai.should be_true
     end 
     
-    describe "#automatic play" do
+    describe "#make_best_play" do
       before(:each) {setup_env}
-      
       context "if it has a playable domino" do
         before(:each) { @hand << Domino.new(4,3) }
-
-        describe "#play domino" do
-          it "should increase number of dominoes on the board by one" do
-            expect {
-              @cpu3.make_best_play
-            }.to change {
-              @board.length
-            }.by(1)
-          end
-
-          it "should reduce the number of dominoes in a player's hand by one" do
-            expect {
-              @cpu3.make_best_play
-            }.to change {
-              @hand.length
-            }.by(-1)
-          end
-
-          it "should send them to the back of the queue" do
-            expect {
-              @cpu3.make_best_play
-            }.to change {
-              @queue.index(@cpu3)
-            }.from(0).to(3)
-          end          
+        it "should increase number of dominoes on the board by one" do
+          expect {
+            @cpu3.make_best_play
+          }.to change {
+            @board.length
+          }.by(1)
         end
+
+        it "should reduce the number of dominoes in a player's hand by one" do
+          expect {
+            @cpu3.make_best_play
+          }.to change {
+            @hand.length
+          }.by(-1)
+        end
+
+        it "should send them to the back of the queue" do
+          expect {
+            @cpu3.make_best_play
+          }.to change {
+            @queue.index(@cpu3)
+          }.from(0).to(3)
+        end          
       end
       
       context "if it has no playable dominoes" do

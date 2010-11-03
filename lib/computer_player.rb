@@ -5,8 +5,7 @@ module DominoMofo
     attr_reader :ai
     
     def initialize (match)
-      @hand = Hand.new
-      @match = match
+      super
       @ai = Ai.new(self)
     end
     

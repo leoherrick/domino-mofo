@@ -16,36 +16,45 @@ module DominoMofo
        Double.new(6)
       )
     end
-    
-    describe "#booleans" do
-      
-      it "should test for domino with given ends" do
+
+    describe "#has_domino_with_suits" do
+
+      it "should return true if group has dominoes with the given suits" do
         @standard_set_of_dominoes.should have_domino_with_suits(6,6)
         @standard_set_of_dominoes.should have_domino_with_suits(1,0)
+      end
+      it "should return false if given two suits not found together in group" do
         @standard_set_of_dominoes.should_not have_domino_with_suits(6,7)
       end
     end
     
-    describe "#find" do
-      it "should find all dominos of suit" do
+    describe "#find_all_dominoes_of_suit" do
+      it "should return another DominoGroup with just those dominos matching the given the suit" do
         all_sixes = @standard_set_of_dominoes.find_all_dominoes_of_suit(6)
         all_sixes.should have(7).dominos
+        all_sixes.should be_kind_of(DominoGroup)
       end
+    end
 
-      it "should find all doubles" do
+    describe "#find_all_doubles" do
+      it "should return another DominoGroup with just the Doubles" do
         all_doubles = @standard_set_of_dominoes.find_all_doubles
         all_doubles.should have(7).dominos
+        all_doubles.should be_kind_of(DominoGroup)
       end
-
-      it "should find domino with given ends" do
+    end
+    
+    describe "#find_domino_with_suits" do
+      it "should return a single Domino from the group matching the given suits" do
         boxcars = @standard_set_of_dominoes.find_domino_with_suits(6,6)
-        boxcars.should be_true
+        boxcars.should have_both_suits(6,6)
+        boxcars.should be_kind_of(Domino)
       end      
     end
     
-    describe "#removal" do
+    describe "#remove_domino_with_suits!" do
     
-      it "should remove domino with given ends" do
+      it "should remove domino with given ends from the group and return that group" do
         expect {
           @standard_set_of_dominoes.remove_domino_with_suits!(6,6)
         }.to change {

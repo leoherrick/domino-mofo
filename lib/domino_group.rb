@@ -2,12 +2,25 @@ module DominoMofo
   
   class DominoGroup < Array 
         
+    def has_domino_with_suits?(suit1, suit2)
+      result = self.find {|domino| domino.has_both_suits?(suit1, suit2)}
+      result ? true : false
+    end
+    
     def find_all_dominoes_of_suit suit
-      self.find_all { |domino| domino.has_suit?(suit) }
+      domino_group = DominoGroup.new
+      find_all { |domino| domino.has_suit?(suit) }.each do |domino|
+        domino_group << domino
+      end
+      domino_group
     end
 
     def find_all_doubles
-      self.find_all { |domino| domino.double? }      
+      domino_group = DominoGroup.new
+      find_all { |domino| domino.double? }.each do |domino|
+        domino_group << domino
+      end
+      domino_group
     end
     
     def find_domino_with_suits(suit1, suit2)
@@ -21,10 +34,6 @@ module DominoMofo
       end
     end
     
-    def has_domino_with_suits?(suit1, suit2)
-      result = self.find {|domino| domino.has_both_suits?(suit1, suit2)}
-      result ? true : false
-    end
         
     def remove_domino_with_suits!(suit1, suit2)
       domino_to_remove = self.find {|domino| domino.has_both_suits?(suit1, suit2)}
