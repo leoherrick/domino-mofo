@@ -67,5 +67,12 @@ module DominoMofo
     it "should have an active game" do
       @match.current_game.should be_true
     end
+    
+    describe "self reflection" do 
+      it "should know who the current player is" do
+        @match.current_player.should be_kind_of(Player)
+      end
+    end
+    
   end
 end

@@ -5,9 +5,7 @@ include DominoMofo
 
 match = Match.new
 @input = STDIN
-@command_list = ["left", "right", "go", "back",
-                 "shoot", "check", "look", "pew",
-                 "pewpew", "exit", "map", "forward"]
+@command_list = ["hand", "test", "exit"]
 
 match.start_match
 match.current_game.make_cpu_moves
@@ -16,14 +14,20 @@ def get_command
   temp_command = @input.gets
   temp_command.chomp!
   if @command_list.index(temp_command) != nil then
-          @command = temp_command
+    @command = temp_command
   end
 end
 
 
 while @command != "exit"
   get_command
-  puts @command
+  if @command == "hand"
+    dominoes = match.current_player.hand
+    announcer = match.announcer
+    announcer.return_message(dominoes)
+  elsif
+    puts @command
+  end
 end
 
 

@@ -45,6 +45,5 @@ module DominoMofo
     def return_message(msg)
       @output.puts(msg)
     end
-  
   end
 end

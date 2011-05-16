@@ -29,6 +29,10 @@ module DominoMofo
     def change_output output
       @announcer = Announcer.new(output)
     end
+    
+    def current_player
+      @current_game.queue[0]
+    end
         
     private     
     
