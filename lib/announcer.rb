@@ -42,5 +42,9 @@ module DominoMofo
       @output.puts("It's your turn, please make a play.")
     end
   
+    def return_message(msg)
+      @output.puts(msg)
+    end
+  
   end
 end
