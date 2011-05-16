@@ -4,6 +4,26 @@ require 'domino_mofo'
 include DominoMofo
 
 match = Match.new
+@input = STDIN
+@command_list = ["left", "right", "go", "back",
+                 "shoot", "check", "look", "pew",
+                 "pewpew", "exit", "map", "forward"]
 
 match.start_match
 match.current_game.make_cpu_moves
+
+def get_command
+  temp_command = @input.gets
+  temp_command.chomp!
+  if @command_list.index(temp_command) != nil then
+          @command = temp_command
+  end
+end
+
+
+while @command != "exit"
+  get_command
+  puts @command
+end
+
+
