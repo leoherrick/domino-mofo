@@ -74,6 +74,7 @@ module DominoMofo
       @queue = TurnQueue.new
       players.each do |player|
         @queue << player
+        player.add_observer(@queue)
       end
     end
     
