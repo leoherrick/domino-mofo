@@ -2,6 +2,10 @@ module DominoMofo
   
   class TurnQueue < PlayerGroup
     
+    def update
+      shift_queue!
+    end
+    
     def shift_queue!
       push self.shift
     end

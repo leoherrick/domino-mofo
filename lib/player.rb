@@ -1,9 +1,11 @@
+
 module DominoMofo
   
   class Player
+    include Observable
     attr_reader :game, :match
     attr_accessor :hand
-    
+        
     def initialize match
       @hand = Hand.new
       @match = match
@@ -20,13 +22,15 @@ module DominoMofo
    def lead_out domino
      remove_from_hand(domino)
      board.lead_out(domino)
-     advance_turn
+     changed
+     notify_observers
    end
    
    def play_domino_on_board_by_suit (domino_in_hand, domino_on_board, suit)
      remove_from_hand(domino_in_hand)
      board.play_domino_on_board_by_suit(domino_in_hand, domino_on_board, suit)
-     advance_turn
+     changed
+     notify_observers
    end
    
    def draw_from_boneyard
@@ -34,7 +38,8 @@ module DominoMofo
    end
 
    def knock
-     advance_turn
+     changed
+     notify_observers
    end
       
    #private
@@ -47,8 +52,5 @@ module DominoMofo
      @hand.delete(domino)
    end
    
-   def advance_turn
-     @match.current_game.queue.shift_queue!
-   end
   end
 end

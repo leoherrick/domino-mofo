@@ -1,3 +1,5 @@
+require 'observer'
+
 #models
   require 'announcer'
   require 'end'
@@ -21,4 +23,5 @@
   require 'player'
     require 'computer_player' #subclass of player
     require 'human_player' #subclass of player
+
 
