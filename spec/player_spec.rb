@@ -10,6 +10,10 @@ module DominoMofo
       @board = @match.current_game.board
     end
 
+    it "should be Observable" do
+      @cpu3.should be_kind_of(Observable)
+    end   
+
     it "should have a hand (of dominoes)" do
       @cpu3.hand.should be_true
     end      
@@ -55,10 +59,10 @@ module DominoMofo
             @hand.length
           }.by(-1)
         end
-        
+                
         it "should send them to the back of the queue" do
           expect {
-            @cpu3.knock
+            @cpu3.lead_out(@five_five)
           }.to change {
             @match.current_game.queue.index(@cpu3)
           }.from(0).to(3)
