@@ -7,3 +7,4 @@ match = Match.new
 
 match.start_match
 match.current_game.make_cpu_moves
+

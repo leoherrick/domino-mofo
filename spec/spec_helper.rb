@@ -1,4 +1,4 @@
-require 'domino_mofo'
+require '../lib/domino_mofo'
 include DominoMofo
 
 module SpecHelper
