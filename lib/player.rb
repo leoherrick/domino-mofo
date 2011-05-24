@@ -1,3 +1,4 @@
+
 module DominoMofo
   
   class Player
@@ -18,15 +19,13 @@ module DominoMofo
    end
       
    def lead_out domino
-     remove_from_hand(domino)
+     Play.new(self, @match.current_game, domino, "domino_played_on", "suit")
      board.lead_out(domino)
-     advance_turn
    end
    
    def play_domino_on_board_by_suit (domino_in_hand, domino_on_board, suit)
-     remove_from_hand(domino_in_hand)
+     Play.new(self, @match.current_game, domino_in_hand, domino_on_board, suit)
      board.play_domino_on_board_by_suit(domino_in_hand, domino_on_board, suit)
-     advance_turn
    end
    
    def draw_from_boneyard
@@ -34,7 +33,7 @@ module DominoMofo
    end
 
    def knock
-     advance_turn
+     Play.new(self, @match.current_game, "knocked", "knocked", "knocked")
    end
       
    #private
@@ -47,8 +46,5 @@ module DominoMofo
      @hand.delete(domino)
    end
    
-   def advance_turn
-     @match.current_game.queue.shift_queue!
-   end
   end
 end

@@ -1,7 +1,6 @@
 module DominoMofo
   
-  class Board < DominoGroup
-    
+  class Board < DominoGroup    
     def dominoes_in_play
       domino_group = DominoGroup.new
       find_all{|domino| domino.open?}.each do |open_domino|
@@ -19,8 +18,12 @@ module DominoMofo
     end
 
     def total_score
-      domino_scores = dominoes_in_play.collect{|domino| domino.score}
-      domino_scores.inject{|sum, x| sum + x}
+      if dominoes_in_play.length > 0
+        domino_scores = dominoes_in_play.collect{|domino| domino.score}
+        domino_scores.inject{|sum, x| sum + x}
+      else 
+        0
+      end
     end
     
     def lead_out domino

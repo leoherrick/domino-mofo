@@ -1,14 +1,23 @@
 module DominoMofo
   
   class Game
-    attr_accessor :board, :boneyard, :queue
+    attr_accessor :board, :boneyard, :queue, :plays
     attr_reader :players, :match
     
+    def self.test
+      puts 'test'
+    end
+    
+    def update (play)
+      # game stuff
+    end
+
     def initialize(match)
       @match = match
       @players = @match.players
       @boneyard = Boneyard.new
       @board = Board.new
+      @plays = Array.new
       deal_dominoes
       create_turn_queue
     end
@@ -33,10 +42,9 @@ module DominoMofo
     def make_cpu_moves
       if player_at_turn.computer_player?
         player_at_turn.make_best_play
-        announcer.cpu_has_made_move
         make_cpu_moves
       else
-        announcer.tell_player_it_is_their_turn
+        announcer.tell_player_it_is_their_turn(@board, player_at_turn)
       end
     end
     

@@ -2,12 +2,20 @@ module DominoMofo
   
   class Announcer < Array
     
+    def update ( play )
+      if  play.domino == "knocked"
+        puts "#{play.player.object_id} just KNOCKED"
+      else 
+        puts "#{play.player.object_id} just played the [#{play.domino.suit_of_end1}|#{play.domino.suit_of_end2}]"
+      end
+    end
+    
     def initialize output
       @output = output
     end
     
     def welcome
-      @output.puts("Hope you ready to throw some bones playa! Let's do this!")
+      @output.puts("\nHope you ready to throw some bones playa! Let's do this!")
     end
     
     def ask_for_opponents
@@ -31,16 +39,23 @@ module DominoMofo
     end    
     
     def cpu_has_highest_double
-      @output.puts("The computer has the highest double.")
+      @output.puts("\nThe computer has the highest double.")
     end
 
-    def cpu_has_made_move
-      @output.puts("The computer just made a play.")
+    def tell_player_it_is_their_turn( board, player_at_turn )
+      @output.puts("\nIt's your turn, please make a play.")
+      
+      @output.puts "\nBoard:"
+      board.each_with_index do |d, i|
+        opens = d.open? ? 'opens: ' +  d.find_all_open_ends.collect{|x| x.suit}.join(",") : ''
+        @output.puts "(#{i}) [#{d.suit_of_end1}|#{d.suit_of_end2}] #{opens}"
+      end
+      @output.puts "\nHand:"
+      player_at_turn.hand.each_with_index do |d, i|
+        @output.puts "(#{i}) [#{d.suit_of_end1}|#{d.suit_of_end2}]"
+      end
+      
     end
-
-    def tell_player_it_is_their_turn
-      @output.puts("It's your turn, please make a play.")
-    end
-  
+      
   end
 end
