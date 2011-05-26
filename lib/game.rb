@@ -4,24 +4,25 @@ module DominoMofo
     attr_accessor :board, :boneyard, :queue, :plays
     attr_reader :players, :match
     
-    def self.test
-      puts 'test'
-    end
-    
-    def update (play)
-      # game stuff
-    end
-
     def initialize(match)
       @match = match
       @players = @match.players
       @boneyard = Boneyard.new
       @board = Board.new
       @plays = Array.new
+      @status = 'in_progress'
       deal_dominoes
       create_turn_queue
     end
     
+    def update (play)
+      last_in_queue = queue.last
+      if last_in_queue.hand.length == 0
+        @status = 'game_complete'
+        puts "\n\n ********* #{last_in_queue.name} just won!!! *********\n\n"
+      end
+    end
+
     def first_game?
       @match.dom ? false : true
     end    
@@ -40,7 +41,9 @@ module DominoMofo
     end
     
     def make_cpu_moves
-      if player_at_turn.computer_player?
+      if @status == 'game_complete'
+        puts 'game over!'
+      elsif player_at_turn.computer_player?
         player_at_turn.make_best_play
         make_cpu_moves
       else

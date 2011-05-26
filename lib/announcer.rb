@@ -4,9 +4,9 @@ module DominoMofo
     
     def update ( play )
       if  play.domino == "knocked"
-        puts "#{play.player.object_id} just KNOCKED"
+        puts "#{play.player.name} just KNOCKED"
       else 
-        puts "#{play.player.object_id} just played the [#{play.domino.suit_of_end1}|#{play.domino.suit_of_end2}]"
+        puts "#{play.player.name} just played the [#{play.domino.suit_of_end1}|#{play.domino.suit_of_end2}]"
       end
     end
     

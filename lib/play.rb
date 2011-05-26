@@ -13,10 +13,10 @@ module DominoMofo
       @game.plays << self
       @number = @game.plays.length
       @player.hand.delete(@domino)
-      add_observer( @game.match.scorecard )
       add_observer( @game.match )
       add_observer( @game )      
       add_observer( @game.queue )  
+      add_observer( @game.match.scorecard )
       add_observer( @game.match.announcer )    
       changed
       notify_observers( self )

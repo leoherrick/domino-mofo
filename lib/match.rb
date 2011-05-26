@@ -42,14 +42,14 @@ module DominoMofo
     private     
     
     def add_human_players player_group
-      human_player = HumanPlayer.new(self)
+      human_player = HumanPlayer.new(self, "Human")
       player_group << human_player
     end
     
     def add_computer_players player_group
       number_of_cpu_players = number_of_players - 1
-      number_of_cpu_players.times do
-        cpu_player = ComputerPlayer.new(self)
+      number_of_cpu_players.times do |i|
+        cpu_player = ComputerPlayer.new(self, "cpu_"+i.to_s)
         player_group << cpu_player
       end
     end

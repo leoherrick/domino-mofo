@@ -41,6 +41,7 @@ module DominoMofo
 
         elsif @command == "knock"
           match.current_player.knock
+          match.current_game.make_cpu_moves
 
         elsif @command == "play"
           hand_domino = match.current_player.hand[ @args[0].to_i ]
@@ -58,13 +59,13 @@ module DominoMofo
           scores = match.scorecard.scores
           puts "\nScores:"
           scores.each do |k,v|
-            puts "player:#{k} => #{v}"
+            puts "#{k} => #{v}"
           end
         
         elsif @command == "count"
           puts "\nDomino Count"
           match.players.each do |p|
-            puts "player:#{p.object_id} has #{p.hand.length} dominoes"
+            puts "#{p.name} has #{p.hand.length} dominoes"
           end
 
         else
