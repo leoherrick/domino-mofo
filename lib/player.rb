@@ -2,7 +2,7 @@
 module DominoMofo
   
   class Player
-    attr_reader :game, :match, :name
+    attr_reader :match, :name
     attr_accessor :hand
     
     def initialize match, name
@@ -24,7 +24,11 @@ module DominoMofo
    end
    
    def play_domino_on_board_by_suit (domino_in_hand, domino_on_board, suit)
-     Play.new(self, @match.current_game, domino_in_hand, domino_on_board, suit)
+     if hand.length == 1 
+       WinningPlay.new(self, @match.current_game, domino_in_hand, domino_on_board, suit)
+     else
+       Play.new(self, @match.current_game, domino_in_hand, domino_on_board, suit)
+     end
    end
    
    def draw_from_boneyard

@@ -11,16 +11,40 @@ module DominoMofo
       @board = Board.new
       @plays = Array.new
       @status = 'in_progress'
+      @knock_streak = 0
       deal_dominoes
       create_turn_queue
     end
     
     def update (play)
-      last_in_queue = queue.last
-      if last_in_queue.hand.length == 0
+      if play.is_a?(Knock)
+        @knock_streak += 1
+        if @knock_streak == @players.length
+          @status = 'game_complete'
+          puts "\n\n ********* The Game Has Been Locked Out !!! *********\n\n"          
+        end
+      elsif play.is_a?(WinningPlay)
         @status = 'game_complete'
-        puts "\n\n ********* #{last_in_queue.name} just won!!! *********\n\n"
+        puts "\n\n ********* #{play.player.name} just won !!! *********\n\n"
+        match.add_score_to_player_by_name(end_of_game_points, play.player.name)
+        puts "\n\n ********* #{play.player.name} just got #{end_of_game_points} !!! *********\n\n"
+      else 
+        @knock_streak = 0
       end
+    end
+    
+    def over?
+      @status  == 'game_complete'
+    end
+
+    def end_of_game_points
+      loose_bones_score = 0
+      players.each do |p|
+        p.hand.each do |d|
+          loose_bones_score += d.final_value
+        end
+      end
+      loose_bones_score
     end
 
     def first_game?
@@ -40,12 +64,9 @@ module DominoMofo
       end
     end
     
-    def make_cpu_moves
-      if @status == 'game_complete'
-        puts 'game over!'
-      elsif player_at_turn.computer_player? && @status != 'game_complete'
+    def make_first_move
+      if player_at_turn.computer_player?
         player_at_turn.make_best_play
-        make_cpu_moves
       else
         announcer.tell_player_it_is_their_turn(@board, player_at_turn)
       end

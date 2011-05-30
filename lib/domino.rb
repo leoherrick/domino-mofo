@@ -18,6 +18,18 @@ module DominoMofo
       self.kind_of?(Double)
     end
     
+    def final_value
+      total = suit_of_end1 + suit_of_end2
+      remain = total % 5
+      thresh = 2.5
+      if  remain > thresh
+        diff = 5 - remain
+        total + diff
+      else
+        total - remain
+      end
+    end
+    
     def has_both_suits?(suit1, suit2)
       if  ( @ends[0].suit?(suit1) && @ends[1].suit?(suit2) ) || 
           ( @ends[1].suit?(suit1) && @ends[0].suit?(suit2) )
@@ -68,7 +80,5 @@ module DominoMofo
     def suit_of_end2
       @ends[1].suit
     end
-    
-    
   end
 end

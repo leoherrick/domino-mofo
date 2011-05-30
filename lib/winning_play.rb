@@ -1,8 +1,6 @@
 module DominoMofo
-  class Play
+  class WinningPlay < Play
     
-    include Observable
-    attr_accessor :number, :game, :domino, :player, :suit, :domino_played_on
     
     def initialize(player, game, domino_played, domino_played_on, suit)
       @player = player
@@ -17,9 +15,9 @@ module DominoMofo
       add_observer( @game.match.announcer ) #declares knocks, plays, leadouts
       add_observer( @game.match.scorecard ) #announces scoring plays
       add_observer( @game ) #game over
-      add_observer( @game.queue ) #shifts queue
       changed
       notify_observers( self )
     end
+     
   end
 end

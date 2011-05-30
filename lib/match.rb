@@ -19,6 +19,10 @@ module DominoMofo
       @announcer = Announcer.new(STDOUT)
     end
     
+    def add_score_to_player_by_name(score, player_name)
+      @scorecard.add_score_to_player_by_name(score, player_name)
+    end
+    
     def create_player_group
       players = PlayerGroup.new
       add_human_players(players)

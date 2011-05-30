@@ -17,8 +17,12 @@ module DominoMofo
         name = play.player.name
         score = play.game.board.total_score
         @scores[name] += score
-        puts "****** #{name} just scored #{score} points! ******"
+        puts "\n****** #{name} just scored #{score} points! ******"
       end
+    end
+    
+    def add_score_to_player_by_name(score, player_name)
+      @scores[player_name] += score
     end
             
   end

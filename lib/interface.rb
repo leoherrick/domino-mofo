@@ -41,19 +41,16 @@ module DominoMofo
 
         elsif @command == "knock"
           match.current_player.knock
-          match.current_game.make_cpu_moves
 
         elsif @command == "play"
           hand_domino = match.current_player.hand[ @args[0].to_i ]
           board_domino = match.current_game.board[@args[2].to_i ]
           suit = @args[4].to_i
           match.current_player.play_domino_on_board_by_suit( hand_domino, board_domino, suit)
-          match.current_game.make_cpu_moves
 
         elsif @command == "lead"
           domino = match.current_player.hand[ @args[0].to_i ]  
           match.current_player.lead_out(domino)
-          match.current_game.make_cpu_moves
 
         elsif @command == "score"
           scores = match.scorecard.scores

@@ -5,15 +5,20 @@ module DominoMofo
     def initialize(player_group)
       player_group.each do |p|
         self << p
+        add_observer(p)
       end
     end
     
     def update ( play )
-      shift_queue!
+      unless play.game.over?
+        shift_queue!
+      end
     end
     
     def shift_queue!
       push self.shift
+      changed
+      notify_observers
     end
     
     def shift_to_player! player

@@ -12,6 +12,7 @@
   require 'play'
   require 'lead_out'
   require 'knock'
+  require 'winning_play'
   require 'interface'
   
   require 'ai'
@@ -33,8 +34,8 @@
     match = Match.new
 
     match.start_match
-    match.current_game.make_cpu_moves
-    
+    match.current_game.make_first_move
+  
     interface = Interface.new
     interface.run(match)
     

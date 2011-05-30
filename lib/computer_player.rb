@@ -8,6 +8,12 @@ module DominoMofo
       super
       @ai = Ai.new(self)
     end
+    
+    def update
+      if self.match.current_game.board.length > 0 && self.match.current_game.queue.first === self
+          make_best_play
+      end
+    end
         
     def make_best_play
       if @ai.has_play?
