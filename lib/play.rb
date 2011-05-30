@@ -15,9 +15,9 @@ module DominoMofo
       @player.hand.delete(@domino)
       add_observer( @game.match )
       add_observer( @game )      
-      add_observer( @game.queue )  
       add_observer( @game.match.scorecard )
       add_observer( @game.match.announcer )    
+      add_observer( @game.queue )  
       changed
       notify_observers( self )
     end
