@@ -13,7 +13,7 @@ module DominoMofo
     
     def update ( play )
       total_score = play.game.board.total_score
-      if (total_score % 5 == 0) && (total_score != 0)
+      if (total_score % 5 == 0) && (total_score != 0) && !play.is_a?(Knock)
         name = play.player.name
         score = play.game.board.total_score
         @scores[name] += score

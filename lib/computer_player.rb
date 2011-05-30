@@ -8,7 +8,7 @@ module DominoMofo
       super
       @ai = Ai.new(self)
     end
-    
+        
     def make_best_play
       if @ai.has_play?
         if @match.current_game.board.empty?

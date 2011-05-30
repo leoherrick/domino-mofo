@@ -3,9 +3,11 @@ module DominoMofo
   class Announcer < Array
     
     def update ( play )
-      if  play.domino == "knocked"
+      if  play.is_a?(Knock)
         puts "\n#{play.player.name} just KNOCKED"
-      else 
+      elsif play.is_a?(LeadOut)
+        puts "\n#{play.player.name} just lead with the [#{play.domino.suit_of_end1}|#{play.domino.suit_of_end2}]"      
+      else
         puts "\n#{play.player.name} just played the [#{play.domino.suit_of_end1}|#{play.domino.suit_of_end2}]"
       end
     end

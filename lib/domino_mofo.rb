@@ -10,6 +10,8 @@
   require 'turn_queue'
   require 'scorecard'
   require 'play'
+  require 'lead_out'
+  require 'knock'
   require 'interface'
   
   require 'ai'

@@ -20,13 +20,11 @@ module DominoMofo
    end
       
    def lead_out domino
-     Play.new(self, @match.current_game, domino, "domino_played_on", "suit")
-     board.lead_out(domino)
+     LeadOut.new(self, @match.current_game, domino, "domino_played_on", "suit")
    end
    
    def play_domino_on_board_by_suit (domino_in_hand, domino_on_board, suit)
      Play.new(self, @match.current_game, domino_in_hand, domino_on_board, suit)
-     board.play_domino_on_board_by_suit(domino_in_hand, domino_on_board, suit)
    end
    
    def draw_from_boneyard
@@ -34,7 +32,7 @@ module DominoMofo
    end
 
    def knock
-     Play.new(self, @match.current_game, "knocked", "knocked", "knocked")
+     Knock.new(self, @match.current_game, "knocked", "knocked", "knocked")
    end
       
    #private

@@ -1,7 +1,4 @@
 module DominoMofo
-  
-  class LeadOut < Play    
-
-
+  class LeadOut < Play
   end
 end

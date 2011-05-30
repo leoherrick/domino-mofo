@@ -43,14 +43,14 @@ module DominoMofo
     def make_cpu_moves
       if @status == 'game_complete'
         puts 'game over!'
-      elsif player_at_turn.computer_player?
+      elsif player_at_turn.computer_player? && @status != 'game_complete'
         player_at_turn.make_best_play
         make_cpu_moves
       else
         announcer.tell_player_it_is_their_turn(@board, player_at_turn)
       end
     end
-    
+        
     def announce_who_has_highest_domino
       if player_at_turn.human_player?
         announcer.tell_user_to_lead_with_highest_pair
@@ -82,10 +82,7 @@ module DominoMofo
     end
     
     def create_turn_queue 
-      @queue = TurnQueue.new
-      players.each do |player|
-        @queue << player
-      end
+      @queue = TurnQueue.new(@players)
     end
     
     def announcer

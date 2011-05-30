@@ -1,6 +1,17 @@
 module DominoMofo
   
-  class Board < DominoGroup    
+  class Board < DominoGroup
+    
+    def update ( play )
+      if play.is_a?(LeadOut) 
+        lead_out(play.domino)
+      elsif play.is_a?(Knock)
+        # do nothing
+      else
+        play_domino_on_board_by_suit(play.domino, play.domino_played_on, play.suit)
+      end
+    end
+        
     def dominoes_in_play
       domino_group = DominoGroup.new
       find_all{|domino| domino.open?}.each do |open_domino|
