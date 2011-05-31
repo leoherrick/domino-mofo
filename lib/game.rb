@@ -1,7 +1,7 @@
 module DominoMofo
-  
   class Game
-    attr_accessor :board, :boneyard, :queue, :plays
+    include Observable
+    attr_accessor :board, :boneyard, :queue, :plays, :play_announcer
     attr_reader :players, :match
     
     def initialize(match)
@@ -14,6 +14,7 @@ module DominoMofo
       @knock_streak = 0
       deal_dominoes
       create_turn_queue
+      @play_announcer = PlayAnnouncer.new(STDOUT)
     end
     
     def update (play)
@@ -31,6 +32,10 @@ module DominoMofo
       else 
         @knock_streak = 0
       end
+    end
+    
+    def lockout
+      
     end
     
     def over?

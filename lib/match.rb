@@ -5,7 +5,7 @@ module DominoMofo
     attr_reader :scorecard, :number_of_players, :number_of_houses, :controller, :announcer
     attr_accessor :current_game, :players, :dom
     
-    def update ( play )
+    def update ( game )
       # match stuff
     end
     

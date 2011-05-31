@@ -2,19 +2,21 @@
   require 'observer'
 
 #models
-  require 'announcer'
+  require 'announcers/announcer'
+  require 'announcers/scorecard_announcer'
+  require 'announcers/play_announcer'
   require 'end'
   require 'game'
   require 'match'
   require 'player_group'
   require 'turn_queue'
   require 'scorecard'
-  require 'play'
-  require 'lead_out'
-  require 'knock'
-  require 'winning_play'
+  require 'plays/play'
+  require 'plays/lead_out'
+  require 'plays/knock'
+  require 'plays/winning_play'
   require 'interface'
-  
+
   require 'ai'
 
   require 'domino'

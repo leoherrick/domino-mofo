@@ -7,7 +7,7 @@ module DominoMofo
         lead_out(play.domino)
       elsif play.is_a?(Knock)
         # do nothing
-      else
+      elsif play.is_a?(Play)
         play_domino_on_board_by_suit(play.domino, play.domino_played_on, play.suit)
       end
     end
@@ -19,7 +19,7 @@ module DominoMofo
       end
       domino_group
     end
-            
+
     def suits_in_play
       if empty?
         (0..6)
