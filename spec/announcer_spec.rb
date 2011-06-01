@@ -48,5 +48,10 @@ module DominoMofo
         with("It's your turn, please make a play.") 
       @announcer.tell_player_it_is_their_turn
     end    
+    
+    it "should be able to return any message passed to it" do
+      @output.should_receive(:puts).with("any old message")
+      @announcer.return_message("any old message")
+    end
   end
 end

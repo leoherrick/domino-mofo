@@ -33,6 +33,3 @@
   require 'player'
     require 'computer_player' #subclass of player
     require 'human_player' #subclass of player
-
-
-  
