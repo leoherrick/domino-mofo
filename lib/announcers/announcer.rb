@@ -7,23 +7,23 @@ module DominoMofo
     end
     
     def welcome
-      @output.puts("\nHope you ready to throw some bones playa! Let's do this!")
+      @output.puts("\nReady to throw some bones? Let's do this!")
     end
     
     def ask_for_opponents
-      @output.puts("How many playas you wanna to play dawg? One, two, or tre?")
+      @output.puts("How many players dawg? One, two, or three?")
     end
     
     def ask_for_houses
-      @output.puts("And how many houses you down for? Three, Four, or Five?")
+      @output.puts("And how many houses? Three, Four, or Five?")
     end
 
     def say_game_is_ready
-      @output.puts("A'ight Playa. Let's do this thing.")
+      @output.puts("A'ight. Let's do this.")
     end
     
     def tell_user_to_lead_with_highest_pair
-      @output.puts("Looks like you've got the highest double. Go ahead and lead-out dawg!")
+      @output.puts("Looks like you've got the highest double. Lead-out dawg!")
     end    
     
     def please_play_double
