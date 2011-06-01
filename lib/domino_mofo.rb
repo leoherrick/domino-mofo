@@ -3,8 +3,8 @@
 
 #models
   require 'announcers/announcer'
-  require 'announcers/scorecard_announcer'
-  require 'announcers/play_announcer'
+    require 'announcers/scorecard_announcer'
+    require 'announcers/play_announcer'
   require 'end'
   require 'game'
   require 'match'
@@ -12,9 +12,11 @@
   require 'turn_queue'
   require 'scorecard'
   require 'plays/play'
-  require 'plays/lead_out'
-  require 'plays/knock'
-  require 'plays/winning_play'
+    require 'plays/lead_out'
+    require 'plays/knock'
+    require 'plays/winning_play'
+    require 'plays/draw'
+
   require 'interface'
 
   require 'ai'
@@ -32,13 +34,5 @@
     require 'computer_player' #subclass of player
     require 'human_player' #subclass of player
 
-    include DominoMofo
-    match = Match.new
 
-    match.start_match
-    match.current_game.make_first_move
-  
-    interface = Interface.new
-    interface.run(match)
-    
   

@@ -32,7 +32,7 @@ module DominoMofo
    end
    
    def draw_from_boneyard
-     @hand << @match.current_game.boneyard.draw_one
+     Draw.new(self, @match.current_game, "draw", "draw", "draw")
    end
 
    def knock

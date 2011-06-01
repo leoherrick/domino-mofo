@@ -56,13 +56,6 @@ module DominoMofo
         cpu_player = ComputerPlayer.new(self, "cpu_"+i.to_s)
         player_group << cpu_player
       end
-    end
-      
-    def play(domino_to_play, domino_on_board, suit)
-      d1 = current_game.player_at_turn.hand[domino_to_play.to_i]
-      d2 = current_game.board[domino_on_board.to_i]
-      current_game.board.play_domino_on_board_by_suit(d1, d2, suit.to_i)
-    end
-      
+    end      
   end
 end

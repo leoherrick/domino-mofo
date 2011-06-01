@@ -5,7 +5,7 @@ module DominoMofo
     
     def initialize
       @input = STDIN
-      @command_list = ["hand", "exit", "board", "knock", "play", "lead", "score", "count"]
+      @command_list = ["hand", "exit", "board", "knock", "play", "lead", "score", "count", "draw"]
     end
     
     
@@ -64,6 +64,9 @@ module DominoMofo
           match.players.each do |p|
             puts "#{p.name} has #{p.hand.length} dominoes"
           end
+          
+        elsif @command == "draw"
+          match.current_player.draw_from_boneyard
 
         else
           puts @command

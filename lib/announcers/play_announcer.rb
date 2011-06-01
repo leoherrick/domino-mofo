@@ -8,7 +8,9 @@ module DominoMofo
         @output.puts("#{play.player.name} just lead with the [#{play.domino.suit_of_end1}|#{play.domino.suit_of_end2}]")
       elsif play.is_a?(WinningPlay)
         @output.puts("#{play.player.name} just played thier last domino: [#{play.domino.suit_of_end1}|#{play.domino.suit_of_end2}]")      
-      else
+      elsif play.is_a?(Draw)
+        @output.puts("#{play.player.name} just played drew a domino")      
+      elsif play.is_a?(Play)
         @output.puts("#{play.player.name} just played the [#{play.domino.suit_of_end1}|#{play.domino.suit_of_end2}]")
       end
     end

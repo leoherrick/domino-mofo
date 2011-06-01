@@ -8,6 +8,17 @@ This is a fun command-board dominos game I developed in the BDD manner using Cuc
 Download and run:
   bin/domino_mofo
 
+=== Commands
+
+* Lead <domino>
+* Play <domino> on <domino> by <suit>
+* score
+* count
+* board
+* hand
+* knock
+* draw
+* exit
 
 == To Run Rspec
 

@@ -25,6 +25,7 @@ module DominoMofo
           puts "\n\n ********* The Game Has Been Locked Out !!! *********\n\n"          
         end
       elsif play.is_a?(WinningPlay)
+  
         @status = 'game_complete'
         puts "\n\n ********* #{play.player.name} just won !!! *********\n\n"
         match.add_score_to_player_by_name(end_of_game_points, play.player.name)
@@ -34,22 +35,13 @@ module DominoMofo
       end
     end
     
-    def lockout
-      
-    end
-    
     def over?
       @status  == 'game_complete'
     end
 
     def end_of_game_points
-      loose_bones_score = 0
-      players.each do |p|
-        p.hand.each do |d|
-          loose_bones_score += d.final_value
-        end
-      end
-      loose_bones_score
+      lockout_values = players.collect{|p| p.hand.lockout_value }
+      lockout_values.inject{|sum, x| sum + x}
     end
 
     def first_game?
