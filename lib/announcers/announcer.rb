@@ -47,7 +47,6 @@ module DominoMofo
         @output.puts "(#{i}) [#{d.suit_of_end1}|#{d.suit_of_end2}]"
       end
       
-    end
-      
+    end      
   end
 end

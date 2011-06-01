@@ -10,3 +10,4 @@ match.current_game.make_first_move
 
 interface = Interface.new
 interface.run(match)
+
