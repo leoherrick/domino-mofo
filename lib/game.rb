@@ -4,7 +4,7 @@ module DominoMofo
     attr_accessor :board, :boneyard, :queue, :plays, :play_announcer
     attr_reader :players, :match
     
-    def initialize(match)
+    def initialize( match )
       @match = match
       @players = @match.players
       @boneyard = Boneyard.new
@@ -15,6 +15,7 @@ module DominoMofo
       deal_dominoes
       create_turn_queue
       @play_announcer = PlayAnnouncer.new(STDOUT)
+      add_observer( @match )
     end
     
     def update (play)
@@ -25,11 +26,13 @@ module DominoMofo
           puts "\n\n ********* The Game Has Been Locked Out !!! *********\n\n"          
         end
       elsif play.is_a?(WinningPlay)
-  
         @status = 'game_complete'
         puts "\n\n ********* #{play.player.name} just won !!! *********\n\n"
         match.add_score_to_player_by_name(end_of_game_points, play.player.name)
-        puts "\n\n ********* #{play.player.name} just got #{end_of_game_points} !!! *********\n\n"
+        match.dom = play.player
+        puts "\n\n ********* #{play.player.name} is the new dom !!! *********\n\n"        
+        changed
+        notify_observers( self )
       else 
         @knock_streak = 0
       end
@@ -40,7 +43,8 @@ module DominoMofo
     end
 
     def end_of_game_points
-      lockout_values = players.collect{|p| p.hand.lockout_value }
+      lockout_values = @players.collect{|p| p.hand.lockout_value }
+      lockout_values.delete_if{|x| x == nil}
       lockout_values.inject{|sum, x| sum + x}
     end
 
@@ -101,6 +105,9 @@ module DominoMofo
     
     def create_turn_queue 
       @queue = TurnQueue.new(@players)
+      if @match.dom.is_a?(Player)
+        @queue.shift_to_player!(@match.dom)
+      end
     end
     
     def announcer

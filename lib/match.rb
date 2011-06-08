@@ -6,7 +6,8 @@ module DominoMofo
     attr_accessor :current_game, :players, :dom
     
     def update ( game )
-      # match stuff
+      @current_game = Game.new(self)
+      @current_game.make_first_move      
     end
     
     def initialize(number_of_players = 4, number_of_houses = 3)

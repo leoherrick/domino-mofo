@@ -22,8 +22,10 @@ module DominoMofo
     end
 
     def connect_to another_end
-      self.connected_to = another_end
-      another_end.connected_to = self
+      if another_end.is_a?(End) && another_end.suit == suit
+        self.connected_to = another_end
+        another_end.connected_to = self
+      end
     end
         
   end

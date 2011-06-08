@@ -54,7 +54,7 @@ module DominoMofo
     def find_all_open_ends
       @ends.find_all{|e| e.open?}
     end
-    
+
     def score
       if open?
         find_all_open_ends.collect{|e| e.suit}.inject{|sum, x| sum + x}
@@ -62,17 +62,17 @@ module DominoMofo
         0
       end
     end
-    
+
     def connect_to_another_domino_by_suit(other_domino, suit)
       end1 = find_open_end_of_suit(suit)
       end2 = other_domino.find_open_end_of_suit(suit)
       end1.connect_to(end2)
-    end    
-    
+    end
+
     def find_open_end_of_suit suit
       @ends.find {|e| e.suit?(suit) && e.open?}
     end
-    
+
     def suit_of_end1
       @ends[0].suit
     end

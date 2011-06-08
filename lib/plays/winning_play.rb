@@ -16,6 +16,5 @@ module DominoMofo
       changed
       notify_observers( self )
     end
-     
   end
 end
