@@ -14,7 +14,7 @@ module DominoMofo
       @knock_streak = 0
       deal_dominoes
       create_turn_queue
-      @play_announcer = PlayAnnouncer.new(STDOUT)
+      @play_announcer = PlayAnnouncer.new
       add_observer( @match )
     end
     
@@ -27,12 +27,10 @@ module DominoMofo
         end
       elsif play.is_a?(WinningPlay)
         @status = 'game_complete'
-        puts "\n\n ********* #{play.player.name} just won !!! *********\n\n"
-        match.add_score_to_player_by_name(end_of_game_points, play.player.name)
-        match.dom = play.player
-        puts "\n\n ********* #{play.player.name} is the new dom !!! *********\n\n"        
+        puts Decorator.red_background("#{play.player.name} just won the game!")
+        match.add_score_to_player_by_name(end_of_game_points, play.player)
         changed
-        notify_observers( self )
+        notify_observers( play )
       else 
         @knock_streak = 0
       end

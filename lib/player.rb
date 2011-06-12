@@ -3,12 +3,13 @@ module DominoMofo
   
   class Player
     attr_reader :match, :name
-    attr_accessor :hand
+    attr_accessor :hand, :score
     
     def initialize match, name
       @hand = Hand.new
       @match = match
       @name = name
+      @score = 0
     end
     
     def human_player?

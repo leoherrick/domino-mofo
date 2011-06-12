@@ -1,18 +1,45 @@
 module DominoMofo
   class PlayAnnouncer < Announcer    
     
+    @last_play = nil
+    
     def update ( play )
+      @last_play = play
       if  play.is_a?(Knock)
-        @output.puts("#{play.player.name} just KNOCKED")
+        announce_knock
       elsif play.is_a?(LeadOut)
-        @output.puts("#{play.player.name} just lead with the [#{play.domino.suit_of_end1}|#{play.domino.suit_of_end2}]")
+        announce_leadout
       elsif play.is_a?(WinningPlay)
-        @output.puts("#{play.player.name} just played thier last domino: [#{play.domino.suit_of_end1}|#{play.domino.suit_of_end2}]")      
+        announce_winning_play
       elsif play.is_a?(Draw)
-        @output.puts("#{play.player.name} just played drew a domino")      
+        announce_draw
       elsif play.is_a?(Play)
-        @output.puts("#{play.player.name} just played the [#{play.domino.suit_of_end1}|#{play.domino.suit_of_end2}]")
+        announce_play
       end
+    end
+    
+    def announce_knock 
+      puts "#{play.player.name} just #{ Decorator.blue_background( "KNOCKED" ) }"
+    end
+
+    def announce_leadout
+      puts "#{play.player.name} just lead with the #{ Decorator.blue_background( play.print_domino ) }"
+    end
+    
+    def announce_winning_play
+      puts "#{play.player.name} just played thier last domino: #{ Decorator.blue_background( play.print_domino ) }"
+    end
+    
+    def announce_draw
+      puts "#{play.player.name} just played #{ Decorator.blue_background( "drew a domino" ) }"
+    end
+    
+    def announce_play
+      puts "#{play.player.name} just played the #{ Decorator.blue_background( play.print_domino ) }"
+    end
+    
+    def play 
+      @last_play
     end
     
   end  

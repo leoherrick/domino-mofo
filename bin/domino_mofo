@@ -3,7 +3,7 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'domino_mofo' 
 include DominoMofo
 
-match = Match.new
+match = Match.new(3,2)
 
 match.start_match
 match.current_game.make_first_move

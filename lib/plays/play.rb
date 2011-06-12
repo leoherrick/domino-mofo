@@ -21,5 +21,10 @@ module DominoMofo
       changed
       notify_observers( self )
     end
+    
+    def print_domino 
+      "[#{@domino.suit_of_end1}|#{@domino.suit_of_end2}]"
+    end
+    
   end
 end

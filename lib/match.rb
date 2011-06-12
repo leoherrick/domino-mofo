@@ -5,9 +5,15 @@ module DominoMofo
     attr_reader :scorecard, :number_of_players, :number_of_houses, :controller, :announcer
     attr_accessor :current_game, :players, :dom
     
-    def update ( game )
-      @current_game = Game.new(self)
-      @current_game.make_first_move      
+    def update ( play )
+      if @players.highest_score > @number_of_houses * 50
+        puts Decorator.red_background("#{@players.player_with_highest_score.name} just won the match!")
+      else
+        @dom = play.player
+        puts "\n\n ********* #{play.player.name} is the new dom !!! *********\n\n"
+        @current_game = Game.new(self)
+        @current_game.make_first_move      
+      end
     end
     
     def initialize(number_of_players = 4, number_of_houses = 3)
@@ -17,11 +23,11 @@ module DominoMofo
       @scorecard = Scorecard.new(@players)
       @current_game = Game.new(self)
       @dom = nil
-      @announcer = Announcer.new(STDOUT)
+      @announcer = Announcer.new
     end
     
-    def add_score_to_player_by_name(score, player_name)
-      @scorecard.add_score_to_player_by_name(score, player_name)
+    def add_score_to_player_by_name(score, player)
+      @scorecard.add_score_to_player_by_name(score, player)
     end
     
     def create_player_group
@@ -37,7 +43,7 @@ module DominoMofo
     end
 
     def change_output output
-      @announcer = Announcer.new(output)
+      @announcer = Announcer.new
     end
     
     def current_player

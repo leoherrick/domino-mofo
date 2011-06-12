@@ -20,6 +20,10 @@ module DominoMofo
       domino_group
     end
 
+    def spinner
+      find{|x| x.is_a?(Spinner)}
+    end
+
     def suits_in_play
       if empty?
         (0..6)
