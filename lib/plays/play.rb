@@ -1,7 +1,7 @@
 module DominoMofo
-  class Play    
+  class Play
     include Observable
-    
+
     attr_accessor :number, :game, :domino, :player, :suit, :domino_played_on
     
     def initialize(player, game, domino_played, domino_played_on, suit)
