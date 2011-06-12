@@ -24,7 +24,6 @@ module DominoMofo
     def run(match)
       while @command != "exit"
         get_command
-
         if @command == "hand"
           dominoes = match.current_player.hand
           dominoes.each_with_index do |d, i|
@@ -46,9 +45,15 @@ module DominoMofo
           hand_domino = match.current_player.hand[ @args[0].to_i ]
           board_domino = match.current_game.board[@args[2].to_i ]
           suit = @args[4].to_i
+        # begin
+          Screen.clear
           match.current_player.play_domino_on_board_by_suit( hand_domino, board_domino, suit)
+        # rescue
+        #   puts "not a valid play!"
+        # end
 
         elsif @command == "lead"
+          Screen.clear
           domino = match.current_player.hand[ @args[0].to_i ]  
           match.current_player.lead_out(domino)
 
@@ -58,9 +63,12 @@ module DominoMofo
           scores.each do |k,v|
             puts "#{k} => #{v}"
           end
+          puts "highest score: #{match.players.highest_score}"
+          puts "player with highest score: #{match.players.player_with_highest_score.name}"
+          
         
         elsif @command == "count"
-          puts "\nDomino Count"
+          puts "\nDomino Count:"
           match.players.each do |p|
             puts "#{p.name} has #{p.hand.length} dominoes"
           end

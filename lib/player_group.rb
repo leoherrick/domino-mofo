@@ -6,6 +6,14 @@ module DominoMofo
       self.find{|player| player.hand.has_domino_with_suits?(end1, end2)}
     end
     
+    def highest_score
+      collect{|x| x.score}.max
+    end
+    
+    def player_with_highest_score
+      max_by {|x| x.score}
+    end
+    
     def find_player_with_highest_pair
       suit = 6 # start with six
       player_has_been_found = false

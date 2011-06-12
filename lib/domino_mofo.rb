@@ -2,6 +2,8 @@
   require 'observer'
 
 #models
+  require 'screen'
+  require 'decorator'
   require 'announcers/announcer'
     require 'announcers/scorecard_announcer'
     require 'announcers/play_announcer'

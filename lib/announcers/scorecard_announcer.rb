@@ -2,7 +2,7 @@ module DominoMofo
   class ScorecardAnnouncer < Announcer    
     
     def update(name, score, scorecard)
-      @output.puts("****** #{name} just scored #{score} points! ******")
+      puts Decorator.red_background("#{name} just scored #{score} points!")
     end
     
   end
