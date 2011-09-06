@@ -1,5 +1,6 @@
 class DominoMofo::Interface
   include DominoMofo
+  include Ruport::Data
   
   attr_reader :input
   
@@ -59,19 +60,22 @@ class DominoMofo::Interface
       elsif @command == "score"
         scores = match.scorecard.scores
         puts "\nScores:"
+        ruport = Table.new :column_names => %w[player scores]
         scores.each do |k,v|
-          puts "#{k} => #{v}"
+          ruport <<  [k, v]
         end
+        print ruport
         puts "highest score: #{match.players.highest_score}"
         puts "player with highest score: #{match.players.player_with_highest_score.name}"
-        
-      
+              
       elsif @command == "count"
-        puts "\nDomino Count:"
+        puts "\nDominoes Remaining:"
+        ruport = Table.new :column_names => %w[player dominoes]
         match.players.each do |p|
-          puts "#{p.name} has #{p.hand.length} dominoes"
+          ruport << [p.name, p.hand.length]
         end
-        
+        print ruport
+               
       elsif @command == "draw"
         match.current_player.draw_from_boneyard
 
