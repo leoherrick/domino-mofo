@@ -1,0 +1,32 @@
+%head
+	%script{:src=>"js/jquery-1.5.2.js"}
+	%script{:src=>"js/jquery-ui-1.8.10.custom.min.js"}
+	%script{:src=>"js/app.js"}
+	%link{:href => "css/style.css", :type => "text/css", :rel => "stylesheet", :type => "text/css"}
+%body
+	#board
+		%h2 Board:
+		- if @spinner && @spinner.ends[0].connected?
+			%span the first side of the spinner is connected!
+			- code = "test"
+		- if @spinner && @spinner.ends[1].connected?
+			%span the second side of the spinner is connected!
+		- @board.each do |domino|
+			%div{:class => "domino #{if domino.is_a?(Spinner) then 'double' end}"}
+				%span{:class => "side_1"}= domino.suit_of_end1
+				%span{:class => "side_2"}= domino.suit_of_end2
+	#hand
+		%h2 Hand:
+		- @human_hand.each do |domino|
+			%div{:class => "domino"}
+				%span{:class => "side_1"}= domino.suit_of_end1
+				%span{:class => "side_2"}= domino.suit_of_end2
+
+	#play
+		%h2 Play:
+		#hand_domino
+			%label Hand Domino:
+			%span
+		#board_domino
+			%label Board Domino:
+			%span

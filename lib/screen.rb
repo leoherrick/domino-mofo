@@ -1,7 +1,8 @@
-module Screen
- def self.clear
-   print "\e[2J\e[f"
- end
+module DominoMofo::Screen
+  include DominoMofo
+  def self.clear
+    print "\e[2J\e[f"
+  end
  
  def self.print_all
    self.print_announcements
@@ -10,8 +11,6 @@ module Screen
    self.print_other_players
    self.print_board
  end
- 
- 
 
 end
    

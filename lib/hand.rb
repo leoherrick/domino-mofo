@@ -1,15 +1,14 @@
-module DominoMofo
-  class Hand < DominoGroup
-    include Comparable
-    
-    def <=>(anOther)
-      lockout_value <=> anOther.lockout_value
-    end
-    
-    def lockout_value
-      final_values = self.collect{|d| d.final_value}
-      final_values.inject{|sum, x| sum + x}
-    end
-    
+class DominoMofo::Hand < DominoMofo::DominoGroup
+  include DominoMofo
+  include Comparable
+  
+  def <=>(anOther)
+    lockout_value <=> anOther.lockout_value
   end
+  
+  def lockout_value
+    rounded_values = self.collect{|d| d.rounded_value}
+    rounded_values.inject{|sum, x| sum + x}
+  end
+  
 end

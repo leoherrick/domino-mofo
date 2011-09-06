@@ -1,23 +1,28 @@
+module DominoMofo
+end
+
+#dominomofo
+  require 'domino_mofo'
 #deendencies 
   require 'observer'
 
 #models
   require 'screen'
   require 'decorator'
-  require 'announcers/announcer'
-    require 'announcers/scorecard_announcer'
-    require 'announcers/play_announcer'
+  require 'announcer'
+    require 'scorecard_announcer'
+    require 'play_announcer'
   require 'end'
   require 'game'
   require 'match'
   require 'player_group'
   require 'turn_queue'
   require 'scorecard'
-  require 'plays/play'
-    require 'plays/lead_out'
-    require 'plays/knock'
-    require 'plays/winning_play'
-    require 'plays/draw'
+  require 'play'
+    require 'lead_out'
+    require 'knock'
+    require 'winning_play'
+    require 'draw'
 
   require 'interface'
 

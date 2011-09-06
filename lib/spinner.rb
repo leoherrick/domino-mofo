@@ -1,10 +1,7 @@
-module DominoMofo
-  
-  class Spinner < Double
-
-    def initialize(suit)
-      @ends = Array.new 
-      4.times { @ends << End.new(suit, self) }
-    end
+class DominoMofo::Spinner < DominoMofo::Double
+  include DominoMofo
+  def initialize(suit)
+    @ends = Array.new 
+    4.times { @ends << End.new(suit, self) }
   end
 end

@@ -1,2 +1,5 @@
 source "http://rubygems.org"
-gem "rspec", :require => "spec"
+
+group :test do
+	gem "rspec"
+end

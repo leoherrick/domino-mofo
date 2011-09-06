@@ -7,10 +7,6 @@ module DominoMofo
       @another_end_with_six = End.new(6, Domino.new(6,5))
     end
 
-    it "should belongs to a domino" do
-      @end_with_six.domino.should be_true
-    end
-    
     it "should return suit" do
       @end_with_six.suit.should equal(6)
     end

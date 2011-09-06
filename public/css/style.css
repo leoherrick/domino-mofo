@@ -1,0 +1,55 @@
+html {
+	background : black;
+	color : white;
+}
+
+#board, #hand, #play {
+	clear : both;
+	overflow : none;
+	margin : 20px;
+	margin-bottom : 200px;
+}
+
+.domino {
+	color : white;
+	position : relative;
+	height : 30px;
+	width : 70px;
+	border : 1px solid black;
+	background : green;
+	margin: 20px 0px;
+	float : left;
+}
+
+.domino span { 
+	top : 5px;
+	position :absolute;
+	display : block;
+}
+
+.domino span.side_1 { left : 10px; }
+
+.domino span.side_2 { left : 50px; }
+
+.domino.double, #hand .domino {
+	height : 70px;
+	width : 30px;
+	margin: 0px;
+}
+
+#hand .domino {
+	margin : 0px 10px;
+}
+
+
+.domino.double .side_1, #hand .domino .side_1 { top : 5px; }
+
+.domino.double .side_2, #hand .domino .side_2 { top : 45px; left : 10px;}
+
+
+
+
+
+.domino.selected {
+	background : red;
+}
