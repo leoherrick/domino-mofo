@@ -1,8 +1,7 @@
 class DominoMofo::Domino
   include DominoMofo
 
-  attr_reader :ends
-  attr_accessor :spinward_side, :endward_side
+  attr_reader :ends, :distance_from_spinner, :oriented
               
   def initialize(end1, end2)
     @ends = Array.new 
@@ -16,6 +15,10 @@ class DominoMofo::Domino
 
   def double?
     self.kind_of?(Double)
+  end
+
+  def spinner?
+    self.kind_of?(Spinner)
   end
   
   def rounded_value
@@ -63,7 +66,7 @@ class DominoMofo::Domino
     end
   end
 
-  def connect_to_another_domino(other_domino)
+  def connect_to(other_domino)
     open_end_of_other_domino = other_domino.find_all_open_ends.find {|open_end| open_end.suit == suit_of_end1 || open_end.suit == suit_of_end2 }
     end_on_self_to_connect = find_end_of_suit( open_end_of_other_domino.suit )
     end_on_self_to_connect.connect_to(open_end_of_other_domino)
@@ -80,4 +83,21 @@ class DominoMofo::Domino
   def suit_of_end2
     @ends[1].suit
   end
+  
+  def neighbors
+    ends.find_all{|e| e.connected?}.collect{|x| x.connected_to.domino}
+  end
+  
+  def orient_to_spinner
+    if spinner?
+      @distance_from_spinner = 0
+    elsif neighbors.any? {|d| d.spinner? }
+      @distance_from_spinner = 1
+    else 
+      @distance_from_spinner = neighbors.find{ |n| n.oriented }.distance_from_spinner + 1 
+    end
+    @oriented = true
+    neighbors.find_all{ |n| n.oriented == nil }.each { |d| d.orient_to_spinner}
+  end
+  
 end

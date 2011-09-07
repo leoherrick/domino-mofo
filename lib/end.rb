@@ -26,5 +26,5 @@ class DominoMofo::End
       another_end.connected_to = self
     end
   end
-      
+        
 end

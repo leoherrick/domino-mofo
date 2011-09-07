@@ -120,7 +120,7 @@ DominoMofo::Domino
     should return all pips of a domino with two open ends
     should return pips only from open side (if other side is connected)
     should return 0 if both sides are connected
-  #connect_to_another_domino_by_suit
+  #connect_to
     should connect correct end of self
     should connect correct end of other domino
 
