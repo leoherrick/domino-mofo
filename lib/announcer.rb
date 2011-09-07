@@ -1,5 +1,6 @@
 class DominoMofo::Announcer
   include DominoMofo
+  include Ruport::Data
   
   def welcome
     Screen.clear
@@ -30,18 +31,23 @@ class DominoMofo::Announcer
     puts "The computer has the highest double."
   end
 
-  def tell_player_it_is_their_turn( board, player_at_turn )
+  def tell_player_it_is_their_turn( board, player_at_turn )    
+    puts "\nBoard:"
+    ruport = Table.new :column_names => %w[# domino opens]
+    board.each_with_index do |d, i|
+      opens = d.open? ? d.find_all_open_ends.collect{|x| x.suit}.join(",") : ''
+      ruport <<  [i, "[#{d.suit_of_end1}|#{d.suit_of_end2}]", opens]
+    end
+    print ruport if board.length > 0
+    
+    puts "\nHand:"
+    ruport = Table.new :column_names => %w[# domino]
+    player_at_turn.hand.each_with_index do |d, i|
+      ruport <<  [i, "[#{d.suit_of_end1}|#{d.suit_of_end2}]"]
+    end
+    print ruport
+    
     puts "\nIt's your turn, please make a play."
     
-    puts "\nBoard:"
-    board.each_with_index do |d, i|
-      opens = d.open? ? 'opens: ' +  d.find_all_open_ends.collect{|x| x.suit}.join(",") : ''
-      puts "(#{i}) [#{d.suit_of_end1}|#{d.suit_of_end2}] #{opens}"
-    end
-    puts "\nHand:"
-    player_at_turn.hand.each_with_index do |d, i|
-      puts "(#{i}) [#{d.suit_of_end1}|#{d.suit_of_end2}]"
-    end
-
   end      
 end

@@ -5,6 +5,7 @@ end
   require 'domino_mofo'
 #deendencies 
   require 'observer'
+  require 'ruport'
 
 #models
   require 'screen'

@@ -1,20 +1,13 @@
 class DominoMofo::Board < DominoMofo::DominoGroup
   include DominoMofo
-  attr_reader :spinner
   
-  def initialize()
-    @spinner = nil
-    @spokes = Array.new
-    @line = nil
-  end
-              
   def update ( play )
     if play.is_a?(LeadOut) 
       lead_out(play.domino)
     elsif play.is_a?(Knock)
       # do nothing
     elsif play.is_a?(Play)
-      play_domino_on_board(play.domino, play.domino_played_on)
+      play_domino_on_board_by_suit(play.domino, play.domino_played_on, play.suit)
     end
   end
       
@@ -24,6 +17,10 @@ class DominoMofo::Board < DominoMofo::DominoGroup
       domino_group << open_domino
     end
     domino_group
+  end
+
+  def spinner
+    find{|x| x.is_a?(Spinner)}
   end
 
   def suits_in_play
@@ -44,15 +41,14 @@ class DominoMofo::Board < DominoMofo::DominoGroup
   end
   
   def lead_out domino
+    domino = promote_to_spinner_if_need_be(domino)
     add_to_board(domino)
-    unless domino.double?
-      
-    end
   end
   
-  def play_domino_on_board (new_dom, dom_on_board)
+  def play_domino_on_board_by_suit (new_dom, dom_on_board, suit)
+    new_dom = promote_to_spinner_if_need_be(new_dom)
     add_to_board(new_dom)
-    new_dom.connect_to_another_domino(dom_on_board)
+    new_dom.connect_to(dom_on_board, suit)
   end
   
   def playable_domino_of_suit suit
@@ -82,15 +78,6 @@ class DominoMofo::Board < DominoMofo::DominoGroup
   def add_to_board domino
     domino = promote_to_spinner_if_need_be(domino)
     self << domino
-  end
-  
-  def change_line_to_spoke line
-  end
-  
-  def add_to_spoke domino
-  end
-  
-  def add_to_line domino
   end
   
 end
