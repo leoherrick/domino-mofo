@@ -32,7 +32,7 @@ class DominoMofo::Announcer
   end
 
   def tell_player_it_is_their_turn( board, player_at_turn )    
-    puts "\nBoard:"
+    puts "\nBOARD:"
     ruport = Table.new :column_names => %w[# domino opens]
     board.each_with_index do |d, i|
       opens = d.open? ? d.find_all_open_ends.collect{|x| x.suit}.join(",") : ''
@@ -40,7 +40,7 @@ class DominoMofo::Announcer
     end
     print ruport if board.length > 0
     
-    puts "\nHand:"
+    puts "\nHAND:"
     ruport = Table.new :column_names => %w[# domino]
     player_at_turn.hand.each_with_index do |d, i|
       ruport <<  [i, "[#{d.suit_of_end1}|#{d.suit_of_end2}]"]

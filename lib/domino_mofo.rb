@@ -4,6 +4,7 @@ end
 #dominomofo
   require 'domino_mofo'
 #deendencies 
+  require 'rubygems'
   require 'observer'
   require 'ruport'
 

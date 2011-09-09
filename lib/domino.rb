@@ -49,6 +49,10 @@ class DominoMofo::Domino
   def connected?
     @ends.any?{|e| e.connected?}
   end
+  
+  def oriented?
+    oriented ? true : false
+  end
 
   def find_end_of_suit suit
    @ends.find {|e| e.suit?(suit)}
@@ -84,6 +88,14 @@ class DominoMofo::Domino
     @ends[1].suit
   end
   
+  def endward_end
+    @ends.find{|x| x.orientation == "endward" }
+  end
+  
+  def spinward_end
+    @ends.find{|x| x.orientation == "spinward" }
+  end
+  
   def neighbors
     ends.find_all{|e| e.connected?}.collect{|x| x.connected_to.domino}
   end
@@ -91,13 +103,21 @@ class DominoMofo::Domino
   def orient_to_spinner
     if spinner?
       @distance_from_spinner = 0
-    elsif neighbors.any? {|d| d.spinner? }
-      @distance_from_spinner = 1
-    else 
-      @distance_from_spinner = neighbors.find{ |n| n.oriented }.distance_from_spinner + 1 
+      @ends.each{ |e| e.orientation = 'endward' }
+    elsif neighbors.any? {|n| n.oriented? }
+      @distance_from_spinner = neighbors.find{ |n| n.oriented? }.distance_from_spinner + 1 
+      @ends.each do |e|
+        if e.open? 
+          e.orientation = 'endward'
+        elsif e.connected? && e.connected_to.orientation == 'endward'
+          e.orientation = 'spinward'
+        else 
+          e.orientation = 'endward'
+        end
+      end
     end
     @oriented = true
-    neighbors.find_all{ |n| n.oriented == nil }.each { |d| d.orient_to_spinner}
+    neighbors.find_all{ |n| !n.oriented? }.each { |d| d.orient_to_spinner}
   end
   
 end

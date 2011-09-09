@@ -6,7 +6,7 @@ class DominoMofo::Interface
   
   def initialize
     @input = STDIN
-    @command_list = ["hand", "exit", "board", "knock", "play", "lead", "score", "count", "draw"]
+    @command_list = ["hand", "exit", "board", "knock", "play", "lead", "score", "count", "draw", "line"]
   end
   
   
@@ -44,7 +44,7 @@ class DominoMofo::Interface
 
       elsif @command == "play"
         hand_domino = match.current_player.hand[ @args[0].to_i ]
-        board_domino = match.current_game.board[@args[2].to_i ]
+        board_domino = match.current_game.board[ @args[2].to_i ]
       begin
         Screen.clear
         match.current_player.play_domino_on_board( hand_domino, board_domino)
@@ -75,7 +75,51 @@ class DominoMofo::Interface
           ruport << [p.name, p.hand.length]
         end
         print ruport
-               
+      
+      elsif @command == "line"
+        offset_left = 0
+        offset_top = 0
+        spokes = []
+        spinner = match.current_game.board.spinner
+        spinner.neighbors.each do |n|
+          line = Hash.new
+          line[n.distance_from_spinner] = n
+          build_line(n, line)
+          spokes << line
+        end
+        puts "spokes: #{spokes.length}"
+        
+        if spokes[0]
+          s = spokes[0]
+          keys = s.keys.reverse
+          keys.each do |k|
+            endward = s[k].endward_end
+            spinward = s[k].spinward_end
+            print "[#{endward.suit}|#{spinward.suit}]"
+          end
+        end
+        print "[#{spinner.suit_of_end1}|#{spinner.suit_of_end2}]"
+        if spokes[1]
+          s = spokes[1]
+          keys = s.keys
+          keys.each do |k|
+            endward = s[k].endward_end
+            spinward = s[k].spinward_end
+            print "[#{spinward.suit}|#{endward.suit}]"
+          end
+        end
+        
+        # spokes.each_with_index do |s, i|
+        #   print "line #{i}: "
+        #   keys = s.keys
+        #   keys.each do |k|
+        #     endward = s[k].endward_end
+        #     spinward = s[k].spinward_end
+        #     print "[#{spinward.suit}|#{endward.suit}]"
+        #   end
+        #   print "\n"
+        # end
+        
       elsif @command == "draw"
         match.current_player.draw_from_boneyard
 
@@ -84,4 +128,15 @@ class DominoMofo::Interface
       end
     end
   end
+  
+  def build_line(domino, line)
+    dist_from_spin = domino.distance_from_spinner
+    line[dist_from_spin] = domino
+    next_domino = domino.neighbors.find{ |n| n.distance_from_spinner == dist_from_spin + 1 }
+    if next_domino 
+      build_line(next_domino, line) 
+    end 
+  end
+  
+  
 end

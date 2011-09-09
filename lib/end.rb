@@ -1,7 +1,8 @@
-class DominoMofo::End
+  class DominoMofo::End
   include DominoMofo
   attr_reader :suit, :connected_to, :domino
   attr_writer :connected_to
+  attr_accessor :orientation
   
   def initialize (suit, domino)
     @suit = suit

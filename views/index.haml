@@ -6,15 +6,20 @@
 %body
 	#board
 		%h2 Board:
-		- if @spinner && @spinner.ends[0].connected?
-			%span the first side of the spinner is connected!
-			- code = "test"
-		- if @spinner && @spinner.ends[1].connected?
-			%span the second side of the spinner is connected!
-		- @board.each do |domino|
-			%div{:class => "domino #{if domino.is_a?(Spinner) then 'double' end}"}
-				%span{:class => "side_1"}= domino.suit_of_end1
-				%span{:class => "side_2"}= domino.suit_of_end2
+		%table
+			%tr
+				%td
+				%td
+					%div{:class => 'double'}
+						%span{:class => "side_1"}= @board.spinner.suit_of_end1
+						%span{:class => "side_2"}= @board.spinner.suit_of_end2
+				%td
+					- @board.spokes[0].each do |s|
+						- keys = s.keys
+						- keys.each do |k|
+							%div{:class => 'domino'}
+								%span{:class => "side_1"}= s[k].spinward_end.suit
+								%span{:class => "side_2"}= s[k].endward_end.suit
 	#hand
 		%h2 Hand:
 		- @human_hand.each do |domino|

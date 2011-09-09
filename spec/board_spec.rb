@@ -78,12 +78,12 @@ module DominoMofo
       end
     end
     
-    describe "#play_domino_on_board_by_suit" do    
+    describe "#play_domino_on_board" do    
         
       it "should add a domino to the board" do
         @board = board_with_11_spin_and_12_13_14_15
         expect{
-          @board.play_domino_on_board_by_suit(Domino.new(5,2), @board.find_domino_with_suits(1,5), 5)
+          @board.play_domino_on_board(Domino.new(5,2), @board.find_domino_with_suits(1,5))
         }.to change{
           @board.length
         }.by(1)
@@ -92,7 +92,7 @@ module DominoMofo
       it "should connect both ends of the dominoes involved" do
         expect{
           @board = board_with_11_spin_and_12_13_14_15
-          @board.play_domino_on_board_by_suit(Domino.new(5,2), @board.find_domino_with_suits(1,5), 5)
+          @board.play_domino_on_board(Domino.new(5,2), @board.find_domino_with_suits(1,5))
         }.to change{
           @board.find_domino_with_suits(1,5).open?
         }.from(true).to(false)     

@@ -14,4 +14,5 @@ class DominoMofo::Double < DominoMofo::Domino
       0
     end
   end
+    
 end

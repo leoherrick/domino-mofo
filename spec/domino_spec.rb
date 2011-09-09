@@ -145,32 +145,67 @@ module DominoMofo
     end
     
     describe "#orient_to_spinner" do
+      before(:each) do
+        @one_one = Spinner.new(1)
+        @one_five = Domino.new(1,5)
+        @four_five = Domino.new(4,5)
+        @one_two = Domino.new(1,2)
+        @one_two.connect_to(@one_one) # [1|1] <= [1|2] 
+        @one_five.connect_to(@one_one) # [5|1] => [1|1][1|2]
+        @four_five.connect_to(@one_five) # [4|5] => [5|1][1|1][1|2]
+        @one_one.orient_to_spinner
+      end
+
       it "should set distance from spinner to one if connected to spinner" do
-        two_three.connect_to(Spinner.new(2))
-        two_three.orient_to_spinner
-        two_three.distance_from_spinner.should eq(1)
-      end
-      it "should set distance from spinner to two if two away from spinner" do
-        two_three.connect_to( one_two )
-        one_two.stub(:distance_from_spinner).and_return( 1 )
-        one_two.stub(:oriented).and_return( true )
-        two_three.orient_to_spinner
-        two_three.distance_from_spinner.should eq( 2 )
-      end
-      it "should set correct distance in wheel, starting from spinner" do
         one_one = Spinner.new(1)
-        one_five = Domino.new(1,5)
-        one_one.connect_to(one_two)
-        one_one.connect_to(one_five)
-        one_two.connect_to(two_three)
-        one_one.orient_to_spinner
-        # one_one.neighbors.find_all(|d| d.oriented)
-        two_three.distance_from_spinner.should eq(2)
+        one_two = Domino.new(1,2)
+        one_one.stub!(:oriented?).and_return(:true)
+        one_one.stub!(:distance_from_spinner).and_return(0)
+        one_two.connect_to(one_one)
+        one_two.orient_to_spinner
         one_two.distance_from_spinner.should eq(1)
+      end
+      it "should set distance from spinner to two if connecting to dom one away from spinner" do
+        one_two = Domino.new(1,2)
+        one_two.stub!(:oriented?).and_return(:true)
+        one_two.stub!(:distance_from_spinner).and_return(1)
+        two_three = Domino.new(2,3)
+        two_three.connect_to(one_two)
+        two_three.orient_to_spinner
+        two_three.distance_from_spinner.should eq(2)
+      end
+      it "should set orientation for all dominoes on board after first spinner is added" do
+        one_two = Domino.new(1,2)
+        two_three = Domino.new(2,3)
+        three_four = Domino.new(3,4)
+        one_one = Spinner.new(1)
+        two_three.connect_to(one_two)
+        three_four.connect_to(two_three)
+        one_one.connect_to(one_two)
+        one_one.orient_to_spinner
+        one_one.distance_from_spinner.should eq(0)
+        one_two.distance_from_spinner.should eq(1)
+        two_three.distance_from_spinner.should eq(2)
+        three_four.distance_from_spinner.should eq(3)
+      end
+      it "should set spinner's two sides to 'endward'" do
+        @one_one.ends.each do |e|
+          e.orientation.should eq('endward')
+        end
+      end
+      it "should set all other sides to spinward and endward" do
+        #[1|2]
+        @one_two.find_end_of_suit(1).orientation.should eq('spinward')
+        @one_two.find_end_of_suit(2).orientation.should eq('endward')
+        #[1|5]
+        @one_five.find_end_of_suit(1).orientation.should eq('spinward')
+        @one_five.find_end_of_suit(5).orientation.should eq('endward')
+        #[4|5]
+        @four_five.find_end_of_suit(5).orientation.should eq('spinward')
+        @four_five.find_end_of_suit(4).orientation.should eq('endward')
       end
       
     end
-    
     
   end
 end

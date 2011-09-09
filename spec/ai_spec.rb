@@ -88,7 +88,7 @@ module DominoMofo
 
     def board_has_12_24_and_hand_has_20_33_25
       board = Board.new << Domino.new(1,2) 
-      board.play_domino_on_board_by_suit(board.find_domino_with_suits(1,2), Domino.new(2,4), 2)
+      board.play_domino_on_board(board.find_domino_with_suits(1,2), Domino.new(2,4))
       hand = Hand.new << Domino.new(2,0) << Double.new(3) << Domino.new(2,5)
       @game.stub(:board).and_return(board)
       @cpu.stub(:hand).and_return(hand)
@@ -96,7 +96,7 @@ module DominoMofo
 
     def board_has_12_24_and_hand_has_10_33_54
       board = Board.new << Domino.new(1,2) 
-      board.play_domino_on_board_by_suit(board.find_domino_with_suits(1,2), Domino.new(2,4), 2)
+      board.play_domino_on_board(board.find_domino_with_suits(1,2), Domino.new(2,4))
       hand = Hand.new << Domino.new(1,0) << Double.new(3) << Domino.new(5,4)
       @game.stub(:board).and_return(board)
       @cpu.stub(:hand).and_return(hand)
@@ -104,7 +104,7 @@ module DominoMofo
 
     def board_has_12_24_and_hand_has_14
       board = Board.new << Domino.new(1,2) 
-      board.play_domino_on_board_by_suit(board.find_domino_with_suits(1,2), Domino.new(2,4), 2)
+      board.play_domino_on_board(board.find_domino_with_suits(1,2), Domino.new(2,4))
       hand = Hand.new << Domino.new(1,4)
       @game.stub(:board).and_return(board)
       @cpu.stub(:hand).and_return(hand)
